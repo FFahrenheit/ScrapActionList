@@ -9,7 +9,7 @@ export const AuthRoutes : Routes = [
                 path: 'login',
                 component: LoginComponent,
                 data:{
-                    title: 'Login to the system'
+                    title: 'Login to ScrapActionList'
                 }
             },
             {

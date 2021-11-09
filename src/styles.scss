@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+html,
+body{
+  font-family: 'Inter', sans-serif;
+  color: rgb(83, 83, 83);
+  height: 100%;
+}
+
+*{
+  font-family: 'Inter', sans-serif;
+}
+
+.click :hover {
+    cursor: pointer;
+}
+
+.ok-icon-st {
+    color: green;
+}
+
+.warning-icon-st {
+    color: rgb(254, 164, 0);
+}
+
+.not-ok-icon-st {
+    color: red;
+}
+
+html {
+    transition: filter 10ms;
+}
+
+html[data-theme="dark-mode"] {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+// html img{
+//     filter: invert(1) hue-rotate(180deg);
+// }
