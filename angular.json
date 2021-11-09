@@ -73,9 +73,14 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "app:build",
+            "proxyConfig": "proxy-local.config.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "ScrapActionList:build:production"
+              "browserTarget": "app.build:production",
+              "proxyConfig": "proxy-prod.config.json"
             },
             "development": {
               "browserTarget": "ScrapActionList:build:development"
