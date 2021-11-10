@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/shared/alert';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   public showPassword = false;
 
   constructor(private fb      : FormBuilder,
-              // private adLogin : AdLoginService,
+              private login   : AuthService,
               private alert   : AlertService,
               // private change  : ChangePasswordService,
               private router  : Router) { }
@@ -56,6 +57,11 @@ export class LoginComponent implements OnInit {
 
   public ADLogin(){
     this.alert.info('Iniciando autenticación...', { autoClose: false });
+    this.login.loginWithSSO().subscribe(resp=> {
+      console.log(resp);
+    }, error=> {
+      this.alert.error(this.login.getMessage());
+    });
     // this.adLogin.connectWithSSO().subscribe(resp=>{
     //   this.checkLogin(resp);
     // },error=>{
