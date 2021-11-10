@@ -1,4 +1,7 @@
 <div *ngFor="let alert of alerts" class="{{cssClass(alert)}} default-alert text-center">
     <a class="close click-close" (click)="removeAlert(alert)">&times;</a>
+    <div class="{{loadClass(alert)}} text-center loading-spinner mx-3" role="status" *ngIf="loading">
+        <span class="sr-only">Loading...</span>
+    </div>
     <span [innerHTML]="alert.message"></span>
 </div>

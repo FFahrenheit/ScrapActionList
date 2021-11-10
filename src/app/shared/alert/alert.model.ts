@@ -3,6 +3,7 @@ export class Alert {
     type: AlertType = AlertType.Success;
     message?: string;
     autoClose?: boolean = true;
+    loading?: boolean = false;
     keepAfterRouteChange?: boolean;
     fade?: boolean;
 

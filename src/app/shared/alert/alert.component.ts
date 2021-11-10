@@ -12,6 +12,7 @@ export class AlertComponent implements OnInit {
 
   @Input() id = 'default-alert';
   @Input() fade = true;
+  @Input() loading = true;
 
   alerts: Alert[] = [];
   alertSubscription: Subscription | any;
@@ -41,6 +42,8 @@ export class AlertComponent implements OnInit {
               if (alert.autoClose) {
                   setTimeout(() => this.removeAlert(alert), 3000);
               }
+
+              this.loading = alert.loading;
          });
 
       // clear alerts on location change
@@ -100,6 +103,31 @@ export class AlertComponent implements OnInit {
         if (alert.fade) {
             classes.push('fade');
         }
+        
+        let result = classes.join(' '); 
+        return result;
+      }
+  }
+
+  loadClass(alert : Alert){
+    if (!alert) {
+        return '';
+      }else{
+
+        const classes = ['spinner-grow'];
+              
+        const alertTypeClass = {
+            [AlertType.Success]: 'text-success',
+            [AlertType.Error]: 'text-danger',
+            [AlertType.Info]: 'text-info',
+            [AlertType.Warning]: 'text-warning'
+        }
+
+        classes.push(alertTypeClass[alert.type]);
+
+        // if (alert.fade) {
+        //     classes.push('fade');
+        // }
         
         let result = classes.join(' '); 
         return result;

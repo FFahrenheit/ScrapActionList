@@ -53,7 +53,10 @@ export class LoginComponent implements OnInit {
   }
 
   public ADLogin(){
-    this.alert.info('Authenticating account...', { autoClose: false });
+    this.alert.info('Authenticating account...', { 
+      autoClose: false, loading: true 
+    });
+
     this.login.loginWithSSO().subscribe(resp=> {
       this.checkLogin(resp);
     }, error=> {
@@ -77,7 +80,10 @@ export class LoginComponent implements OnInit {
     this.form.markAllAsTouched();
     
     if(this.form.valid){
-      this.alert.info('Authenticating account...', { autoClose: false });
+      this.alert.info('Authenticating account...', { 
+        autoClose: false, loading: true 
+      });
+      
       this.loginAs(this.get('username').value, this.get('password').value);  
     }
   }
