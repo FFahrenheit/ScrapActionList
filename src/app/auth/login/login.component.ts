@@ -41,41 +41,35 @@ export class LoginComponent implements OnInit {
 
   public checkLogin(resp){
     this.alert.clear();
-    // if(resp == null){
-    //   this.change.activateGuard();
-    //   this.router.navigate(['usuarios','seguridad','cambiar']);
-    // }else if(resp){
-    //   this.alert.success('Autenticación correcta');
-    //   setTimeout(() => {
-    //     this.router.navigate(['']);
-    //   }, 2500);
-    // }else{
-    //   this.alert.error(this.adLogin.getError());
-    //   this.get('password').setValue('');
-    // }
+    if(resp){
+      this.alert.success('Successful authentication');
+      setTimeout(() => {
+        this.router.navigate(['']);
+      }, 2000);
+    }else{
+      this.alert.error('Failed to authenticate');
+      this.get('password').setValue('');
+    }
   }
 
   public ADLogin(){
-    this.alert.info('Iniciando autenticación...', { autoClose: false });
+    this.alert.info('Authenticating account...', { autoClose: false });
     this.login.loginWithSSO().subscribe(resp=> {
-      console.log(resp);
+      this.checkLogin(resp);
     }, error=> {
+      this.alert.clear();
       this.alert.error(this.login.getMessage());
     });
-    // this.adLogin.connectWithSSO().subscribe(resp=>{
-    //   this.checkLogin(resp);
-    // },error=>{
-    //   this.alert.error(this.adLogin.getError());
-    // });
   }
 
   public loginAs(username : string, password : string){
-    // this.adLogin.connectWithCredentials(username, password)
-    //     .subscribe(resp=> {
-    //       this.checkLogin(resp);
-    //     }, error => {
-    //       this.alert.error(this.adLogin.getError());
-    //     });
+    this.login.loginWithCredentials(username, password)
+        .subscribe(resp=> {
+          this.checkLogin(resp);
+        }, error => {
+          this.alert.clear();
+          this.alert.error(this.login.getMessage());
+        });
   }
 
   public onSubmit(){
@@ -83,10 +77,9 @@ export class LoginComponent implements OnInit {
     this.form.markAllAsTouched();
     
     if(this.form.valid){
-      this.alert.info('Iniciando autenticación...', {autoclose: false });
+      this.alert.info('Authenticating account...', { autoClose: false });
       this.loginAs(this.get('username').value, this.get('password').value);  
     }
   }
-
 
 }
