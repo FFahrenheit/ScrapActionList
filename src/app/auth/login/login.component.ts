@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
   constructor(private fb      : FormBuilder,
               private login   : AuthService,
               private alert   : AlertService,
-              // private change  : ChangePasswordService,
               private router  : Router) { }
 
   ngOnInit(): void {
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
     if(resp){
       this.alert.success('Successful authentication');
       setTimeout(() => {
-        this.router.navigate(['']);
+        this.router.navigate(['']); //VERIFY!!!
       }, 2000);
     }else{
       this.alert.error('Failed to authenticate');

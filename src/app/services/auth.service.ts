@@ -38,7 +38,7 @@ export class AuthService extends AppService{
       } = resp['user'];
 
       this.user = new User(
-        username, position, name, email
+        username, email, position, name
       );
 
       localStorage.setItem('token', resp['token']);
@@ -78,7 +78,7 @@ export class AuthService extends AppService{
     );
   }
 
-  public getUser() : User{
+  public getLoggedUser() : User{
     return this.user;
   }
 
