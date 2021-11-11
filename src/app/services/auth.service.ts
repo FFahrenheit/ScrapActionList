@@ -4,7 +4,7 @@ import { Router, RouterStateSnapshot } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { User } from '../models/user.model';
-import { AppService } from './service.template';
+import { AppService } from '../models/service.model';
 
 //Solo para login auth
 const url = window.location.origin.includes('localhost')? 
@@ -19,7 +19,8 @@ export class AuthService extends AppService{
   private user : User;
 
   constructor(private handler : HttpBackend,
-              private router  : Router){
+              private router  : Router,
+              private http2   : HttpClient){
     super();
     this.http = new HttpClient(this.handler);
     console.log(this.http);
@@ -96,7 +97,7 @@ export class AuthService extends AppService{
       this.router.navigate(['auth', 'login']);
     }
 
-    return this.http.put(url + '/auth', {})
+    return this.http2.put('/api/auth', {})
     .pipe(
       map(resp=>{
         
