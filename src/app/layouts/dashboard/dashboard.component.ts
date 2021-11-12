@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { publicOptions } from 'src/app/resources/profile.options';
+import { publicRoutes } from 'src/app/resources/sidebar.options';
+import { DashboardOption } from 'src/app/interfaces/dashboard.profile.item.interface';
+import { DashboardRoute } from 'src/app/interfaces/dashboard.sidebar.item.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,8 +19,8 @@ export class DashboardComponent implements OnInit {
   public title = 'ScrapActionList';
   public shown : boolean = true;
   public user : User | undefined = Object.create(null);
-  public dropdwonMenu : [];
-  public sidebar : [];
+  public dropdownMenu : DashboardOption[];
+  public sidebar : DashboardRoute[];
 
   constructor(private router  : Router,
               private login   : AuthService) { }
@@ -31,7 +35,10 @@ export class DashboardComponent implements OnInit {
 
     this.user = this.login.getLoggedUser();
 
-    this.title = window.location.origin.includes('localhost')? 'Test server' : 'ScrapActionList';
+    this.title = window.location.origin.includes('localhost')? 'Test server' : 'ScrapAL';
+
+    this.dropdownMenu = publicOptions;
+    this.sidebar = publicRoutes;
     // this.getMode();
   }
 
