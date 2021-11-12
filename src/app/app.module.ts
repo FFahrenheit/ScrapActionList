@@ -9,6 +9,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { SharedModule } from './shared/shared.module';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     BrowserModule,
     RouterModule.forRoot(AppRoutes),
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    NgbModule
   ],
   providers: [
     {

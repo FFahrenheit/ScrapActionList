@@ -28,7 +28,7 @@ body{
 }
 
 html {
-    transition: filter 10ms;
+    transition: filter 1000ms;
 }
 
 html[data-theme="dark-mode"] {
@@ -38,3 +38,6 @@ html[data-theme="dark-mode"] {
 // html img{
 //     filter: invert(1) hue-rotate(180deg);
 // }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

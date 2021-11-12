@@ -36,5 +36,14 @@ export class AppComponent {
     ).subscribe((newTitle: string) => {
       this.titleService.setTitle(newTitle);
     });
+
+    const html = document.getElementsByTagName('html')[0];
+    const darkMode = localStorage.getItem('dark') || 'false';
+    const isEnabled = darkMode == 'true';
+    if(isEnabled){
+      html.dataset.theme = 'dark-mode';
+    } else {
+      html.dataset.theme = '';
+    }
   }
 }

@@ -5,5 +5,10 @@ export const publicOptions : DashboardOption[] = [
         title: 'Logout',
         icon: 'fas fa-sign-out-alt pr-1',
         listener: 'logout'
+    },
+    {
+        title: 'Dark mode',
+        icon: 'fas fa-moon',
+        listener: 'dark'
     }
 ];

@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
     this.dropdownMenu = publicOptions;
     this.sidebar = publicRoutes;
-    // this.getMode();
+    this.getMode();
   }
 
   public goTo(route : string[],index : number) : void{
@@ -58,43 +58,46 @@ export class DashboardComponent implements OnInit {
       case 'logout':
         this.logout();
         break;
+      case 'dark':
+        this.toggleDarkMode();
+        break;
       default:
         console.log('Not yet implemented');
     }
   }
 
-  // private getMode() : void{
-  //   let opt = this.publicDropdown.filter(p => p.listener == 'dark')[0];
-  //   if (!opt){
-  //     return;
-  //   }
-  //   if( this.isDarkMode() ){
-  //     opt.title = 'Modo día';
-  //     opt.icon = 'fas fa-sun';
-  //   }else{
-  //     opt.title = 'Modo noche';
-  //     opt.icon = 'fas fa-moon';
-  //   }
-  // }
+  private getMode() : void{
+    let opt = this.dropdownMenu.filter(p => p.listener == 'dark')[0];
+    if (!opt){
+      return;
+    }
+    if( this.isDarkMode() ){
+      opt.title = 'Day mode';
+      opt.icon = 'fas fa-sun';
+    }else{
+      opt.title = 'Night mode';
+      opt.icon = 'fas fa-moon';
+    }
+  }
 
-  // public isDarkMode() : boolean{
-  //   const darkMode = localStorage.getItem('dark') || 'false';
-  //   return darkMode == 'true';
-  // }
+  public isDarkMode() : boolean{
+    const darkMode = localStorage.getItem('dark') || 'false';
+    return darkMode == 'true';
+  }
 
-  // private toggleDarkMode() : void{
-  //   const html = document.getElementsByTagName('html')[0];
+  private toggleDarkMode() : void{
+    const html = document.getElementsByTagName('html')[0];
 
-  //   if(this.isDarkMode() ){
-  //     localStorage.setItem('dark', 'false');
-  //     html.dataset.theme = '';
-  //   } else { 
-  //     localStorage.setItem('dark', 'true');
-  //     html.dataset.theme = 'dark-mode';
-  //   }
+    if(this.isDarkMode() ){
+      localStorage.setItem('dark', 'false');
+      html.dataset.theme = '';
+    } else { 
+      localStorage.setItem('dark', 'true');
+      html.dataset.theme = 'dark-mode';
+    }
 
-  //   this.getMode();
-  // }
+    this.getMode();
+  }
 
   public getTitle(){
     return 'Title';
