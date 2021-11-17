@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
 
     this.user = this.login.getLoggedUser();
 
-    this.title = window.location.origin.includes('localhost')? 'Test server' : 'ScrapAL';
+    this.title = window.location.origin.includes('localhost')? 'Test server' : 'ScrapActions';
 
     this.dropdownMenu = publicOptions;
     this.sidebar = publicRoutes;

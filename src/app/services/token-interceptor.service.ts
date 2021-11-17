@@ -30,7 +30,7 @@ export class TokenInterceptorService {
 
     return next.handle(tokenizedRequest).pipe(
       catchError((error: any) => {
-        if (error.status == 0) {
+        if (error) {
           this.retryCount += 1;
           console.log('Error: ' + this.retryCount + ' retries');
           if (this.retryCount >= 4) {

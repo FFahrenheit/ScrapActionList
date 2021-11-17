@@ -23,7 +23,6 @@ export class AuthService extends AppService{
               private http2   : HttpClient){
     super();
     this.http = new HttpClient(this.handler);
-    console.log(this.http);
   }
 
   private handleResponse(resp) : boolean{
