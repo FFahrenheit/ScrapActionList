@@ -1,1 +1,84 @@
-<p>details works!</p>
+<div class="container text-center pt-2 mb-5 mx-3">
+    <alert></alert>
+    <h4 class="text-left my-3">New issue</h4>
+    <form [formGroup]="form">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-6">
+                <h5 class="text-left">Part details</h5>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Part number</label>
+                    <div class="col-md-8">
+                        <select formControlName="part" [class]="getClass('part')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" (change)="onChange()">
+                            <option [value]="null" selected disabled>Choose the part number</option>
+                            <option *ngFor="let p of parts" [value]="p.number">
+                                {{ p.number }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Client</label>
+                    <div class="col-md-8">
+                        <input formControlName="client" type="text" class="form-control" placeholder="Client"
+                            [class]="getClass('client')" [value]="selectedPart?.client">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Area</label>
+                    <div class="col-md-8">
+                        <input formControlName="area" type="text" class="form-control" placeholder="Area"
+                            [class]="getClass('area')" [value]="selectedPart?.area">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Department</label>
+                    <div class="col-md-8">
+                        <input formControlName="department" type="text" class="form-control" placeholder="Department"
+                            [class]="getClass('department')" [value]="selectedPart?.department">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <h5 class="text-left">Defective details</h5>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Defective</label>
+                    <div class="col-md-8">
+                        <select formControlName="defective" [class]="getClass('defective')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled>Choose the most accurate defective</option>
+                            <option *ngFor="let d of defectives" [value]="d.id">
+                                {{ d.description }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Description</label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('description')" class="form-control area"
+                            formControlName="description" placeholder="Describe the defect found" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Evaluation period</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="date" formControlName="evaluationPeriod"
+                            [class]="getClass('evaluationPeriod')">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
