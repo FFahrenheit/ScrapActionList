@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { Error404Component } from "./errors/error404/error404.component";
 import { LoggedGuard } from "./guards/logged.guard";
 import { LoginGuard } from "./guards/login.guard";
 import { BlankComponent } from "./layouts/blank/blank.component";
@@ -49,5 +50,19 @@ export const AppRoutes : Routes = [
                 redirectTo: 'issues'              
             }
         ]
+    },
+    {
+        path: '404',
+        component: Error404Component,
+        data: {
+            title: 'Page not found'
+        }
+    },
+    {
+        path: '**',
+        component: Error404Component,
+        data: {
+            title: 'Route not found'
+        }
     }
 ];

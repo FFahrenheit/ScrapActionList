@@ -10,12 +10,14 @@ import { SharedModule } from './shared/shared.module';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Error404Component } from './errors/error404/error404.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BlankComponent,
     DashboardComponent,
+    Error404Component,
   ],
   imports: [
     BrowserModule,
