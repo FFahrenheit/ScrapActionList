@@ -24,7 +24,7 @@
                     <label for="" class="col-md-4 col-form-label">Client</label>
                     <div class="col-md-8">
                         <input formControlName="client" type="text" class="form-control" placeholder="Client"
-                            [class]="getClass('client')" [value]="selectedPart?.client">
+                            [class]="getClass('client')">
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                     <label for="" class="col-md-4 col-form-label">Area</label>
                     <div class="col-md-8">
                         <input formControlName="area" type="text" class="form-control" placeholder="Area"
-                            [class]="getClass('area')" [value]="selectedPart?.area">
+                            [class]="getClass('area')">
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@
                     <label for="" class="col-md-4 col-form-label">Department</label>
                     <div class="col-md-8">
                         <input formControlName="department" type="text" class="form-control" placeholder="Department"
-                            [class]="getClass('department')" [value]="selectedPart?.department">
+                            [class]="getClass('department')">
                     </div>
                 </div>
 
@@ -77,6 +77,16 @@
                             [class]="getClass('evaluationPeriod')">
                     </div>
                 </div>
+
+                <confirm-modal
+                    title="Generate new issue"
+                    content="Do you want to generate this issue?"
+                    (triggered)="form.markAllAsTouched()"
+                    (accept)="submit()"
+                    [isDisabled]="!form.valid"
+                    reason="You need to fullfil the form">
+
+                </confirm-modal>
             </div>
 
         </div>

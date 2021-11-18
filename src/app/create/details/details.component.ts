@@ -63,14 +63,29 @@ export class DetailsComponent implements OnInit {
   }
 
   public getClass(ctrl : string) : string{
-    if(!this.get(ctrl).touched){
+    const fc = this.get(ctrl);
+    if(!fc.touched){
       return '';
     }
-    return this.get(ctrl).valid ? 'is-valid' : 'is-invalid';
+    console.log({
+      name: ctrl,
+      dis: fc.disabled,
+      val: fc.value
+    })
+    return fc.valid || (fc.disabled && fc.value)? 'is-valid' : 'is-invalid';
   }
 
   public onChange(){
     this.selectedPart = this.parts.find( e => e.number == this.get('part').value);
+    this.get('client').setValue(this.selectedPart.client);
+    this.get('area').setValue(this.selectedPart.area);
+    this.get('department').setValue(this.selectedPart.department);
+    this.form.updateValueAndValidity();
+  }
+
+  public submit() : void{
+    console.log('Submit...');
+    console.log(this.form);
   }
 
 }

@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public getTitle(){
-    return 'Title';
+    return this.sidebar[this.selectedIndex].detail;
     // if(this.router.url.includes('usuarios')){
     //   return 'Configuración';
     // }

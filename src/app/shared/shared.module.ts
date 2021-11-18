@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { LoaderSpinnerComponent } from './loader-spinner/loader-spinner.component';
 import { AlertComponent } from './alert/alert.component';
 import { FooterComponent } from './footer/footer.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -10,15 +12,18 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [
     LoaderSpinnerComponent,
     AlertComponent,
-    FooterComponent
+    FooterComponent,
+    ConfirmModalComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgbModule,
   ],
   exports: [
     LoaderSpinnerComponent,
     AlertComponent,
-    FooterComponent
+    FooterComponent,
+    ConfirmModalComponent
   ]
 })
 export class SharedModule { }
