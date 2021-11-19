@@ -5,12 +5,14 @@ import { RouterModule } from '@angular/router';
 import { CreateRoutes } from './create.routing';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TeamComponent } from './team/team.component';
 
 
 
 @NgModule({
   declarations: [
-    DetailsComponent
+    DetailsComponent,
+    TeamComponent
   ],
   imports: [
     CommonModule,

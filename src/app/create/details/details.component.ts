@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Defective, Part } from 'src/app/interfaces/resources.items.interface';
+import { issueTypes } from 'src/app/resources/defective.options';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
 
@@ -13,13 +15,15 @@ export class DetailsComponent implements OnInit {
 
   public parts : Part[];
   public defectives : Defective[];
+  public types : string[] = issueTypes;
 
   public form : FormGroup;
   public selectedPart : Part = null;
 
   constructor(private resources : ResourcesService,
              private alert      : AlertService,
-             private fb         : FormBuilder) { }
+             private fb         : FormBuilder,
+             private router     : Router) { }
 
   ngOnInit(): void {
     this.resources.loadResources().subscribe(resp => {
@@ -53,7 +57,8 @@ export class DetailsComponent implements OnInit {
       department: [{
         value: '',
         disabled: true
-      }, Validators.required]
+      }, Validators.required],
+      type: [null, Validators.required]
     });
     
   }
@@ -67,11 +72,6 @@ export class DetailsComponent implements OnInit {
     if(!fc.touched){
       return '';
     }
-    console.log({
-      name: ctrl,
-      dis: fc.disabled,
-      val: fc.value
-    })
     return fc.valid || (fc.disabled && fc.value)? 'is-valid' : 'is-invalid';
   }
 
@@ -83,9 +83,12 @@ export class DetailsComponent implements OnInit {
     this.form.updateValueAndValidity();
   }
 
-  public submit() : void{
-    console.log('Submit...');
-    console.log(this.form);
+  public continue() : void{
+    if(this.form.valid){
+      console.log('Valid!');
+    }else{
+      this.form.markAllAsTouched();
+    }
   }
 
 }

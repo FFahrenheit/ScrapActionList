@@ -5,7 +5,21 @@
         <div class="row d-flex justify-content-center">
 
             <div class="col-md-6">
-                <h5 class="text-left">Part details</h5>
+                <h5 class="text-left">Issue details</h5>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Issue type</label>
+                    <div class="col-md-8">
+                        <select formControlName="type" [class]="getClass('type')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled>Choose the type of issue</option>
+                            <option *ngFor="let t of types" [value]="t">
+                                {{ t }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
 
                 <div class="form-group row pt-2 has-error has-feedback">
                     <label for="" class="col-md-4 col-form-label">Part number</label>
@@ -21,9 +35,9 @@
                 </div>
 
                 <div class="form-group row pt-2 has-error has-feedback">
-                    <label for="" class="col-md-4 col-form-label">Client</label>
+                    <label for="" class="col-md-4 col-form-label">Customer</label>
                     <div class="col-md-8">
-                        <input formControlName="client" type="text" class="form-control" placeholder="Client"
+                        <input formControlName="client" type="text" class="form-control" placeholder="Customer"
                             [class]="getClass('client')">
                     </div>
                 </div>
@@ -37,9 +51,9 @@
                 </div>
 
                 <div class="form-group row pt-2 has-error has-feedback">
-                    <label for="" class="col-md-4 col-form-label">Department</label>
+                    <label for="" class="col-md-4 col-form-label">Phase</label>
                     <div class="col-md-8">
-                        <input formControlName="department" type="text" class="form-control" placeholder="Department"
+                        <input formControlName="department" type="text" class="form-control" placeholder="Phase"
                             [class]="getClass('department')">
                     </div>
                 </div>
@@ -78,15 +92,19 @@
                     </div>
                 </div>
 
-                <confirm-modal
+                <button class="btn float-right" (click)="continue()"
+                    [ngClass]="{ 'btn-success': form.valid, 'btn-secondary not-ready': !form.valid }">
+                    Continue
+                </button>
+
+                <!-- <confirm-modal
                     title="Generate new issue"
                     content="Do you want to generate this issue?"
                     (triggered)="form.markAllAsTouched()"
                     (accept)="submit()"
                     [isDisabled]="!form.valid"
                     reason="You need to fullfil the form">
-
-                </confirm-modal>
+                </confirm-modal> -->
             </div>
 
         </div>

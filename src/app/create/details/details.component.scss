@@ -1,3 +1,7 @@
 .area{
     min-height: 80px;
 }
+
+.not-ready:hover{
+    cursor: default !important;
+}
