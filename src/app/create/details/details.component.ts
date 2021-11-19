@@ -18,7 +18,9 @@ export class DetailsComponent implements OnInit {
   public types : string[] = issueTypes;
 
   public form : FormGroup;
+  public customerForm : FormGroup;
   public selectedPart : Part = null;
+  public isCustomer : boolean;
 
   constructor(private resources : ResourcesService,
              private alert      : AlertService,
@@ -60,15 +62,27 @@ export class DetailsComponent implements OnInit {
       }, Validators.required],
       type: [null, Validators.required]
     });
-    
+
+    this.get('type').valueChanges.subscribe(p => {
+      this.isCustomer = p === 'Customer incident';
+    })
+
+    this.customerForm = this.fb.group({
+      car: ['', Validators.required],
+      issued: ['', Validators.required],
+      contact: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])]
+    });
+
+
   }
 
-  public get(ctrl : string) : AbstractControl{
-    return this.form.controls[ctrl];
+  public get(ctrl : string, form : FormGroup = this.form) : AbstractControl{
+    return form.controls[ctrl];
   }
 
-  public getClass(ctrl : string) : string{
-    const fc = this.get(ctrl);
+  public getClass(ctrl : string, form : FormGroup = this.form) : string{
+    const fc = this.get(ctrl, form);
     if(!fc.touched){
       return '';
     }
@@ -84,11 +98,14 @@ export class DetailsComponent implements OnInit {
   }
 
   public continue() : void{
-    if(this.form.valid){
+    if(this.isValid()){
       console.log('Valid!');
     }else{
       this.form.markAllAsTouched();
     }
   }
 
+  public isValid() : boolean{
+    return this.form.valid && ((this.customerForm.valid && this.isCustomer) || !this.isCustomer);
+  }
 }
