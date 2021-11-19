@@ -11,3 +11,10 @@ export interface Defective{
     description: string,
     id?: number
 }
+
+export interface Participant{
+    username: string,
+    name: string,
+    email: string,
+    position?: string
+}

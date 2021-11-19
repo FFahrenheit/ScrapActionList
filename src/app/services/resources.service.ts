@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Defective, Part } from '../interfaces/resources.items.interface';
+import { Defective, Part, Participant } from '../interfaces/resources.items.interface';
 import { AppService } from '../models/service.model';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { AppService } from '../models/service.model';
 export class ResourcesService extends AppService{
   private parts : Part[];
   private problems : Defective[];
+  private participants : Participant[];
 
   constructor(private http : HttpClient) { 
     super();
@@ -19,7 +20,8 @@ export class ResourcesService extends AppService{
   public loadResources(){
     return forkJoin([
       this.http.get('/api/problem'), 
-      this.http.get('/api/part')
+      this.http.get('/api/part'),
+      this.http.get('/api/users')
     ]).pipe(
       map(resps=> {
         let count = 0;
@@ -48,6 +50,19 @@ export class ResourcesService extends AppService{
               });
             });
 
+          }else if(resp['users']){
+
+            this.participants = [];
+            resp['users'].forEach( u => {
+              
+              this.participants.push({
+                email: u['email'],
+                name: u['name'],
+                username: u['username'],
+                position: u['position']  
+              });
+
+            })
           }
         });
         this.errorMessage = "Couldn't retieve data from server";
@@ -66,5 +81,9 @@ export class ResourcesService extends AppService{
 
   public getDefectives() : Defective[]{
     return this.problems;
+  }
+
+  public getUsers() : Participant[]{
+    return this.participants;
   }
 }

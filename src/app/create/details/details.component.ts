@@ -100,6 +100,7 @@ export class DetailsComponent implements OnInit {
   public continue() : void{
     if(this.isValid()){
       console.log('Valid!');
+      this.router.navigate(['create', 'team']);
     }else{
       this.form.markAllAsTouched();
     }
