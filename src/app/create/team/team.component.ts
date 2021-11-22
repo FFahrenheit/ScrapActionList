@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { D1User } from 'src/app/interfaces/create.issue.interface';
 import { Participant } from 'src/app/interfaces/resources.items.interface';
 import { CreateService } from 'src/app/services/create.service';
@@ -21,7 +22,8 @@ export class TeamComponent implements OnInit {
   constructor(private resources : ResourcesService,
               private alert     : AlertService,
               private fb        : FormBuilder,
-              private create    : CreateService) { }
+              private create    : CreateService,
+              private router    : Router) { }
 
   ngOnInit(): void {
     this.resources.loadResources().subscribe(resp => {
@@ -103,10 +105,17 @@ export class TeamComponent implements OnInit {
 
     member.controls['name'].setValue(selectedUser.name);
     member.controls['email'].setValue(selectedUser.email);
+  }
 
-    console.log({
-      username
-    })
+  public submit() : void{
+    this.router.navigate(['create', 'problem']);
+  }
 
+  public continue() : void{
+    if(this.usersForm.valid){
+      this.submit();
+    }else{
+      this.usersForm.markAllAsTouched();
+    }
   }
 }

@@ -6,13 +6,15 @@ import { CreateRoutes } from './create.routing';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TeamComponent } from './team/team.component';
+import { ProblemComponent } from './problem/problem.component';
 
 
 
 @NgModule({
   declarations: [
     DetailsComponent,
-    TeamComponent
+    TeamComponent,
+    ProblemComponent
   ],
   imports: [
     CommonModule,
