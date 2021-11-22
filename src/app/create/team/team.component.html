@@ -1,4 +1,49 @@
-<alert></alert>
-<p *ngFor="let u of users">
-    {{ u.name }}
-</p>
+<div class="container text-center pt-2 mb-5 mx-3">
+    <alert></alert>
+    <h4 class="text-left my-3">D1.- Create a team</h4>
+    <form [formGroup]="usersForm">
+        <div class="row justify-content-center">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col"> Team member </th>
+                            <th scope="col"> Role </th>
+                            <th scope="col"> Email </th>
+                            <th scope="col"> &nbsp; </th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="team">
+                        <tr *ngFor="let member of team.controls; let i = index" [formGroupName]="i">
+                            <td>
+                                <select class="form-control" formControlName="member"
+                                    [class]="getClass(member, 'member')" (change)="setValues(member)">
+                                    <option [value]="null" selected disabled> Select an user</option>
+                                    <option *ngFor="let user of userList" [value]="user.username">
+                                        {{ user.name }}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" formControlName="position" class="form-control"
+                                    [class]="getClass(member, 'position')" placeholder="Type the user's position">
+                            </td>
+                            <td>
+                                <input type="text" formControlName="email" class="form-control"
+                                    [class]="getClass(member, 'email')" placeholder="User's contact">
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" *ngIf="i === 0" (click)="addMember()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="btn btn-danger" *ngIf="i !== 0" (click)="deleteMember(i)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
