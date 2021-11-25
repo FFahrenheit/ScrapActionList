@@ -1,1 +1,188 @@
-<p>problem works!</p>
+<div class="container text-center pt-2 mb-5 mx-3">
+    <alert></alert>
+    <h4 class="text-left my-3">D2.- Define the problem</h4>
+    <form [formGroup]="form">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-7">
+                <h5 class="text-left">Problem analysis</h5>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        What is the problem?
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('whatIs')" class="form-control area" formControlName="whatIs"
+                            placeholder="Describe the problem" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Where is it happening?
+                        <span class="text-muted">
+                            Where exactly it happened?
+                        </span>
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('whereIs')" class="form-control area" formControlName="whereIs"
+                            placeholder="Location of the problem" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        When did it happening?
+                        <span class="text-muted">
+                            When this was found by customer?
+                        </span>
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('whenIs')" class="form-control area" formControlName="whenIs"
+                            placeholder="Describe when this happened" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Who does it affect?
+                        <span class="text-muted">
+                            Who is impacted? (Tier 1, OEM, end customer)
+                        </span>
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('whoIs')" class="form-control area" formControlName="whoIs"
+                            placeholder="List the affected" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Why is it a problem?
+                        <span class="text-muted">
+                            Who is the impact? (Functionality, regulation)
+                        </span>
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('whyIs')" class="form-control area" formControlName="whyIs"
+                            placeholder="Justify why is it a problem" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        How many/much is it affecting?
+                        <span class="text-muted">
+                            (Individual parts)
+                        </span>
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('much')" class="form-control area" formControlName="much"
+                            placeholder="Quantity of affectation" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        How often is it happening?
+                        <span class="text-muted">
+                        </span>
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('often')" class="form-control area" formControlName="often"
+                            placeholder="Describe the frequency of the problem" rows="2"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-5">
+                <h5 class="text-left">Problem definition</h5>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Customer PN
+                    </label>
+                    <div class="col-md-8">
+                        <input type="text" [class]="getClass('customerPN')" class="form-control area"
+                            formControlName="customerPN" placeholder="Customer piece number">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Part description
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('pnDescription')" class="form-control area"
+                            formControlName="pnDescription" placeholder="Description of the part" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Problem description
+                    </label>
+                    <div class="col-md-8">
+                        <textarea [class]="getClass('description')" class="form-control" formControlName="description"
+                            placeholder="Based on the previous questions, describe the problem" rows="4"></textarea>
+                    </div>
+                </div>
+
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Repeated incident
+                    </label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('repeated')" class="form-control" formControlName="repeated">
+                            <option [value]="null" disabled selected> Select an option </option>
+                            <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Final customer affected
+                    </label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('finalAffected')" class="form-control"
+                            formControlName="finalAffected">
+                            <option [value]="null" disabled selected> Select an option </option>
+                            <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Customer affected
+                    </label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('customerAffected')" class="form-control"
+                            formControlName="customerAffected">
+                            <option [value]="null" disabled selected> Select an option </option>
+                            <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn float-right" (click)="continue()"
+                    [ngClass]="{ 'btn-success': form.valid, 'btn-secondary not-ready': !form.valid }">
+                    Continue
+                </button>
+
+                <!-- <confirm-modal
+                    title="Define the problem"
+                    content="Are you sure you want to submit this D2?"
+                    (triggered)="form.markAllAsTouched()"
+                    (accept)="submit()"
+                    [isDisabled]="!form.valid"
+                    reason="You need to fullfil the form">
+                </confirm-modal> -->
+            </div>
+
+        </div>
+    </form>
+</div>
