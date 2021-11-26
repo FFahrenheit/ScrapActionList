@@ -1,1 +1,96 @@
-<p>containment works!</p>
+<div class="container text-center pt-2 mb-5 mx-3">
+    <alert></alert>
+    <h4 class="text-left my-3">D3.- Containment</h4>
+
+    <h5 class="text-left my-2"> Containment actions </h5>
+
+    <div class="row justify-content-center">
+        <form [formGroup]="stock">
+
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col"> Stock </th>
+                            <th scope="col"> Total Qty </th>
+                            <th scope="col"> Qty OK </th>
+                            <th scope="col"> Qty Not Ok </th>
+                            <th scope="col"> Responsible </th>
+                            <th scope="col"> Finish Clean Date </th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="containment">
+                        <tr *ngFor="let st of containment.controls; let i = index" [formGroupName]="i">
+
+                            <td class="text-left">
+                                <div class="form-check">
+                                    <input [id]="'enabled' + i" formControlName="enabled" class="form-check-input"
+                                        type="checkbox" value="">
+                                    <label [for]="'enabled' + i" class="form-check-label">
+                                        {{ getDescription(st) }}
+                                    </label>
+                                </div>
+                            </td>
+
+                            <td>
+                                <fieldset [disabled]=" ! isEnabled(st)">
+                                    <input type="text" class="form-control" [class]="getClass(st, 'total')"
+                                        formControlName="total" placeholder="Total no. jobs">
+                                </fieldset>
+                            </td>
+
+                            <td>
+                                <fieldset [disabled]=" ! isEnabled(st)">
+                                    <input type="text" class="form-control" [class]="getClass(st, 'ok')"
+                                        formControlName="ok" placeholder="No. jobs OK">
+                                </fieldset>
+                            </td>
+
+                            <td>
+                                <fieldset [disabled]=" ! isEnabled(st)">
+                                    <input type="text" class="form-control" [class]="getClass(st, 'notOk')"
+                                        formControlName="notOk" placeholder="No. jobs not OK">
+                                </fieldset>
+                            </td>
+
+                            <td>
+                                <fieldset [disabled]=" ! isEnabled(st)">
+                                    <select class="form-control" [class]="getClass(st, 'responsible')"
+                                        formControlName="responsible">
+                                        <option [value]="null" disabled selected> Select responsible </option>
+                                        <option *ngFor="let u of users" [value]="u.username">
+                                            {{ u.name }}
+                                        </option>
+                                    </select>
+                                </fieldset>
+                            </td>
+
+                            <td>
+                                <fieldset [disabled]=" ! isEnabled(st)">
+                                    <input type="date" class="form-control" [class]="getClass(st, 'clean')"
+                                        formControlName="clean" placeholder="Total no. jobs">
+                                </fieldset>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- <button class="btn float-right" (click)="continue()"
+                    [ngClass]="{ 'btn-success': usersForm.valid, 'btn-secondary not-ready': !usersForm.valid }">
+                    Continue
+                </button> -->
+                <!-- <confirm-modal 
+                    title="Define core team" 
+                    content="Do you want to define this core team?"
+                    (triggered)="usersForm.markAllAsTouched()" 
+                    (accept)="submit()" 
+                    [isDisabled]="!usersForm.valid"
+                    reason="You need to complete the core team">
+                </confirm-modal> -->
+            </div>
+        </form>
+    </div>
+
+    <h5 class="text-left m-2"> Containment actions </h5>
+
+</div>

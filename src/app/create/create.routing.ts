@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { ContainmentComponent } from "./containment/containment.component";
 import { DetailsComponent } from "./details/details.component";
 import { ProblemComponent } from "./problem/problem.component";
 import { TeamComponent } from "./team/team.component";
@@ -26,6 +27,13 @@ export const CreateRoutes : Routes = [
                 component: ProblemComponent,
                 data: {
                     title: 'D2: Describe the problem'
+                }
+            },
+            {
+                path: 'containment',
+                component: ContainmentComponent,
+                data: {
+                    title: 'D3: Containment'
                 }
             },
             {
