@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TeamComponent } from './team/team.component';
 import { ProblemComponent } from './problem/problem.component';
+import { ContainmentComponent } from './containment/containment.component';
 
 
 
@@ -14,7 +15,8 @@ import { ProblemComponent } from './problem/problem.component';
   declarations: [
     DetailsComponent,
     TeamComponent,
-    ProblemComponent
+    ProblemComponent,
+    ContainmentComponent
   ],
   imports: [
     CommonModule,

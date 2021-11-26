@@ -26,13 +26,13 @@
                     </label>
                     <div class="col-md-8">
                         <textarea [class]="getClass('whereIs')" class="form-control area" formControlName="whereIs"
-                            placeholder="Location of the problem" rows="2"></textarea>
+                            placeholder="Defect location at the part, customer site" rows="2"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group row pt-2 has-error has-feedback">
                     <label for="" class="col-md-4 col-form-label">
-                        When did it happening?
+                        When did it happen?
                         <span class="text-muted">
                             When this was found by customer?
                         </span>
@@ -45,9 +45,9 @@
 
                 <div class="form-group row pt-2 has-error has-feedback">
                     <label for="" class="col-md-4 col-form-label">
-                        Who does it affect?
+                        Who is impacted? 
                         <span class="text-muted">
-                            Who is impacted? (Tier 1, OEM, end customer)
+                            (Tier 1, OEM, end customer)
                         </span>
                     </label>
                     <div class="col-md-8">
@@ -60,7 +60,7 @@
                     <label for="" class="col-md-4 col-form-label">
                         Why is it a problem?
                         <span class="text-muted">
-                            Who is the impact? (Functionality, regulation)
+                            What is the impact? (Functionality, regulation)
                         </span>
                     </label>
                     <div class="col-md-8">
@@ -105,13 +105,13 @@
                     </label>
                     <div class="col-md-8">
                         <input type="text" [class]="getClass('customerPN')" class="form-control area"
-                            formControlName="customerPN" placeholder="Customer piece number">
+                            formControlName="customerPN" placeholder="Customer part number">
                     </div>
                 </div>
 
                 <div class="form-group row pt-2 has-error has-feedback">
                     <label for="" class="col-md-4 col-form-label">
-                        Part description
+                        Customer part description
                     </label>
                     <div class="col-md-8">
                         <textarea [class]="getClass('pnDescription')" class="form-control area"

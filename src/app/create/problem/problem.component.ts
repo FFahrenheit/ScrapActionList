@@ -11,7 +11,7 @@ import { AlertService } from 'src/app/shared/alert';
 export class ProblemComponent implements OnInit {
 
   public form : FormGroup;
-  public options = ['Yes', 'No', 'N/A'];
+  public options = ['Yes', 'No'];
 
   constructor(private fb      : FormBuilder,
               private alert   : AlertService,

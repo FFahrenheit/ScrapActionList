@@ -49,7 +49,7 @@ export class DetailsComponent implements OnInit {
         value: '',
         disabled: true
       }, Validators.required],
-      evaluationPeriod: ['', Validators.required],
+      // evaluationPeriod: ['', Validators.required],
       defective: [null, Validators.required],
       description: ['', Validators.required],
       area: [{
