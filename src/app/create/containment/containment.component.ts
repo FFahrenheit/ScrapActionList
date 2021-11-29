@@ -12,19 +12,19 @@ import { stocks } from './containment.stock.resources';
 })
 export class ContainmentComponent implements OnInit {
 
-  public form : FormGroup;
-  public stock : FormGroup;
-  public users : Participant[]; 
+  public form: FormGroup;
+  public stock: FormGroup;
+  public users: Participant[];
 
-  constructor(private fb        : FormBuilder,
-              private resources : ResourcesService,
-              private alert     : AlertService) { }
+  constructor(private fb: FormBuilder,
+    private resources: ResourcesService,
+    private alert: AlertService) { }
 
   ngOnInit(): void {
-    this.resources.loadResources().subscribe(resp=> {
-      if(resp){
+    this.resources.loadResources().subscribe(resp => {
+      if (resp) {
         this.users = this.resources.getUsers();
-      }else{
+      } else {
         this.alert.error("Couldn't retrieve users");
       }
     });
@@ -33,10 +33,10 @@ export class ContainmentComponent implements OnInit {
       containment: this.fb.array([])
     });
 
-    stocks.forEach( s => {
+    stocks.forEach(s => {
       const stock = this.fb.group({
-        enabled : [true],
-        description : [{
+        enabled: [true],
+        description: [{
           value: s,
           ensabled: false
         }],
@@ -49,25 +49,70 @@ export class ContainmentComponent implements OnInit {
 
       this.containment.push(stock);
     });
+
+    this.form = this.fb.group({
+      others: [null, Validators.required],
+      sites: [''],
+      containment: [null],
+      QA: ['', Validators.required],
+      poka: [null, Validators.required],
+      robust: [null, Validators.required]
+    });
   }
 
-  public get containment() : FormArray{
+  public get containment(): FormArray {
     return this.stock.get('containment') as FormArray;
   }
 
-  public getClass(form : any, field : string) : string{
+  public getClass(form: any, field: string): string {
     const input = (form as FormGroup).controls[field];
-    if(input.untouched || ! (form as FormGroup).controls['enabled'].value){
+    if (input.untouched || !(form as FormGroup).controls['enabled'].value) {
       return '';
     }
     return input.valid ? 'is-valid' : 'is-invalid';
   }
 
-  public getDescription(form : any) : string {
+  public getClassForm(field: string): string {
+    if (this.form.controls[field].untouched) {
+      return '';
+    }
+    return this.form.controls[field].valid ? 'is-valid' : 'is-invalid';
+  }
+
+  public getDescription(form: any): string {
     return (form as FormGroup).controls['description'].value.value;  //Why? Idk ... 
   }
 
-  public isEnabled(form : any) : boolean{
+  public isEnabled(form: any): boolean {
     return (form as FormGroup).controls['enabled'].value;
+  }
+
+  public isValid(): boolean {
+    let forms = this.containment.controls as any;
+
+    forms = forms.filter(f => f.controls['enabled'].value); //Enabled forms
+    const countValid = forms.filter(f => f.valid).length;   //Filled forms
+
+    // console.log({
+    //   forms,
+    //   countValid,
+    //   form: this.form.valid
+    // });
+
+    if (countValid != forms.length) {
+      return false;
+    }
+
+    return this.form.valid;
+  }
+
+  public continue() {
+    let forms = (this.containment.controls as any) //Datatype problems with FormGroup / Array
+                .filter( f => f.controls['enabled'].value )
+                .map(f => f.value);
+    
+    console.log(forms);
+
+    console.log(this.form);
   }
 }

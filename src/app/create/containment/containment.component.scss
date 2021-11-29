@@ -9,3 +9,7 @@ input[type=checkbox]
   padding: 10px;
   margin-top: 8px;
 }
+
+.not-ready:hover{
+  cursor: default !important;
+}

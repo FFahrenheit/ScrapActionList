@@ -8,7 +8,7 @@
         <form [formGroup]="stock">
 
             <div class="table-responsive">
-                <table class="table table-hover table-bordered">
+                <table class="table table-hover table-bordered table-sm">
                     <thead>
                         <tr>
                             <th scope="col"> Stock </th>
@@ -91,6 +91,100 @@
         </form>
     </div>
 
-    <h5 class="text-left m-2"> Containment actions </h5>
+    <h5 class="text-left m-2"> Containment details </h5>
+
+    <form [formGroup]="form">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-6">
+                <h5 class="text-left">Affectation</h5>
+
+
+                <div class="form-group row pt-2">
+                    <label for="" class="col-md-6 col-form-label">Does it affect other sites?</label>
+                    <div class="col-md-6">
+                        <select formControlName="others" [class]="getClassForm('others')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled>Select your choice</option>
+                            <option value="Yes"> Yes </option>
+                            <option value="No"> No </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div *ngIf="form.controls['others'].value == 'Yes'">
+                    <div class="form-group row pt-2">
+                        <label for="" class="col-md-4 col-form-label">Which sites?</label>
+                        <div class="col-md-8">
+                            <input formControlName="sites" type="text" class="form-control" placeholder="Sites affected"
+                                [class]="getClassForm('sites')" [required]=" form.controls['others'].value == 'Yes' ">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row pt-2">
+                        <label for="" class="col-md-6 col-form-label">Is there containment?</label>
+                        <div class="col-md-6">
+                            <select formControlName="containment" [class]="getClassForm('containment')"
+                                class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                                <option [value]="null" selected disabled>Select your choice</option>
+                                <option value="Yes"> Yes </option>
+                                <option value="No"> No </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h5 class="text-left">Issue details</h5>
+
+                <div class="form-group row pt-2">
+                    <label for="" class="col-md-6 col-form-label">QA number (Sharepoint)</label>
+                    <div class="col-md-6">
+                        <input formControlName="QA" type="text" class="form-control" placeholder="Sharepoint QA number"
+                            [class]="getClassForm('QA')" [required]=" form.controls['others'].value == 'Yes' ">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2">
+                    <label for="" class="col-md-6 col-form-label">
+                        If applicable, are the poka yokes detecting the failure mode?
+                    </label>
+                    <div class="col-md-6">
+                        <select formControlName="poka" [class]="getClassForm('poka')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled>Select your choice</option>
+                            <option> Does not exist </option>
+                            <option> Exists and detects failure mode </option>
+                            <option> Exists and does not detect failure mode </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2">
+                    <label for="" class="col-md-8 col-form-label">
+                        Are the Containment actions robust enough to prevent recurrence with customer?
+                    </label>
+                    <div class="col-md-4">
+                        <select formControlName="robust" [class]="getClassForm('robust')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled> Select your choice </option>
+                            <option value="Yes"> Yes </option>
+                            <option value="No"> No </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn float-right" (click)="continue()"
+                [ngClass]="{ 'btn-success': isValid(), 'btn-secondary not-ready': !isValid() }">
+                Continue
+            </button>
+        </div>
+    </form>
 
 </div>
