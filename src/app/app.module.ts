@@ -11,6 +11,7 @@ import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Error404Component } from './errors/error404/error404.component';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { Error404Component } from './errors/error404/error404.component';
     RouterModule.forRoot(AppRoutes),
     HttpClientModule,
     SharedModule,
-    NgbModule
+    NgbModule,
+    PipesModule.forRoot()
   ],
   providers: [
     {

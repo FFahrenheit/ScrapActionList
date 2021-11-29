@@ -5,6 +5,8 @@ import { AlertComponent } from './alert/alert.component';
 import { FooterComponent } from './footer/footer.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 
@@ -13,17 +15,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoaderSpinnerComponent,
     AlertComponent,
     FooterComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    FileUploadComponent
   ],
   imports: [
     CommonModule,
     NgbModule,
+    PipesModule.forRoot(),
   ],
   exports: [
     LoaderSpinnerComponent,
     AlertComponent,
     FooterComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    FileUploadComponent
   ]
 })
 export class SharedModule { }
