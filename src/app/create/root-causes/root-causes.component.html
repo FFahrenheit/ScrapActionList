@@ -1,5 +1,16 @@
 <div class="container text-center pt-2 mb-5 mx-3">
     <alert></alert>
     <h4 class="text-left my-3">D4.- Identify root causes</h4>
-    <five-why></five-why>
+    
+    <five-why [(whys)]="happen" question="Why did it happen?">  
+    </five-why>
+
+    <five-why [(whys)]="detect" question="Why didn't we detect it?">  
+    </five-why>
+
+    <five-why [(whys)]="prevent" question="Why couldn't we prevent it?">  
+    </five-why>
+
+    <button (click)="continue()">Try</button>
+
 </div>

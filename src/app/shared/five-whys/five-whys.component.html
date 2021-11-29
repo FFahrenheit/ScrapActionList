@@ -1,1 +1,27 @@
-<p>five-whys works!</p>
+<div class="cotainer text-left">
+    <h5 class="text-center">
+        {{ question }}
+    </h5>
+
+    <div *ngFor="let why of whys; let i = index; trackBy:trackByIndex;" class="row my-2">
+
+        <div class="col-auto align-middle">
+            <span class="align-middle why" [style]=" 'margin-left: ' + 2.5 * i + 'vw '">
+                Why?
+            </span>
+        </div>
+
+        <div class="col-auto">
+            <textarea class="form-control col-auto answer" placeholder="Why?" 
+                [(ngModel)]="whys[i]" (keyup)="addWhy(i)" rows="1"
+                [class]="getClass(i)"></textarea>
+        </div>
+
+        <div class="col-auto align-middle" *ngIf="i !== 0">
+            <i class="fas fa-minus-circle delete align-middle text-danger" 
+                title="Delete why" (click)="deleteAt(i)">
+            </i>
+        </div>
+    </div>
+</div>
+<hr>

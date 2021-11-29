@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RootCausesComponent implements OnInit {
 
+  public happen : string[] = [];
+  public prevent : string[] = [];
+  public detect : string[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public continue() : void{
+    console.log({
+      happen: this.happen,
+      prevent: this.prevent,
+      detect: this.detect
+    });
+
   }
 
 }

@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { FiveWhysComponent } from './five-whys/five-whys.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -24,6 +25,7 @@ import { FiveWhysComponent } from './five-whys/five-whys.component';
     CommonModule,
     NgbModule,
     PipesModule.forRoot(),
+    FormsModule
   ],
   exports: [
     LoaderSpinnerComponent,
