@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TeamComponent } from './team/team.component';
 import { ProblemComponent } from './problem/problem.component';
 import { ContainmentComponent } from './containment/containment.component';
+import { RootCausesComponent } from './root-causes/root-causes.component';
 
 
 
@@ -16,7 +17,8 @@ import { ContainmentComponent } from './containment/containment.component';
     DetailsComponent,
     TeamComponent,
     ProblemComponent,
-    ContainmentComponent
+    ContainmentComponent,
+    RootCausesComponent
   ],
   imports: [
     CommonModule,

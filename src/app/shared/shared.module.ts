@@ -7,6 +7,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { FiveWhysComponent } from './five-whys/five-whys.component';
 
 
 
@@ -16,7 +17,8 @@ import { PipesModule } from '../pipes/pipes.module';
     AlertComponent,
     FooterComponent,
     ConfirmModalComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    FiveWhysComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { PipesModule } from '../pipes/pipes.module';
     AlertComponent,
     FooterComponent,
     ConfirmModalComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    FiveWhysComponent
   ]
 })
 export class SharedModule { }
