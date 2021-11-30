@@ -9,6 +9,7 @@ import { TeamComponent } from './team/team.component';
 import { ProblemComponent } from './problem/problem.component';
 import { ContainmentComponent } from './containment/containment.component';
 import { RootCausesComponent } from './root-causes/root-causes.component';
+import { ActionListComponent } from './action-list/action-list.component';
 
 
 
@@ -18,7 +19,8 @@ import { RootCausesComponent } from './root-causes/root-causes.component';
     TeamComponent,
     ProblemComponent,
     ContainmentComponent,
-    RootCausesComponent
+    RootCausesComponent,
+    ActionListComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { ActionListComponent } from "./action-list/action-list.component";
 import { ContainmentComponent } from "./containment/containment.component";
 import { DetailsComponent } from "./details/details.component";
 import { ProblemComponent } from "./problem/problem.component";
@@ -42,6 +43,13 @@ export const CreateRoutes : Routes = [
                 component: RootCausesComponent,
                 data: {
                     title: 'D4: Identify root causes'
+                }
+            },
+            {
+                path: 'action-list',
+                component: ActionListComponent,
+                data: {
+                    title: 'D5: Corrective actions'
                 }
             },
             {

@@ -39,4 +39,18 @@ export class RootCausesComponent implements OnInit {
     }
   }
 
+  public isValid() : boolean{
+    const happen = this.happen.filter(h => h.length > 0);
+    const prevent = this.prevent.filter(h => h.length > 0);
+    const detect = this.detect.filter(h => h.length > 0);
+
+    return happen.length > 0 && prevent.length > 0 && detect.length > 0 &&
+      this.happenD.length > 0 && this.happenK.length > 0 && this.happenP.length > 0
+      && this.ishikawa != null;
+  }
+
+  public submit() : void{
+    console.log('Alla vamos');
+  }
+
 }
