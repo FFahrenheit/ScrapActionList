@@ -23,5 +23,16 @@
             </i>
         </div>
     </div>
+    <div class="row my-2">
+        <div class="col-md-3">
+            Key findings in this incident
+        </div>
+
+        <div class="col-auto">
+            <textarea class="form-control col-auto answer" placeholder="Why?" 
+                [(ngModel)]="keyFindings" (keyup)="keyFind()" rows="2"
+                [class]="getFindClass()"></textarea>
+        </div>
+    </div>
 </div>
 <hr>

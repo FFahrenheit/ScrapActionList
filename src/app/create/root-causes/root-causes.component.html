@@ -2,15 +2,28 @@
     <alert></alert>
     <h4 class="text-left my-3">D4.- Identify root causes</h4>
     
-    <five-why [(whys)]="happen" question="Why did it happen?">  
+    <five-why [(whys)]="happen" question="Why did it happen?" [(keyFindings)]="happenK">  
     </five-why>
 
-    <five-why [(whys)]="detect" question="Why didn't we detect it?">  
+    <five-why [(whys)]="detect" question="Why didn't we detect it?" [(keyFindings)]="happenD">
     </five-why>
 
-    <five-why [(whys)]="prevent" question="Why couldn't we prevent it?">  
+    <five-why [(whys)]="prevent" question="Why couldn't we prevent it?" [(keyFindings)]="happenP">  
     </five-why>
 
-    <button (click)="continue()">Try</button>
+    <!-- <button (click)="continue()">Try</button> -->
+    <h5>Upload Analysis</h5>
+
+    <div class="row">
+        <div class="col-md-3">
+            <h5>Ishikawa analysis</h5>
+        </div>
+        <div class="col-auto">
+            <input class="form-control" type="file" (change)="ishikawaEvent($event)"
+            [ngClass]="{'is-valid' : ishikawa != null, 'is-invalid' : ishikawa == null && ishikawaTouched }">
+        </div>
+    </div>
+
+    <file-upload type="other analysis file" [isRequired]="false"></file-upload>
 
 </div>

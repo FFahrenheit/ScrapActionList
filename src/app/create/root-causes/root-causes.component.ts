@@ -10,6 +10,11 @@ export class RootCausesComponent implements OnInit {
   public happen : string[] = [];
   public prevent : string[] = [];
   public detect : string[] = [];
+  public ishikawa : File;
+  public ishikawaTouched = false;
+  public happenK = '';
+  public happenD = '';
+  public happenP = '';
 
   constructor() { }
 
@@ -23,6 +28,15 @@ export class RootCausesComponent implements OnInit {
       detect: this.detect
     });
 
+  }
+
+  public ishikawaEvent($event){
+    this.ishikawaTouched = true;
+    if($event.target.files.length > 0){
+      this.ishikawa = $event.target.files[0] as File;
+    }else{
+      this.ishikawa = null;
+    }
   }
 
 }
