@@ -79,17 +79,7 @@
                     [ngClass]="{ 'btn-success': usersForm.valid, 'btn-secondary not-ready': !usersForm.valid }">
                     Continue
                 </button> -->
-                <button class="btn btn-success" (click)="submit()">
 
-                </button>
-                <!-- <confirm-modal 
-                    title="Define core team" 
-                    content="Do you want to define this core team?"
-                    (triggered)="usersForm.markAllAsTouched()" 
-                    (accept)="submit()" 
-                    [isDisabled]="!usersForm.valid"
-                    reason="You need to complete the core team">
-                </confirm-modal> -->
             </div>
         </form>
     </div>
@@ -183,16 +173,29 @@
 
             </div>
 
-            <button class="btn float-right" (click)="continue()"
+            <!-- <button class="btn float-right" (click)="continue()"
                 [ngClass]="{ 'btn-success': isValid(), 'btn-secondary not-ready': !isValid() }">
                 Continue
-            </button>
+            </button> -->
         </div>
     </form>
 
     <div class="row justify-content-center">
 
-        <file-upload></file-upload>
+        <file-upload
+        type="resource"
+        (receive)="getFiles($event)"
+        [isRequired]="false">
+        </file-upload>
+
+        <confirm-modal 
+            title="Containment actions" 
+            content="Do you want to define these containment actions?"
+            (triggered)="triggered()" 
+            (accept)="continue()" 
+            [isDisabled]="! isValid()"
+            reason="You need to complete the form">
+        </confirm-modal>
     </div>
 
 </div>

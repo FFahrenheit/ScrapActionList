@@ -124,8 +124,8 @@
                         Failure mode
                     </label>
                     <div class="col-md-8">
-                        <input [class]="getClass('failureMode')" class="form-control"
-                            formControlName="failureMode" placeholder="Reported by customer">
+                        <input [class]="getClass('failureMode')" class="form-control" formControlName="failureMode"
+                            placeholder="Reported by customer">
                     </div>
                 </div>
 
@@ -181,6 +181,14 @@
                     Continue
                 </button> -->
 
+            </div>
+
+            <div class="row justify-content-center">
+                <file-upload type="resource"
+                    [isRequired]="false"
+                    (receive)="getFiles($event)">
+
+                </file-upload>
                 <confirm-modal title="Define the problem" content="Are you sure you want to submit this D2?"
                     (triggered)="form.markAllAsTouched()" (accept)="submit()" [isDisabled]="!form.valid"
                     reason="You need to fullfil the form">

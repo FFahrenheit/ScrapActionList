@@ -16,6 +16,7 @@ export class ContainmentComponent implements OnInit {
   public form: FormGroup;
   public stock: FormGroup;
   public users: Participant[];
+  private files : File[] = [];
 
   constructor(private fb: FormBuilder,
     private resources: ResourcesService,
@@ -40,7 +41,7 @@ export class ContainmentComponent implements OnInit {
         enabled: [true],
         description: [{
           value: s,
-          ensabled: false
+          disabled: true
         }],
         total: ['', Validators.required],
         ok: ['', Validators.required],
@@ -82,7 +83,7 @@ export class ContainmentComponent implements OnInit {
   }
 
   public getDescription(form: any): string {
-    return (form as FormGroup).controls['description'].value.value;  //Why? Idk ... 
+    return (form as FormGroup).controls['description'].value;
   }
 
   public isEnabled(form: any): boolean {
@@ -94,12 +95,6 @@ export class ContainmentComponent implements OnInit {
 
     forms = forms.filter(f => f.controls['enabled'].value); //Enabled forms
     const countValid = forms.filter(f => f.valid).length;   //Filled forms
-
-    // console.log({
-    //   forms,
-    //   countValid,
-    //   form: this.form.valid
-    // });
 
     if (countValid != forms.length) {
       return false;
@@ -118,8 +113,38 @@ export class ContainmentComponent implements OnInit {
     console.log(this.form);
   }
 
+  public triggered(){
+    this.form.markAllAsTouched();
+    this.stock.markAllAsTouched();
+    this.getData();
+  }
+
   public submit(){
-    this.alert.error('Acabar validacion');
-    this.router.navigate(['create', 'root-causes']);
+    // this.alert.error('Acabar validacion');
+    if(this.isValid()){
+      this.router.navigate(['create', 'root-causes']);
+    }
+  }
+
+  public getData() : any{
+    let stocks = this.containment.controls as any;
+
+    stocks = stocks.filter(f => f.controls['enabled'].value); //Enabled forms
+    stocks = stocks.map(f => (f.value));
+    stocks = stocks.map(({enabled, ...keep}) => keep); //Delete not important properties
+
+    const body = {
+      stocks: stocks,
+      containment: this.form.value 
+    }
+
+    console.log(body);
+
+    return body;
+  }
+
+  public getFiles($event){
+    this.files = $event;
+    console.log(this.files);
   }
 }

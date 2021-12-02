@@ -12,6 +12,7 @@ export class ProblemComponent implements OnInit {
 
   public form : FormGroup;
   public options = ['Yes', 'No'];
+  private files : File[] = [];
 
   constructor(private fb      : FormBuilder,
               private alert   : AlertService,
@@ -64,6 +65,7 @@ export class ProblemComponent implements OnInit {
   private getData() : any{
     let resp = this.form.value;
     console.log(resp);
+    console.log(this.files);
     return resp;
   }
 
@@ -75,5 +77,10 @@ export class ProblemComponent implements OnInit {
       this.get('customerAffected').clearValidators();
     }
     this.get('customerAffected').updateValueAndValidity();
+  }
+
+  public getFiles($event){
+    this.files = $event;
+    console.log(this.files);
   }
 }
