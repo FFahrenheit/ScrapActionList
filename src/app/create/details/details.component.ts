@@ -109,4 +109,8 @@ export class DetailsComponent implements OnInit {
   public isValid() : boolean{
     return this.form.valid && ((this.customerForm.valid && this.isCustomer) || !this.isCustomer);
   }
+
+  public submit(){
+    this.router.navigate(['create', 'team']);
+  }
 }

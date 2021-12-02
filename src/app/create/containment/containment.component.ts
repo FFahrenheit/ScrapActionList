@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Participant } from 'src/app/interfaces/resources.items.interface';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
@@ -18,7 +19,8 @@ export class ContainmentComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private resources: ResourcesService,
-    private alert: AlertService) { }
+    private alert: AlertService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.resources.loadResources().subscribe(resp => {
@@ -114,5 +116,10 @@ export class ContainmentComponent implements OnInit {
     console.log(forms);
 
     console.log(this.form);
+  }
+
+  public submit(){
+    this.alert.error('Acabar validacion');
+    this.router.navigate(['create', 'root-causes']);
   }
 }

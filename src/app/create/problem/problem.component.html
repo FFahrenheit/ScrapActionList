@@ -168,19 +168,19 @@
                     </div>
                 </div>
 
-                <button class="btn float-right" (click)="continue()"
+                <!-- <button class="btn float-right" (click)="continue()"
                     [ngClass]="{ 'btn-success': form.valid, 'btn-secondary not-ready': !form.valid }">
                     Continue
-                </button>
+                </button> -->
 
-                <!-- <confirm-modal
+                <confirm-modal
                     title="Define the problem"
                     content="Are you sure you want to submit this D2?"
                     (triggered)="form.markAllAsTouched()"
                     (accept)="submit()"
                     [isDisabled]="!form.valid"
                     reason="You need to fullfil the form">
-                </confirm-modal> -->
+                </confirm-modal>
             </div>
 
         </div>

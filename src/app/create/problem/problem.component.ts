@@ -56,6 +56,7 @@ export class ProblemComponent implements OnInit {
 
   public submit() : void{
     console.log('Wait...');
+    this.router.navigate(['create', 'containment']);
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root-causes',
@@ -16,7 +17,7 @@ export class RootCausesComponent implements OnInit {
   public happenD = '';
   public happenP = '';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -51,6 +52,7 @@ export class RootCausesComponent implements OnInit {
 
   public submit() : void{
     console.log('Alla vamos');
+    this.router.navigate(['create', 'action-list']);
   }
 
 }

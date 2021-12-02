@@ -133,19 +133,19 @@
                     </div>
                 </div> -->
 
-                <button class="btn float-right" (click)="continue()"
+                <!-- <button class="btn float-right" (click)="continue()"
                     [ngClass]="{ 'btn-success': isValid(), 'btn-secondary not-ready': !isValid() }">
                     Continue
-                </button>
+                </button> -->
 
-                <!-- <confirm-modal
+                <confirm-modal
                     title="Generate new issue"
                     content="Do you want to generate this issue?"
-                    (triggered)="form.markAllAsTouched()"
+                    (triggered)="form.markAllAsTouched(); customerForm.markAllAsTouched()"
                     (accept)="submit()"
-                    [isDisabled]="!form.valid"
+                    [isDisabled]="! isValid()"
                     reason="You need to fullfil the form">
-                </confirm-modal> -->
+                </confirm-modal>
             </div>
 
         </div>
