@@ -28,10 +28,11 @@ export class ProblemComponent implements OnInit {
       often : ['', Validators.required ],
       customerPN : ['', Validators.required ],
       pnDescription : ['', Validators.required ],
+      failureMode: ['', Validators.required],
       description : ['', Validators.required ],
       repeated : [null, Validators.required ],
       finalAffected : [null, Validators.required ],
-      customerAffected : [null, Validators.required ],
+      customerAffected : [''],
     });
   }
 
@@ -56,7 +57,23 @@ export class ProblemComponent implements OnInit {
 
   public submit() : void{
     console.log('Wait...');
+    let data = this.getData();
     this.router.navigate(['create', 'containment']);
   }
 
+  private getData() : any{
+    let resp = this.form.value;
+    console.log(resp);
+    return resp;
+  }
+
+  public changeCustomer($event){
+    let value = $event.target.value;
+    if(value == 'Yes'){
+      this.get('customerAffected').setValidators(Validators.required);
+    }else{
+      this.get('customerAffected').clearValidators();
+    }
+    this.get('customerAffected').updateValueAndValidity();
+  }
 }

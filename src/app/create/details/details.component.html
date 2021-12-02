@@ -107,7 +107,7 @@
                 <div class="form-group row pt-2 has-error has-feedback">
                     <label for="" class="col-md-4 col-form-label">Defective</label>
                     <div class="col-md-8">
-                        <select formControlName="defective" [class]="getClass('defective')"
+                        <select formControlName="problem" [class]="getClass('problem')"
                             class="custom-select mb-2 mr-sm-2 mb-sm-0">
                             <option [value]="null" selected disabled>Choose the most accurate defective</option>
                             <option *ngFor="let d of defectives" [value]="d.id">

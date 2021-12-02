@@ -50,7 +50,7 @@ export class DetailsComponent implements OnInit {
         disabled: true
       }, Validators.required],
       // evaluationPeriod: ['', Validators.required],
-      defective: [null, Validators.required],
+      problem: [null, Validators.required],
       description: ['', Validators.required],
       area: [{
         value: '',
@@ -112,5 +112,15 @@ export class DetailsComponent implements OnInit {
 
   public submit(){
     this.router.navigate(['create', 'team']);
+    let r = this.getData();
+  }
+
+  private getData() : any{
+    let resp = {
+      issue : this.form.value,
+      incident : this.customerForm.value
+    };
+    console.log(resp);
+    return resp;
   }
 }

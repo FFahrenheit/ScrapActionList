@@ -45,7 +45,7 @@
 
                 <div class="form-group row pt-2 has-error has-feedback">
                     <label for="" class="col-md-4 col-form-label">
-                        Who is impacted? 
+                        Who is impacted?
                         <span class="text-muted">
                             (Tier 1, OEM, end customer)
                         </span>
@@ -121,6 +121,16 @@
 
                 <div class="form-group row pt-2 has-error has-feedback">
                     <label for="" class="col-md-4 col-form-label">
+                        Failure mode
+                    </label>
+                    <div class="col-md-8">
+                        <input [class]="getClass('failureMode')" class="form-control"
+                            formControlName="failureMode" placeholder="Reported by customer">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
                         Problem description
                     </label>
                     <div class="col-md-8">
@@ -147,24 +157,22 @@
                         Final customer affected
                     </label>
                     <div class="col-md-8">
-                        <select [class]="getClass('finalAffected')" class="form-control"
-                            formControlName="finalAffected">
+                        <select [class]="getClass('finalAffected')" class="form-control" formControlName="finalAffected"
+                            (change)="changeCustomer($event)">
                             <option [value]="null" disabled selected> Select an option </option>
                             <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group row pt-2 has-error has-feedback">
+                <div class="form-group row pt-2 has-error has-feedback"
+                    *ngIf=" form.controls['finalAffected'].value == 'Yes' ">
                     <label for="" class="col-md-4 col-form-label">
                         Customer affected
                     </label>
                     <div class="col-md-8">
-                        <select [class]="getClass('customerAffected')" class="form-control"
-                            formControlName="customerAffected">
-                            <option [value]="null" disabled selected> Select an option </option>
-                            <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
-                        </select>
+                        <input [class]="getClass('customerAffected')" class="form-control"
+                            formControlName="customerAffected" placeholder="Customer affected">
                     </div>
                 </div>
 
@@ -173,12 +181,8 @@
                     Continue
                 </button> -->
 
-                <confirm-modal
-                    title="Define the problem"
-                    content="Are you sure you want to submit this D2?"
-                    (triggered)="form.markAllAsTouched()"
-                    (accept)="submit()"
-                    [isDisabled]="!form.valid"
+                <confirm-modal title="Define the problem" content="Are you sure you want to submit this D2?"
+                    (triggered)="form.markAllAsTouched()" (accept)="submit()" [isDisabled]="!form.valid"
                     reason="You need to fullfil the form">
                 </confirm-modal>
             </div>

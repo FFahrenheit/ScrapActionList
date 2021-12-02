@@ -108,6 +108,7 @@ export class TeamComponent implements OnInit {
   }
 
   public submit() : void{
+    let data = this.getData();
     this.router.navigate(['create', 'problem']);
   }
 
@@ -117,5 +118,12 @@ export class TeamComponent implements OnInit {
     }else{
       this.usersForm.markAllAsTouched();
     }
+  }
+
+  private getData() : any{
+    let resp = this.usersForm.value;
+
+    console.log(resp);
+    return resp;
   }
 }
