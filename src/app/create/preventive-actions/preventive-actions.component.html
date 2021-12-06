@@ -55,15 +55,114 @@
                     </tbody>
                 </table>
 
-                <!-- <button class="btn float-right" (click)="continue()"
-                    [ngClass]="{ 'btn-success': usersForm.valid, 'btn-secondary not-ready': !usersForm.valid }">
-                    Continue
-                </button> -->
-                <confirm-modal title="Define corrective actions" content="Are you sure you want to perform this action?"
-                    (triggered)="actionForm.markAllAsTouched()" (accept)="submit()" [isDisabled]="!actionForm.valid"
-                    reason="You need to fullfil the actions">
-                </confirm-modal>
             </div>
         </div>
     </form>
+
+    <h5 class="text-left m-2"> Formats updated </h5>
+
+    <form [formGroup]="form">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-6">
+
+                <div class="form-group row pt-2">
+                    <label for="" class="col-md-6 col-form-label">
+                        FMEA was updated?
+                    </label>
+                    <div class="col-md-6">
+                        <select formControlName="fmea" [class]="getClassForm('fmea')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled> Select your choice </option>
+                            <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2" *ngIf="isFileRequired('fmea')">
+                    <label for="" class="col-md-6 col-form-label">
+                        FMEA updated evidence
+                    </label>
+                    <div class="col-md-6">
+                        <input (change)="fileEvent($event, 'fmea')" formControlName="fmeaFile"
+                        [class]="fileClass('fmea')" class="form-control" type="file">
+                    </div>
+                </div>
+
+                
+                <div class="form-group row pt-2">
+                    <label for="" class="col-md-6 col-form-label">
+                        Read Across was deploy?
+                    </label>
+                    <div class="col-md-6">
+                        <select formControlName="readAcross" [class]="getClassForm('readAcross')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled> Select your choice </option>
+                            <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                
+                <div class="form-group row pt-2">
+                    <label for="" class="col-md-6 col-form-label">
+                        Control plan was updated?
+                    </label>
+                    <div class="col-md-6">
+                        <select formControlName="control" [class]="getClassForm('control')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled> Select your choice </option>
+                            <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
+                        </select>
+                    </div>
+                </div>
+
+                
+                <div class="form-group row pt-2" *ngIf="isFileRequired('control')">
+                    <label for="" class="col-md-6 col-form-label">
+                        Control plan updated evidence
+                    </label>
+                    <div class="col-md-6">
+                        <input (change)="fileEvent($event, 'control')" formControlName="controlFile"
+                        [class]="fileClass('control')" class="form-control" type="file">
+                    </div>
+                </div>
+
+
+                
+                <div class="form-group row pt-2">
+                    <label for="" class="col-md-6 col-form-label">
+                        Lessons learned log was updated?
+                    </label>
+                    <div class="col-md-6">
+                        <select formControlName="lessons" [class]="getClassForm('lessons')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]="null" selected disabled> Select your choice </option>
+                            <option *ngFor="let o of options" [value]="o"> {{ o }} </option>
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <!-- <button class="btn float-right" (click)="continue()"
+        [ngClass]="{ 'btn-success': usersForm.valid, 'btn-secondary not-ready': !usersForm.valid }">
+        Continue
+    </button> -->
+    <confirm-modal 
+        title="Define corrective actions" 
+        content="Are you sure you want to perform this action?"
+        (triggered)="trigger()" 
+        (accept)="submit()" 
+        [isDisabled]="! isValid()"
+        reason="You need to fullfil the actions">
+    </confirm-modal>
+
 </div>

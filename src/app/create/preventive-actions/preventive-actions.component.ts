@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Department, Participant } from 'src/app/interfaces/resources.items.interface';
 import { ResourcesService } from 'src/app/services/resources.service';
@@ -13,9 +13,15 @@ import { AlertService } from 'src/app/shared/alert';
 export class PreventiveActionsComponent implements OnInit {
 
   public userList : Participant[];
-  public departments : Department[]
+  public departments : Department[];
+
+  public options = ['Yes', 'No', 'N/A'];
 
   public actionForm : FormGroup;
+  public form : FormGroup;
+
+  public fmea : File = null;
+  public control : File = null;
 
   constructor(private resources : ResourcesService,
               private alert     : AlertService,
@@ -38,6 +44,37 @@ export class PreventiveActionsComponent implements OnInit {
       actions: this.fb.array([]) 
     });
     this.addAction();
+
+    this.form = this.fb.group({
+      fmea: [null, Validators.required],
+      readAcross: [null, Validators.required],
+      lessons: [null, Validators.required],
+      control: [null, Validators.required],
+      fmeaFile: [''],
+      controlFile: ['']
+    });
+  }
+
+  public fileClass(file){
+    const files = {
+      fmea: {
+        file: this.fmea,
+        form: this.get('fmeaFile'),
+        parent: this.get('fmea')
+      },
+      control:{
+        file: this.control,
+        form: this.get('controlFile'),
+        parent: this.get('control')
+      }
+    };
+    const obj = files[file];
+
+    if(obj.form.untouched || !this.isFileRequired(file)){
+      return '';
+    }
+    return this.isFileValid(file) ? 'is-valid' : 'is-invalid'; 
+    
   }
 
   public addAction() : void{
@@ -58,9 +95,18 @@ export class PreventiveActionsComponent implements OnInit {
     if(input.untouched){
       return '';
     }
-
     return input.valid || (input.disabled && input.value) ? 'is-valid' : 'is-invalid';
+  }
 
+  public getClassForm(ctrl : string){
+    if(this.get(ctrl).untouched){
+      return '';
+    }
+    return this.get(ctrl).valid? 'is-valid' : 'is-invalid';
+  }
+
+  public get(ctrl) : AbstractControl{
+    return this.form.controls[ctrl];
   }
 
   public get actions(): FormArray{
@@ -82,7 +128,13 @@ export class PreventiveActionsComponent implements OnInit {
         status: 'open',
       })
     );
-    console.log(actions)
+
+
+    const { fmeaFile, controlFile, ...closure } = this.form.value;
+
+    console.log({
+      actions, closure
+    });
 
     return {
       actions: actions
@@ -96,5 +148,49 @@ export class PreventiveActionsComponent implements OnInit {
     }else{
       this.actionForm.markAllAsTouched();
     }
+  }
+
+  public isValid(){
+    return this.form.valid && this.actionForm.valid && 
+      this.isFileValid('fmea') && this.isFileValid('control');
+  }
+
+  isFileRequired(file : string){
+    if(file == 'fmea'){
+      return this.get('fmea').value == 'Yes';
+    }else if(file == 'control'){
+      return this.get('control').value == 'Yes';
+    }
+    return false;
+  }
+
+  isFileValid(file : string){
+    if(file == 'fmea'){
+      return !this.isFileRequired(file) || this.fmea != null;
+    }else if(file == 'control'){
+      return !this.isFileRequired(file) || this.control != null;
+    }
+    return true;
+  }
+
+  public fileEvent($event, file){
+    if($event.target.files.length > 0){
+      if(file == 'fmea'){
+        this.fmea = $event.target.files[0] as File;
+      }else if(file == 'control'){
+        this.control = $event.target.files[0] as File;
+      }
+    }else{
+      if(file == 'fmea'){
+        this.fmea = null;
+      }else if(file == 'control'){
+        this.control = null;
+      }
+    }
+  }
+
+  public trigger(){
+    this.actionForm.markAllAsTouched();
+    this.form.markAllAsTouched();
   }
 }
