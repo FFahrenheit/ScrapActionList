@@ -50,9 +50,35 @@ export class RootCausesComponent implements OnInit {
       && this.ishikawa != null;
   }
 
+  private prepare() : any { 
+    const resp = Object.create(null);
+    resp.why = [];
+    resp.why.push({
+      question: 'Why did it happen?',
+      keyFindings: this.happenD,
+      answers: this.happen.filter(h => h != '').join('%%')
+    });
+
+    resp.why.push({
+      question: "Why didn't we detect it?",
+      keyFindings: this.happenK,
+      answers: this.detect.filter(h => h != '').join('%%')
+    });
+
+    resp.why.push({
+      question: "Why couldn't we prevent it?",
+      keyFindings: this.happenP,
+      answers: this.prevent.filter(h => h != '').join('%%')
+    });
+
+
+    console.log(resp);
+    return resp;
+  }
+
   public submit() : void{
-    console.log('Alla vamos');
-    this.router.navigate(['create', 'action-list']);
+    let resp = this.prepare();    
+    // this.router.navigate(['create', 'action-list']);
   }
 
 }
