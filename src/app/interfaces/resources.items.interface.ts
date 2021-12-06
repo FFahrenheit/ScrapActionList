@@ -18,3 +18,9 @@ export interface Participant{
     email: string,
     position?: string
 }
+
+export interface Department{
+    id: number,
+    name: string,
+    manager: string
+}

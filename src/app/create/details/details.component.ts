@@ -116,8 +116,10 @@ export class DetailsComponent implements OnInit {
   }
 
   private getData() : any{
+    let issue = this.form.value;
+    issue.phase = this.selectedPart.department;
     let resp = {
-      issue : this.form.value,
+      issue : issue,
       incident : this.customerForm.value
     };
     console.log(resp);

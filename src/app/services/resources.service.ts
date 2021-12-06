@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Defective, Part, Participant } from '../interfaces/resources.items.interface';
+import { Defective, Department, Part, Participant } from '../interfaces/resources.items.interface';
 import { AppService } from '../models/service.model';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class ResourcesService extends AppService{
   private parts : Part[];
   private problems : Defective[];
   private participants : Participant[];
+  private departments : Department[];
 
   constructor(private http : HttpClient) { 
     super();
@@ -21,10 +22,12 @@ export class ResourcesService extends AppService{
     return forkJoin([
       this.http.get('/api/problem'), 
       this.http.get('/api/part'),
-      this.http.get('/api/users')
+      this.http.get('/api/users'),
+      this.http.get('/api/department')
     ]).pipe(
       map(resps=> {
         let count = 0;
+        console.log(resps);
         resps.forEach(resp => {
           count += resp['ok'];
           if(resp['parts']){
@@ -62,7 +65,19 @@ export class ResourcesService extends AppService{
                 position: u['position']  
               });
 
-            })
+            });
+          }else if(resp['departments']){
+
+            this.departments = [];            
+            resp['departments'].forEach( d => {
+              
+              this.departments.push({
+                id: d['id'],
+                manager: d['manager'],
+                name: d['name']  
+              });
+
+            });
           }
         });
         this.errorMessage = "Couldn't retieve data from server";
@@ -85,5 +100,9 @@ export class ResourcesService extends AppService{
 
   public getUsers() : Participant[]{
     return this.participants;
+  }
+
+  public getDepartments() : Department[]{
+    return this.departments;
   }
 }

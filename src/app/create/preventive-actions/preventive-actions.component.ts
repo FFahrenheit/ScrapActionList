@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Participant } from 'src/app/interfaces/resources.items.interface';
+import { Department, Participant } from 'src/app/interfaces/resources.items.interface';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
 
@@ -13,6 +13,7 @@ import { AlertService } from 'src/app/shared/alert';
 export class PreventiveActionsComponent implements OnInit {
 
   public userList : Participant[];
+  public departments : Department[]
 
   public actionForm : FormGroup;
 
@@ -25,10 +26,12 @@ export class PreventiveActionsComponent implements OnInit {
     this.resources.loadResources().subscribe(resp => {
       if(resp){
         this.userList = this.resources.getUsers();
+        this.departments = this.resources.getDepartments();
       }else{
         this.alert.error(this.resources.getMessage());
       }
     },error=>{
+      console.log('Error' + error);
       this.alert.error(this.resources.getMessage());
     });
     this.actionForm = this.fb.group({
@@ -42,6 +45,7 @@ export class PreventiveActionsComponent implements OnInit {
       responsible: [null, Validators.required],
       due: ['', Validators.required],
       description: ['', Validators.required],
+      department: [null, Validators.required]
     }));
   }
 
@@ -59,12 +63,31 @@ export class PreventiveActionsComponent implements OnInit {
 
   }
 
-  public get actions(): FormArray {
+  public get actions(): FormArray{
     return this.actionForm.get('actions') as FormArray;
   }
 
   public submit() : void{
+    let body = this.prepare();
     // this.router.navigate(['create', 'problem']);
+  }
+
+  private prepare(){
+    let actions = this.actions.value;
+
+    actions = actions.map(a => 
+      ({
+        ...a,
+        type: 'corrective',
+        status: 'open',
+      })
+    );
+    console.log(actions)
+
+    return {
+      actions: actions
+    }
+
   }
 
   public continue() : void{
@@ -74,5 +97,4 @@ export class PreventiveActionsComponent implements OnInit {
       this.actionForm.markAllAsTouched();
     }
   }
-
 }

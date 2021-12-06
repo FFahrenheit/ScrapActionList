@@ -9,6 +9,7 @@
                         <tr>
                             <th scope="col"> Action </th>
                             <th scope="col"> Responsible </th>
+                            <th scope="col"> Department </th>
                             <th scope="col"> Due date </th>
                             <th scope="col"> &nbsp; </th>
                         </tr>
@@ -26,6 +27,15 @@
                                     <option [value]="null" selected disabled> Select an user</option>
                                     <option *ngFor="let user of userList" [value]="user.username">
                                         {{ user.name }}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" formControlName="department"
+                                    [class]="getClass(action, 'department')">
+                                    <option [value]="null" selected disabled> Department in charge </option>
+                                    <option *ngFor="let depto of departments" [value]="depto.id">
+                                        {{ depto.name }}
                                     </option>
                                 </select>
                             </td>
