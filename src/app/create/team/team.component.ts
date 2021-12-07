@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { D1User } from 'src/app/interfaces/create.issue.interface';
 import { Participant } from 'src/app/interfaces/resources.items.interface';
@@ -40,28 +40,30 @@ export class TeamComponent implements OnInit {
       team: this.fb.array([]) 
     });
 
-    if(this.create.getTeam() && this.create.getTeam().length > 0){
-      this.create.getTeam().forEach(t => {
-        
-        const participant = this.fb.group({
-          member: [t.member, Validators.required],
-          position: [t.position, Validators.required],
-          email: [{
-            value: t.email,
-            disabled: true
-          }, Validators.required],
-          name: [{
-            value: t.name,
-            disabled: true
-          }, Validators.required]
-        });
+    // if(this.create.getTeam() && this.create.getTeam().length > 0){
+      
+    //   this.create.getTeam().forEach(t => {        
+    //     const participant = this.fb.group({
+    //       member: [t.member, Validators.required],
+    //       position: [t.position, Validators.required],
+    //       email: [{
+    //         value: t.email,
+    //         disabled: true
+    //       }, Validators.required],
+    //       name: [{
+    //         value: t.name,
+    //         disabled: true
+    //       }, Validators.required]
+    //     });
 
-        this.team.push(participant);
-      });
+    //     this.team.push(participant);
+    //   });
 
-    }else{
-      Array(3).fill('').forEach(_=>this.addMember());
-    }
+    // }else{
+    //    Array(3).fill('').forEach(_=>this.addMember());
+    // }
+
+    Array(3).fill('').forEach(_=>this.addMember());
 
   }
 
@@ -108,8 +110,14 @@ export class TeamComponent implements OnInit {
   }
 
   public submit() : void{
-    let data = this.getData();
-    this.router.navigate(['create', 'problem']);
+    // let data = this.getData();
+    // this.create.d0(data).subscribe(resp=>{
+    //   console.log(resp);
+    //   },error=>{
+    //     console.error('EERORRO RPOERUR DFNSAFONSDA  FKAFBJKFAKBJFAS');
+    //   }
+    // );
+    // this.router.navigate(['create', 'problem']);
   }
 
   public continue() : void{

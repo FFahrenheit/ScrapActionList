@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     if(resp){
       this.alert.success('Successful authentication');
       setTimeout(() => {
-        this.router.navigate(['']); //VERIFY!!!
+        this.router.navigate(['create', 'details']); //VERIFY!!!
       }, 2000);
     }else{
       this.alert.error('Failed to authenticate');

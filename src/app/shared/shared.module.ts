@@ -9,6 +9,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { FiveWhysComponent } from './five-whys/five-whys.component';
 import { FormsModule } from '@angular/forms';
+import { IssueComponent } from './issue/issue.component';
 
 
 
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     ConfirmModalComponent,
     FileUploadComponent,
     FiveWhysComponent,
+    IssueComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     ConfirmModalComponent,
     FileUploadComponent,
-    FiveWhysComponent
+    FiveWhysComponent,
+    IssueComponent
   ]
 })
 export class SharedModule { }

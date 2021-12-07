@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { D1User } from '../interfaces/create.issue.interface';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AppService } from '../models/service.model';
 
 @Injectable({
@@ -7,14 +9,30 @@ import { AppService } from '../models/service.model';
 })
 export class CreateService extends AppService{
 
-  private team : D1User[] = [];
-
-  constructor() { 
+  private id : string;
+  
+  constructor(private http : HttpClient) { 
     super();
   }
 
-  public getTeam() : D1User[] {
-    return this.team;
+  public d0(body){
+    return this.http.post('/api/d0', body)
+               .pipe(
+                 map(resp=>{
+                   if(resp['ok']){
+                     this.id = resp['id'];
+                     return true;
+                   }
+                   this.errorMessage = "Couldn't upload the issue to the database";
+                   return false;
+                 }),catchError(error=>{
+                   this.errorMessage = 'Server error';
+                   return of(false);
+                 })
+               );
   }
 
+  public getId() : string{
+    return this.id;
+  }
 }

@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { Defective, Part } from 'src/app/interfaces/resources.items.interface';
 import { issueTypes } from 'src/app/resources/defective.options';
+import { CreateService } from 'src/app/services/create.service';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
 
@@ -25,7 +26,8 @@ export class DetailsComponent implements OnInit {
   constructor(private resources : ResourcesService,
              private alert      : AlertService,
              private fb         : FormBuilder,
-             private router     : Router) { }
+             private router     : Router,
+             private create     : CreateService) { }
 
   ngOnInit(): void {
     this.resources.loadResources().subscribe(resp => {
@@ -111,8 +113,18 @@ export class DetailsComponent implements OnInit {
   }
 
   public submit(){
-    this.router.navigate(['create', 'team']);
-    let r = this.getData();
+    // this.router.navigate(['create', 'team']);
+    let data = this.getData();
+    this.create.d0(data).subscribe(resp=>{
+      if(resp){
+        this.alert.success("Issue added");
+        setTimeout(() => {
+          this.router.navigate(['issues', this.create.getId()]);          
+        }, 2300);
+      }else{
+        this.alert.error(this.create.getMessage());
+      }
+    });
   }
 
   private getData() : any{
@@ -120,8 +132,12 @@ export class DetailsComponent implements OnInit {
     issue.phase = this.selectedPart.department;
     let resp = {
       issue : issue,
-      incident : this.customerForm.value
     };
+    if (issue.type == 'Customer incident'){
+      resp['incident'] = this.customerForm.value;
+    }else{
+      resp['incident'] = null;
+    }
     console.log(resp);
     return resp;
   }
