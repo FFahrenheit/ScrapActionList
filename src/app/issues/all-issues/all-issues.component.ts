@@ -42,9 +42,9 @@ export class AllIssuesComponent implements OnInit {
   //   this.loadDevices($event);
   // }
 
-  // public resetFilters(){
-  //   this.devicesService.resetFilters();
-  //   this.loadDevices();
-  // }
+  public resetFilters(){
+    this.issuesService.resetFilters();
+    this.loadIssues();
+  }
 
 }

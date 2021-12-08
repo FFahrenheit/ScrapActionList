@@ -85,10 +85,9 @@
     </table>
 
     <ng-template #empty_body>
-        a
-        <!-- <error-message [loading]="issues == null ? null : true" title="No hay resultados"
-            description="No se encontraron resultados para los filtros aplicados" action="Aplicar otros filtros"
-            [customAction]="true" action="Cargar lista de equipos" (back)="resetFilters()">
-        </error-message> -->
+        <error-message [loading]="issues == null ? null : true" title="No results"
+            description="We couldn't find issues with the selected filters" action="Apply other filters"
+            [customAction]="true" action="Load issues log" (back)="resetFilters()">
+        </error-message>
     </ng-template>
 </div>

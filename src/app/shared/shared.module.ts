@@ -11,6 +11,7 @@ import { FiveWhysComponent } from './five-whys/five-whys.component';
 import { FormsModule } from '@angular/forms';
 import { IssueComponent } from './issue/issue.component';
 import { SortDirective } from '../directives/sort.directive';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 
 
 
@@ -23,7 +24,8 @@ import { SortDirective } from '../directives/sort.directive';
     FileUploadComponent,
     FiveWhysComponent,
     IssueComponent,
-    SortDirective
+    SortDirective,
+    ErrorMessageComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { SortDirective } from '../directives/sort.directive';
     FileUploadComponent,
     FiveWhysComponent,
     IssueComponent,
-    SortDirective
+    SortDirective,
+    ErrorMessageComponent
   ]
 })
 export class SharedModule { }
