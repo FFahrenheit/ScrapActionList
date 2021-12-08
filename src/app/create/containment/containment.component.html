@@ -135,10 +135,19 @@
                 <h5 class="text-left">Issue details</h5>
 
                 <div class="form-group row pt-2">
-                    <label for="" class="col-md-6 col-form-label">QA number (Sharepoint)</label>
+                    <label for="" class="col-md-6 col-form-label">
+                        QA number (Sharepoint)<br>
+                        <span class="hint">
+                            Format: QA-CUSTOMER-###
+                        </span>
+                    </label>
                     <div class="col-md-6">
                         <input formControlName="QA" type="text" class="form-control" placeholder="Sharepoint QA number"
                             [class]="getClassForm('QA')" [required]=" form.controls['others'].value == 'Yes' ">
+                        <a *ngIf="get('QA').valid" [href]="getQAURL()" target="_blank" title="Go to QA" class="qa">
+                            <i class="fas fa-link"></i>
+                            Go to QA
+                        </a>
                     </div>
                 </div>
 

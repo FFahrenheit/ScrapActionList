@@ -13,3 +13,13 @@ input[type=checkbox]
 .not-ready:hover{
   cursor: default !important;
 }
+
+.qa{
+  // text-decoration: none;
+  color: rgb(44, 44, 44);
+}
+
+.hint{
+  font-style: italic;
+  font-size: 85%;
+}

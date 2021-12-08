@@ -45,7 +45,8 @@ export class ActionListComponent implements OnInit {
       responsible: [null, Validators.required],
       due: ['', Validators.required],
       description: ['', Validators.required],
-      department: [null, Validators.required]
+      department: [null, Validators.required],
+      justification: [null]
     }));
   }
 
@@ -58,7 +59,6 @@ export class ActionListComponent implements OnInit {
     if(input.untouched){
       return '';
     }
-
     return input.valid || (input.disabled && input.value) ? 'is-valid' : 'is-invalid';
 
   }
@@ -78,6 +78,8 @@ export class ActionListComponent implements OnInit {
     actions = actions.map(a => 
       ({
         ...a,
+        justification: 
+          (this.isDaysAway(new Date(a.due.replace(/-/g, '\/')), 30))? a.justification : null,
         type: 'corrective',
         status: 'open',
       })
@@ -98,4 +100,29 @@ export class ActionListComponent implements OnInit {
     }
   }
 
+  public isJustifyRequired(participant : any) : boolean{
+    const form = participant as FormGroup;
+    const input = form.controls['due'];
+    if(input.value){
+      let date = new Date(input.value.replace(/-/g, '\/'));
+      if(this.isDaysAway(date, 30)){
+        form.controls['justification'].setValidators(Validators.required);
+        form.controls['justification'].updateValueAndValidity();
+        return true;
+      }
+      form.controls['justification'].clearValidators();
+      form.controls['justification'].updateValueAndValidity();
+      return false;
+    }
+    return false;
+  }
+
+  public isDaysAway(date : Date, days : number){
+    let today = new Date();
+    today.setHours(0,0,0,0);
+    date.setHours(0,0,0,0);
+    let difference = date.getTime() - today.getTime();
+    difference = Math.ceil(difference / (1000 * 3600 * 24));
+    return difference >= days;
+  }
 }

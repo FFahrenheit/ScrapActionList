@@ -57,10 +57,14 @@ export class ContainmentComponent implements OnInit {
       others: [null, Validators.required],
       sites: [''],
       containment: [null],
-      QA: ['', Validators.required],
+      QA: ['', Validators.compose([Validators.required, Validators.pattern('QA-[a-zA-Z]{3,}-[0-9]{3}')])],
       poka: [null, Validators.required],
       robust: [null, Validators.required]
     });
+  }
+
+  public get(ctrl : string){
+    return this.form.controls[ctrl];
   }
 
   public get containment(): FormArray {
@@ -146,5 +150,12 @@ export class ContainmentComponent implements OnInit {
   public getFiles($event){
     this.files = $event;
     console.log(this.files);
+  }
+
+  public getQAURL():string{
+    const qa = this.get('QA').value;
+    return `https://interplexgroup.sharepoint.com/:x:/r/americas/imx/imx_qms/_layouts/15/\
+Doc.aspx?sourcedoc=%7B9A23DA08-5D31-430A-8C03-68F222791F3F%7D&file=` + qa + '.xlsm';
+
   }
 }
