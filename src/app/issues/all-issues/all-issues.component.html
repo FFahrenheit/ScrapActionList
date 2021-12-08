@@ -23,68 +23,70 @@
         Showing {{ issues?.length }} {{ issues?.length == 1 ? 'result':'results'}}
     </span>
 
-    <!-- <table class="table table-hover table-bordered table-sm" *ngIf="devices?.length > 0;else empty_body">
+    <table class="table table-hover table-bordered table-sm" *ngIf="issues?.length > 0;else empty_body">
         <thead>
             <tr class="header">
-                <th scope="col" [appSort]="devices" data-order="desc" data-name="id" class="align-middle">
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="id" class="align-middle">
                     <i class="fas fa-sort float-left"></i>
                     ID
                 </th>
-                <th scope="col" [appSort]="devices" data-order="desc" data-name="descripcion" class="align-middle">
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="client" class="align-middle">
                     <i class="fas fa-sort float-left"></i>
-                    Descripción
+                    Customer
                 </th>
-                <th scope="col" [appSort]="devices" data-order="desc" data-name="serie" class="align-middle">
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="part" class="align-middle">
                     <i class="fas fa-sort float-left"></i>
-                    No. serie
+                    Part
                 </th>
-                <th scope="col" [appSort]="devices" data-order="desc" data-name="estado" class="align-middle">
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="description" class="align-middle">
                     <i class="fas fa-sort float-left"></i>
-                    Estado calibración
+                    Description
                 </th>
-                <th scope="col" [appSort]="devices" data-order="desc" data-name="activo" class="align-middle">
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="problem" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Problem
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="status" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Status
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="created" class="align-middle">
                     <i class="fas fa-sort float-left mr-1"></i>
-                    Estado equipo
+                    Created
                 </th>
-                <th scope="col" [appSort]="devices" data-order="desc" data-name="ubicacion" class="align-middle">
-                    <i class="fas fa-sort float-left"></i>
-                    Ubicación
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="originator" class="align-middle">
+                    <i class="fas fa-sort float-left mr-1"></i>
+                    Originator
                 </th>
-                <th scope="col" [appSort]="devices" data-order="desc" data-name="ultima" class="align-middle">
-                    <i class="fas fa-sort float-left"></i>
-                    Ultima calibración
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="area" class="align-middle">
+                    <i class="fas fa-sort float-left mr-1"></i>
+                    Area
                 </th>
-                <th scope="col" [appSort]="devices" data-order="desc" data-name="siguiente" class="align-middle">
-                    <i class="fas fa-sort float-left"></i>
-                    Siguiente calibración
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="phase" class="align-middle">
+                    <i class="fas fa-sort float-left mr-1"></i>
+                    Phase
                 </th>
             </tr>
         </thead>
         <tbody class="click">
-            <tr *ngFor="let d of devices" (click)="deviceDetails(d.id)">
-                <td> {{ d.id }}</td>
-                <td> {{ d.descripcion }} </td>
-                <td> {{ d.serie }}</td>
-                <td>
-                    <i [class]="icons.estado(d.estado)"></i>
-                    {{ d.estado }}
-                </td>
-                <td>
-                    <i [class]="icons.activo(d.activo)"></i>
-                    {{ d.activo }}
-                </td>
-                <td> {{ d.ubicacion}} </td>
-                <td> {{ d.ultima | date:'shortDate':'UTC' }} </td>
-                <td>
-                    <i [class]="icons.calibrado(d.siguiente)"></i>
-                    {{ d.siguiente | date:'shortDate':'UTC' }}
-                </td>
+            <tr *ngFor="let i of issues" (click)="issueDetails(i.id)">
+                <td> {{ i.id }} </td>
+                <td> {{ i.client }} </td>
+                <td> {{ i.part }} </td>
+                <td> {{ i.description }} </td>
+                <td> {{ i.problem }} </td>
+                <td> {{ i.status }} </td>
+                <td> {{ i.created | date:'short':'UTC' }} </td>
+                <td> {{ i.originator }} </td>
+                <td> {{ i.area }} </td>
+                <td> {{ i.phase }} </td>
             </tr>
         </tbody>
-    </table> -->
+    </table>
 
     <ng-template #empty_body>
-        <!-- <error-message [loading]="devices == null ? null : true" title="No hay resultados"
+        a
+        <!-- <error-message [loading]="issues == null ? null : true" title="No hay resultados"
             description="No se encontraron resultados para los filtros aplicados" action="Aplicar otros filtros"
             [customAction]="true" action="Cargar lista de equipos" (back)="resetFilters()">
         </error-message> -->

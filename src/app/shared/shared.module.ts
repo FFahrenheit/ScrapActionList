@@ -10,6 +10,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { FiveWhysComponent } from './five-whys/five-whys.component';
 import { FormsModule } from '@angular/forms';
 import { IssueComponent } from './issue/issue.component';
+import { SortDirective } from '../directives/sort.directive';
 
 
 
@@ -22,6 +23,7 @@ import { IssueComponent } from './issue/issue.component';
     FileUploadComponent,
     FiveWhysComponent,
     IssueComponent,
+    SortDirective
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { IssueComponent } from './issue/issue.component';
     ConfirmModalComponent,
     FileUploadComponent,
     FiveWhysComponent,
-    IssueComponent
+    IssueComponent,
+    SortDirective
   ]
 })
 export class SharedModule { }
