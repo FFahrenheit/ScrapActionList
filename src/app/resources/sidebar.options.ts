@@ -8,7 +8,7 @@ export const publicRoutes : DashboardRoute[] = [
     },
     {
         name: 'Consult issues',
-        route: ['issues', 'log'],
+        route: ['issues', 'all'],
         detail: 'Recent issues'
     },
     {
