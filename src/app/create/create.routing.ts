@@ -19,42 +19,42 @@ export const CreateRoutes : Routes = [
                 }
             },
             {
-                path: 'team',
+                path: ':id/team',
                 component: TeamComponent,
                 data: {
                     title: 'D1: Form the team'
                 }
             },
             {
-                path: 'problem',
+                path: ':id/problem',
                 component: ProblemComponent,
                 data: {
                     title: 'D2: Describe the problem'
                 }
             },
             {
-                path: 'containment',
+                path: ':id/containment',
                 component: ContainmentComponent,
                 data: {
                     title: 'D3: Containment'
                 }
             },
             {
-                path: 'root-causes',
+                path: ':id/root-causes',
                 component: RootCausesComponent,
                 data: {
                     title: 'D4: Identify root causes'
                 }
             },
             {
-                path: 'action-list',
+                path: ':id/action-list',
                 component: ActionListComponent,
                 data: {
                     title: 'D5: Corrective actions'
                 }
             },
             {
-                path: 'preventive',
+                path: ':id/preventive',
                 component: PreventiveActionsComponent,
                 data: {
                     title: 'D7: Preventive actions'

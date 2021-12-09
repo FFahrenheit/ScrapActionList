@@ -42,6 +42,9 @@ export class IssueComponent implements OnInit {
   }
 
   public getClass(id : number) : string{
+    if(id != 0 && ! this.issue['d' + id]){
+      return 'd-disabled'; //Doesn't exists
+    }
     return this.active === id ? 'd-active' : 'd-link';
   }
 

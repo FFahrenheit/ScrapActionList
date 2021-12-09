@@ -1,4 +1,5 @@
 <div class="card p-2 m-3" *ngIf="exists; else not_found">
+    <alert></alert>
     <div class="m-2">
         <span class="issue-text">
             Issue #{{ id }}
@@ -58,6 +59,42 @@
 
         <li [ngbNavItem]="2" [class]="getClass(2)">
             <a ngbNavLink>D2</a>
+            <ng-template ngbNavContent>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="2" [class]="getClass(3)">
+            <a ngbNavLink>D3</a>
+            <ng-template ngbNavContent>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="2" [class]="getClass(4)">
+            <a ngbNavLink>D4</a>
+            <ng-template ngbNavContent>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="2" [class]="getClass(5)">
+            <a ngbNavLink>D5</a>
+            <ng-template ngbNavContent>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="2" [class]="getClass(6)">
+            <a ngbNavLink>D6</a>
+            <ng-template ngbNavContent>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="2" [class]="getClass(7)">
+            <a ngbNavLink>D7</a>
+            <ng-template ngbNavContent>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="2" [class]="getClass(8)">
+            <a ngbNavLink>D8</a>
             <ng-template ngbNavContent>
             </ng-template>
         </li>
