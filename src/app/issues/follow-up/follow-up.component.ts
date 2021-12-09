@@ -26,6 +26,7 @@ export class FollowUpComponent implements OnInit {
     if(/^D[0-7]{1}/.test(status)){
       const next = 'd' + (Number(status.substring(1,2))+1);
       console.log({ id , next});
+      this.router.navigate(['issues', 'follow-up', id]);
     }else{
       this.alert.warn("There's no follow-up to this issue");
     }

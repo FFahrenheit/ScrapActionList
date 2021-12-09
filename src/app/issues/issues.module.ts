@@ -6,6 +6,7 @@ import { IssuesRoutes } from './issues.routing';
 import { SharedModule } from '../shared/shared.module';
 import { FollowUpComponent } from './follow-up/follow-up.component';
 import { IssueDetailsComponent } from './issue-details/issue-details.component';
+import { IssueFollowUpComponent } from './issue-follow-up/issue-follow-up.component';
 
 
 
@@ -13,7 +14,8 @@ import { IssueDetailsComponent } from './issue-details/issue-details.component';
   declarations: [
     AllIssuesComponent,
     FollowUpComponent,
-    IssueDetailsComponent
+    IssueDetailsComponent,
+    IssueFollowUpComponent
   ],
   imports: [
     CommonModule,
