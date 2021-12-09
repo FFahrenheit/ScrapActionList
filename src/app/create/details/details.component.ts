@@ -113,13 +113,12 @@ export class DetailsComponent implements OnInit {
   }
 
   public submit(){
-    // this.router.navigate(['create', 'team']);
     let data = this.getData();
     this.create.d0(data).subscribe(resp=>{
       if(resp){
         this.alert.success("Issue added");
         setTimeout(() => {
-          this.router.navigate(['issues', this.create.getId()]);          
+          this.router.navigate(['issues', 'details', this.create.getId()]);          
         }, 2300);
       }else{
         this.alert.error(this.create.getMessage());

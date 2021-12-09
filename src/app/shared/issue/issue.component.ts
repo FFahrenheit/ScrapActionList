@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { GetIssueService } from 'src/app/services/get-issue.service';
+import { AlertService } from '../alert';
 
 @Component({
   selector: 'issue',
@@ -20,10 +21,22 @@ export class IssueComponent implements OnInit {
 
   @Output() public receive = new EventEmitter<any>();
 
-  constructor(private route : ActivatedRoute) { }
+  constructor(private issueService  : GetIssueService,
+              private alert         : AlertService,
+              ) { }
 
   ngOnInit(): void {
+    this.issueService.loadIssue(this.id)
+        .subscribe(resp=>{
+          this.exists = resp;
+          if(this.exists){
+            this.issue = this.issueService.getIssue();
+          }else{
+            this.alert.error(this.issueService.getMessage());
+          }
 
+          this.receive.emit(this.issue);
+        });
   }
 
   public getClass(id : number) : string{

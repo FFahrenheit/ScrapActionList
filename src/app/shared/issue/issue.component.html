@@ -1,29 +1,49 @@
-<div class="row">
-    <div class="col-md-12 p-3">
-        <div class="card p-3">
-            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-
-                <li [ngbNavItem]="0" [class]="getClass(0)">
-                    <a ngbNavLink>Details</a>
-                    <ng-template ngbNavContent>
-                    </ng-template>
-                </li>
-
-                <li [ngbNavItem]="1" [class]="getClass(1)">
-                    <a ngbNavLink>D1</a>
-                    <ng-template ngbNavContent>
-                    </ng-template>
-                </li>
-
-                <li [ngbNavItem]="2" [class]="getClass(2)">
-                    <a ngbNavLink>D2</a>
-                    <ng-template ngbNavContent>
-                    </ng-template>
-                </li>
-
-            </ul>
-
-            <div [ngbNavOutlet]="nav" class="mt-2"></div>
-        </div>
+<div class="card p-2 m-3" *ngIf="exists; else not_found">
+    <div class="m-2">
+        <span class="issue-text">
+            Issue #{{ id }}
+        </span>
+        <span class="issue-hint mx-1">
+            {{ issue.client }} / {{ issue.type }}
+        </span>
     </div>
+
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+
+        <li [ngbNavItem]="0" [class]="getClass(0)">
+            <a ngbNavLink>Details</a>
+            <ng-template ngbNavContent>
+                <div class="row m-3">
+                    <div class="col-md-6">
+                        <h5> Issue details </h5>
+
+                    </div>
+
+                    <div class="col-md-6" *ngIf="issue.type == 'Customer incident'">
+                        <h5> Customer contact </h5>
+                    </div>
+
+                </div>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="1" [class]="getClass(1)">
+            <a ngbNavLink>D1</a>
+            <ng-template ngbNavContent>
+            </ng-template>
+        </li>
+
+        <li [ngbNavItem]="2" [class]="getClass(2)">
+            <a ngbNavLink>D2</a>
+            <ng-template ngbNavContent>
+            </ng-template>
+        </li>
+
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
 </div>
+<ng-template #not_found>
+    <error-message type="error" title="ERROR" [loading]="exists" [description]="'We could not find issue #' + id">
+    </error-message>
+</ng-template>
