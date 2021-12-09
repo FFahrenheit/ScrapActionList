@@ -1,0 +1,93 @@
+<div class="table-responsive container text-center mb-5">
+    <alert></alert>
+    <div class="table-responsive">
+        <table class="table table-borderless">
+            <tr>
+                <td>
+                    <h4 class="text-left my-1">8D Issues follow-up</h4>
+                </td>
+                <td>
+                    <div class="text-right">
+                        <!-- <filter (apply)="appyFilters($event)" (reset)="resetFilters()"> </filter> -->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <span class="text-left float-left mt-0 mb-1" *ngIf="issues?.length!=0">
+        Click on the row to continue the 8D process
+    </span>
+
+    <span class="text-right float-right mt-0 mb-1">
+        Showing {{ issues?.length }} {{ issues?.length == 1 ? 'result':'results'}}
+    </span>
+
+    <table class="table table-hover table-bordered table-sm" *ngIf="issues?.length > 0;else empty_body">
+        <thead>
+            <tr class="header">
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="id" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    ID
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="client" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Customer
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="part" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Part
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="description" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Description
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="problem" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Problem
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="status" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Status
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="created" class="align-middle">
+                    <i class="fas fa-sort float-left mr-1"></i>
+                    Created
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="originator" class="align-middle">
+                    <i class="fas fa-sort float-left mr-1"></i>
+                    Last updated
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="area" class="align-middle">
+                    <i class="fas fa-sort float-left mr-1"></i>
+                    Area
+                </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="phase" class="align-middle">
+                    <i class="fas fa-sort float-left mr-1"></i>
+                    Phase
+                </th>
+            </tr>
+        </thead>
+        <tbody class="click">
+            <tr *ngFor="let i of issues" (click)="issueDetails(i.id, i.status)">
+                <td> {{ i.id }} </td>
+                <td> {{ i.client }} </td>
+                <td> {{ i.part }} </td>
+                <td> {{ i.description }} </td>
+                <td> {{ i.problem }} </td>
+                <td> {{ i.status }} </td>
+                <td> {{ i.created | date:'short':'UTC' }} </td>
+                <td> {{ i.lastUpdated | date:'short':'UTC' }} </td>
+                <td> {{ i.area }} </td>
+                <td> {{ i.phase }} </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #empty_body>
+        <error-message [loading]="issues == null ? null : true" title="No results"
+            description="We couldn't find issues with the selected filters" action="Apply other filters"
+            [customAction]="true" action="Load issues log" (back)="resetFilters()">
+        </error-message>
+    </ng-template>
+</div>

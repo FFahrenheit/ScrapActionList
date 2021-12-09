@@ -4,12 +4,14 @@ import { AllIssuesComponent } from './all-issues/all-issues.component';
 import { RouterModule } from '@angular/router';
 import { IssuesRoutes } from './issues.routing';
 import { SharedModule } from '../shared/shared.module';
+import { FollowUpComponent } from './follow-up/follow-up.component';
 
 
 
 @NgModule({
   declarations: [
-    AllIssuesComponent
+    AllIssuesComponent,
+    FollowUpComponent
   ],
   imports: [
     CommonModule,
