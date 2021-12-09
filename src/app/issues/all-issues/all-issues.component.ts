@@ -22,7 +22,7 @@ export class AllIssuesComponent implements OnInit {
 
   public issueDetails(id : string){
     console.log(id);
-    // this.router.navigate(['equipos','detalles',id]);
+    this.router.navigate(['issues','details',id]);
   }
 
   private loadIssues(req = this.issuesService.getSavedFilters()) : void{

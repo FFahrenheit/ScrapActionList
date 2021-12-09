@@ -5,13 +5,15 @@ import { RouterModule } from '@angular/router';
 import { IssuesRoutes } from './issues.routing';
 import { SharedModule } from '../shared/shared.module';
 import { FollowUpComponent } from './follow-up/follow-up.component';
+import { IssueDetailsComponent } from './issue-details/issue-details.component';
 
 
 
 @NgModule({
   declarations: [
     AllIssuesComponent,
-    FollowUpComponent
+    FollowUpComponent,
+    IssueDetailsComponent
   ],
   imports: [
     CommonModule,
