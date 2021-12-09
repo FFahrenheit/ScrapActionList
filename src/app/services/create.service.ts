@@ -32,6 +32,22 @@ export class CreateService extends AppService{
                );
   }
 
+  public d1(body, id){
+    return this.http.post(`/api/d1/${ id }`, body)
+    .pipe(
+      map(resp=>{
+        if(resp['ok']){
+          return true;
+        }
+        this.errorMessage = "Couldn't update to D1";
+        return false;
+      }),catchError(error=>{
+        this.errorMessage = 'Server error';
+        return of(false);
+      })
+    );
+  }
+
   public getId() : string{
     return this.id;
   }

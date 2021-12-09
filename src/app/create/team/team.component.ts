@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { D1User } from 'src/app/interfaces/create.issue.interface';
 import { Participant } from 'src/app/interfaces/resources.items.interface';
 import { CreateService } from 'src/app/services/create.service';
@@ -15,6 +15,7 @@ import { AlertService } from 'src/app/shared/alert';
 export class TeamComponent implements OnInit {
 
   public userList : Participant[];
+  public id : string | null = '';
 
   public usersForm : FormGroup;
   public users : D1User;
@@ -23,9 +24,14 @@ export class TeamComponent implements OnInit {
               private alert     : AlertService,
               private fb        : FormBuilder,
               private create    : CreateService,
-              private router    : Router) { }
+              private router    : Router,
+              private route     : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id');
+    });
+
     this.resources.loadResources().subscribe(resp => {
       if(resp){
         this.userList = this.resources.getUsers();
@@ -40,31 +46,7 @@ export class TeamComponent implements OnInit {
       team: this.fb.array([]) 
     });
 
-    // if(this.create.getTeam() && this.create.getTeam().length > 0){
-      
-    //   this.create.getTeam().forEach(t => {        
-    //     const participant = this.fb.group({
-    //       member: [t.member, Validators.required],
-    //       position: [t.position, Validators.required],
-    //       email: [{
-    //         value: t.email,
-    //         disabled: true
-    //       }, Validators.required],
-    //       name: [{
-    //         value: t.name,
-    //         disabled: true
-    //       }, Validators.required]
-    //     });
-
-    //     this.team.push(participant);
-    //   });
-
-    // }else{
-    //    Array(3).fill('').forEach(_=>this.addMember());
-    // }
-
     Array(3).fill('').forEach(_=>this.addMember());
-
   }
 
   public addMember() : void{
@@ -78,7 +60,8 @@ export class TeamComponent implements OnInit {
       name: [{
         value: '',
         disabled: true
-      }, Validators.required]
+      }, Validators.required],
+      issue: [this.id]
     }));
   }
 
@@ -91,9 +74,7 @@ export class TeamComponent implements OnInit {
     if(input.untouched){
       return '';
     }
-
     return input.valid || (input.disabled && input.value) ? 'is-valid' : 'is-invalid';
-
   }
 
   public get team(): FormArray{
@@ -110,14 +91,18 @@ export class TeamComponent implements OnInit {
   }
 
   public submit() : void{
-    // let data = this.getData();
-    // this.create.d0(data).subscribe(resp=>{
-    //   console.log(resp);
-    //   },error=>{
-    //     console.error('EERORRO RPOERUR DFNSAFONSDA  FKAFBJKFAKBJFAS');
-    //   }
-    // );
-    // this.router.navigate(['create', 'problem']);
+    let data = this.getData();
+    this.create.d1(data, this.id).subscribe(resp=>{
+        if(resp){
+          this.alert.success('Team defined');
+          setTimeout(() => {
+            this.router.navigate(['issues', 'details', this.id]);
+          }, 2500);
+        }else{
+          this.alert.error(this.create.getMessage());
+        }
+      }
+    );
   }
 
   public continue() : void{
@@ -130,7 +115,6 @@ export class TeamComponent implements OnInit {
 
   private getData() : any{
     let resp = this.usersForm.value;
-
     console.log(resp);
     return resp;
   }

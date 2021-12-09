@@ -1,6 +1,14 @@
 <div class="container text-center pt-2 mb-5 mx-3">
     <alert></alert>
-    <h4 class="text-left my-3">D1.- Create a team</h4>
+    <h4 class="text-left my-3">
+        <a title="View issue" target="_blank" [href]="'/issues/details/' + id">
+            <span class="issue-link">
+                Issue #{{ id }}
+                <i class="fas fa-chevron-circle-right mx-2"></i>
+            </span>
+        </a>
+        D1.- Create a team
+    </h4>
     <form [formGroup]="usersForm">
         <div class="row justify-content-center">
             <div class="table-responsive">
@@ -48,15 +56,11 @@
                     [ngClass]="{ 'btn-success': usersForm.valid, 'btn-secondary not-ready': !usersForm.valid }">
                     Continue
                 </button> -->
-                <confirm-modal 
-                    title="Define core team" 
-                    content="Do you want to define this core team?"
-                    (triggered)="usersForm.markAllAsTouched()" 
-                    (accept)="submit()" 
-                    [isDisabled]="!usersForm.valid"
+                <confirm-modal title="Define core team" content="Do you want to define this core team?"
+                    (triggered)="usersForm.markAllAsTouched()" (accept)="submit()" [isDisabled]="!usersForm.valid"
                     reason="You need to complete the core team">
                 </confirm-modal>
             </div>
-            </div>
+        </div>
     </form>
 </div>
