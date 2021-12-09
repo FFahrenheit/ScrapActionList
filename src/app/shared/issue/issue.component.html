@@ -1,1 +1,29 @@
-<p>issue #{{id}} works!</p>
+<div class="row">
+    <div class="col-md-12 p-3">
+        <div class="card p-3">
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+
+                <li [ngbNavItem]="0" [class]="getClass(0)">
+                    <a ngbNavLink>Details</a>
+                    <ng-template ngbNavContent>
+                    </ng-template>
+                </li>
+
+                <li [ngbNavItem]="1" [class]="getClass(1)">
+                    <a ngbNavLink>D1</a>
+                    <ng-template ngbNavContent>
+                    </ng-template>
+                </li>
+
+                <li [ngbNavItem]="2" [class]="getClass(2)">
+                    <a ngbNavLink>D2</a>
+                    <ng-template ngbNavContent>
+                    </ng-template>
+                </li>
+
+            </ul>
+
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
+    </div>
+</div>

@@ -33,7 +33,7 @@ export class FollowUpComponent implements OnInit {
   }
 
   private loadIssues(req = this.issuesService.getSavedFilters()) : void{
-    this.issuesService.loadDevices(req)
+    this.issuesService.loadDevices(req, 'mine')
         .subscribe(resp=>{
           if(resp){
             this.issues = this.issuesService.getIssues();

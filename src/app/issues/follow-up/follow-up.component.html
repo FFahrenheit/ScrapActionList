@@ -86,8 +86,8 @@
 
     <ng-template #empty_body>
         <error-message [loading]="issues == null ? null : true" title="No results"
-            description="We couldn't find issues with the selected filters" action="Apply other filters"
-            [customAction]="true" action="Load issues log" (back)="resetFilters()">
+            description="You haven't created any issue with the requested filters" action="Apply other filters"
+            [customAction]="true" action="Load again" (back)="resetFilters()">
         </error-message>
     </ng-template>
 </div>

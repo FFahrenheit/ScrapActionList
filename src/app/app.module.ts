@@ -12,6 +12,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Error404Component } from './errors/error404/error404.component';
 import { PipesModule } from './pipes/pipes.module';
+import { Error500Component } from './errors/error500/error500.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PipesModule } from './pipes/pipes.module';
     BlankComponent,
     DashboardComponent,
     Error404Component,
+    Error500Component,
   ],
   imports: [
     BrowserModule,

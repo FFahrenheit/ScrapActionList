@@ -16,6 +16,7 @@ export class IssueComponent implements OnInit {
   public error : string | null = '';
   
   public status = '';
+  public active : number = 0;
 
   @Output() public receive = new EventEmitter<any>();
 
@@ -23,6 +24,10 @@ export class IssueComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  public getClass(id : number) : string{
+    return this.active === id ? 'd-active' : 'd-link';
   }
 
 }
