@@ -16,11 +16,34 @@
                 <div class="row m-3">
                     <div class="col-md-6">
                         <h5> Issue details </h5>
-
+                        <div class="text-center">
+                            <detail name="ID" [value]="issue.id"></detail>
+                            <detail name="Status" [value]="issue.status"></detail>
+                            <detail name="Type" [value]="issue.type"></detail>
+                            <detail name="Customer" [value]="issue.client"></detail>
+                            <detail name="Part" [value]="issue.part"></detail>
+                            <detail name="Area" [value]="issue.area"></detail>
+                            <detail name="Phase" [value]="issue.phase"></detail>
+                            <detail name="Problem" [value]="issue.problem"></detail>
+                            <detail name="Description" [value]="issue.description"></detail>
+                            <detail name="Originator" [value]="issue.originator"></detail>
+                            <detail name="Generated" [value]="datePipe.transform(issue.created, 'short', 'UTC')">
+                            </detail>
+                            <detail name="Last updated" [value]="datePipe.transform(issue.created, 'short', 'UTC')">
+                            </detail>
+                        </div>
                     </div>
 
-                    <div class="col-md-6" *ngIf="issue.type == 'Customer incident'">
-                        <h5> Customer contact </h5>
+                    <div class="col-md-6" *ngIf="issue.incident">
+                        <h5> Customer incident details </h5>
+                        <div class="text-center">
+                            <detail name="Customer name" [value]="issue.client"></detail>
+                            <detail name="Customer CAR" [value]="issue.incident.car"></detail>
+                            <detail name="Issued" [value]="datePipe.transform(issue.incident.issued, 'short', 'UTC')">
+                            </detail>
+                            <detail name="Contact name" [value]="issue.incident.contact"></detail>
+                            <detail name="Contact email" [value]="issue.incident.email"></detail>
+                        </div>
                     </div>
 
                 </div>

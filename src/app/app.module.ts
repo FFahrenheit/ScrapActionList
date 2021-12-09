@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Error404Component } from './errors/error404/error404.component';
 import { PipesModule } from './pipes/pipes.module';
 import { Error500Component } from './errors/error500/error500.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { Error500Component } from './errors/error500/error500.component';
     PipesModule.forRoot()
   ],
   providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

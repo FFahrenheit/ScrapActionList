@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { IssueComponent } from './issue/issue.component';
 import { SortDirective } from '../directives/sort.directive';
 import { ErrorMessageComponent } from './error-message/error-message.component';
+import { DetailComponent } from './detail/detail.component';
 
 
 
@@ -25,7 +26,8 @@ import { ErrorMessageComponent } from './error-message/error-message.component';
     FiveWhysComponent,
     IssueComponent,
     SortDirective,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    DetailComponent
   ],
   imports: [
     CommonModule,
