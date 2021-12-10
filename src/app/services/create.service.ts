@@ -48,6 +48,22 @@ export class CreateService extends AppService{
     );
   }
 
+  public d2(body, id){
+    return this.http.post(`/api/d2/${ id }`, body)
+    .pipe(
+      map(resp=>{
+        if(resp['ok']){
+          return true;
+        }
+        this.errorMessage = "Couldn't update to D2";
+        return false;
+      }),catchError(error=>{
+        this.errorMessage = 'Server error';
+        return of(false);
+      })
+    );
+  }
+
   public getId() : string{
     return this.id;
   }

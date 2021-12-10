@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CreateService } from 'src/app/services/create.service';
 import { AlertService } from 'src/app/shared/alert';
 
 @Component({
@@ -10,15 +11,22 @@ import { AlertService } from 'src/app/shared/alert';
 })
 export class ProblemComponent implements OnInit {
 
+  public id : string | null = '';
   public form : FormGroup;
   public options = ['Yes', 'No'];
   private files : File[] = [];
 
   constructor(private fb      : FormBuilder,
               private alert   : AlertService,
-              private router  : Router) { }
+              private router  : Router,
+              private route   : ActivatedRoute,
+              private create  : CreateService) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id');
+    });
+
     this.form = this.fb.group({
       whatIs : ['', Validators.required ],
       whereIs : ['', Validators.required ],
@@ -59,14 +67,24 @@ export class ProblemComponent implements OnInit {
   public submit() : void{
     console.log('Wait...');
     let data = this.getData();
-    this.router.navigate(['create', 'containment']);
+    this.create.d2(data, this.id).subscribe(resp=>{
+      if(resp){
+        this.alert.success('Problem defined');
+        setTimeout(() => {
+          this.router.navigate(['issues', 'details', this.id]);
+        }, 2500);
+      }else{
+        this.alert.error(this.create.getMessage());
+      }
+    }
+  );
   }
 
   private getData() : any{
     let resp = this.form.value;
     console.log(resp);
-    console.log(this.files);
-    return resp;
+    // console.log(this.files);
+    return { complication: resp };
   }
 
   public changeCustomer($event){

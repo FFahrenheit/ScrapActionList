@@ -39,5 +39,24 @@ html[data-theme="dark-mode"] {
 //     filter: invert(1) hue-rotate(180deg);
 // }
 
+.footer-inverse{
+    height: 50px !important;
+}
+
+.not-ready:hover{
+    cursor: default !important;
+}
+
+.issue-link{
+    font-size: 90%;
+    color: rgb(43, 43, 43);
+    font-weight: bold;
+}
+
+.issue-link:hover{
+    color: rgb(43, 43, 43);
+    text-decoration: underline;
+    cursor: pointer;
+}
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
