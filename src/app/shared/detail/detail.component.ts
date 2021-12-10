@@ -12,6 +12,7 @@ export class DetailComponent implements OnInit {
   @Input() public name = 'Title';
   @Input() public value = 'Value';
   @Input() public status = '';
+  @Input() public decorator = ':';
 
   public icons = IconsAlert.icons;
   

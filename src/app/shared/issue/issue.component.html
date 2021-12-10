@@ -40,9 +40,10 @@
                     <div class="col-md-6">
                         <h5> 8D's status </h5>
                         <div class="text-center">
-                            <div *ngFor="let d of Ds">
+                            <div *ngFor="let d of Ds; let i = index">
                                 <detail *ngIf="issue[d] != null" [name]="d.toUpperCase()" status="done"
-                                    [value]="'Done ' + datePipe.transform(issue[d].done, 'medium', 'UTC')">
+                                    [value]="'Done ' + datePipe.transform(issue[d].done, 'medium', 'UTC')"
+                                    class="link-d" [title]="'Go to ' + d.toUpperCase()" (click)="active = i+1">
                                 </detail>
                                 <detail *ngIf="issue[d] == null" [name]="d.toUpperCase()" status="waiting"
                                     value="Not yet defined">
@@ -74,7 +75,7 @@
             <a ngbNavLink>D1</a>
             <ng-template ngbNavContent>
                 <div class="containter text-center pt-2 mb-5 mx-3">
-                    <h5 class="text-left"> D1.- Form the team </h5>
+                    <h5 class="text-left"> D1.- Define the team </h5>
                     <h6 class="text-left">
                         <i class="far fa-clock"></i>
                         Done on
@@ -107,6 +108,48 @@
         <li [ngbNavItem]="2" [class]="getClass(2)">
             <a ngbNavLink>D2</a>
             <ng-template ngbNavContent>
+                <div class="containter pt-2 mb-5 mx-3">
+                    <h5 class="text-left"> D2.- Describe the problem </h5>
+                    <h6 class="text-left">
+                        <i class="far fa-clock"></i>
+                        Done on
+                        <span class="date">
+                            {{ issue.d2.done | date:'medium':'UTC' }}
+                        </span>
+                    </h6>
+                    <div class="row m-3">
+                        <div class="col-md-6">
+                            <h5> Problem analysis </h5>
+                            <div class="text-left ml-3">
+                                <detail name="What is the problem?" [value]="issue.d2.whatIs" decorator=""></detail>
+                                <detail name="Where is it happening?" [value]="issue.d2.whereIs" decorator=""></detail>
+                                <detail name="When did it happen?" [value]="issue.d2.whenIs" decorator=""></detail>
+                                <detail name="Who is impacted?" [value]="issue.d2.whoIs" decorator=""></detail>
+                                <detail name="Why is it a problem?" [value]="issue.d2.whyIs" decorator=""></detail>
+                                <detail name="How many/much is it affecting?" [value]="issue.d2.much" decorator="">
+                                </detail>
+                                <detail name="How often is it happening?" [value]="issue.d2.often" decorator="">
+                                </detail>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5> Problem definition </h5>
+                            <div class="text-left ml-3">
+                                <detail name="Custmer PN" [value]="issue.d2.customerPN"></detail>
+                                <detail name="Customer part description" [value]="issue.d2.pnDescription"></detail>
+                                <detail name="Failure mode" [value]="issue.d2.failureMode"></detail>
+                                <detail name="Problem description" [value]="issue.d2.description"></detail>
+                                <detail name="Repeated incident?" [value]="issue.d2.repeated" decorator=""></detail>
+                                <detail name="Final customer affected?" [value]="issue.d2.finalAffected" decorator="">
+                                </detail>
+                                <detail *ngIf="issue.d2.finalAffected == 'Yes'" name="Customer affected"
+                                    [value]="issue.d2.customerAffected"></detail>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </ng-template>
         </li>
 
