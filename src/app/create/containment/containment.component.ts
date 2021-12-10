@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Participant } from 'src/app/interfaces/resources.items.interface';
+import { CreateService } from 'src/app/services/create.service';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
 import { stocks } from './containment.stock.resources';
@@ -13,17 +14,24 @@ import { stocks } from './containment.stock.resources';
 })
 export class ContainmentComponent implements OnInit {
 
+  public id : string = '';
   public form: FormGroup;
   public stock: FormGroup;
   public users: Participant[];
   private files : File[] = [];
 
-  constructor(private fb: FormBuilder,
-    private resources: ResourcesService,
-    private alert: AlertService,
-    private router: Router) { }
+  constructor(private fb        : FormBuilder,
+              private resources : ResourcesService,
+              private alert     : AlertService,
+              private router    : Router,
+              private route     : ActivatedRoute,
+              private create    : CreateService) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id');
+    });
+
     this.resources.loadResources().subscribe(resp => {
       if (resp) {
         this.users = this.resources.getUsers();
@@ -39,27 +47,24 @@ export class ContainmentComponent implements OnInit {
     stocks.forEach(s => {
       const stock = this.fb.group({
         enabled: [true],
-        description: [{
-          value: s,
-          disabled: true
-        }],
+        description: [s],
         total: ['', Validators.required],
         ok: ['', Validators.required],
         notOk: ['', Validators.required],
         clean: ['', Validators.required],
-        responsible: [null, Validators.required]
+        responsible: ['', Validators.required]
       });
 
       this.containment.push(stock);
     });
 
     this.form = this.fb.group({
-      others: [null, Validators.required],
+      others: ['', Validators.required],
       sites: [''],
-      containment: [null],
+      containment: [''],
       QA: ['', Validators.compose([Validators.required, Validators.pattern('QA-[a-zA-Z]{3,}-[0-9]{3}')])],
-      poka: [null, Validators.required],
-      robust: [null, Validators.required]
+      poka: ['', Validators.required],
+      robust: ['', Validators.required]
     });
   }
 
@@ -108,13 +113,18 @@ export class ContainmentComponent implements OnInit {
   }
 
   public continue() {
-    let forms = (this.containment.controls as any) //Datatype problems with FormGroup / Array
-                .filter( f => f.controls['enabled'].value )
-                .map(f => f.value);
-    
-    console.log(forms);
-
-    console.log(this.form);
+    let data = this.getData();
+    this.create.d3(data, this.id).subscribe(resp=>{
+      if(resp){
+        this.alert.success('Containment defined');
+        setTimeout(() => {
+          this.router.navigate(['issues', 'details', this.id]);
+        }, 2500);
+      }else{
+        this.alert.error(this.create.getMessage());
+      }
+    }
+  );
   }
 
   public triggered(){
@@ -123,24 +133,21 @@ export class ContainmentComponent implements OnInit {
     this.getData();
   }
 
-  public submit(){
-    // this.alert.error('Acabar validacion');
-    if(this.isValid()){
-      this.router.navigate(['create', 'root-causes']);
-    }
-  }
-
   public getData() : any{
     let stocks = this.containment.controls as any;
 
-    stocks = stocks.filter(f => f.controls['enabled'].value); //Enabled forms
-    stocks = stocks.map(f => (f.value));
-    stocks = stocks.map(({enabled, ...keep}) => keep); //Delete not important properties
+    stocks = stocks.filter(f => f.controls['enabled'].value) //Get enabled forms
+                   .map(f => (f.value))  //Get its value
+                   .map(({enabled, ...keep}) => 
+                          ({...keep, issue: this.id})); //Delete not important properties and add issue id
 
+    let containment = this.form.value;
+    containment.issue = this.id;
+    
     const body = {
       stocks: stocks,
-      containment: this.form.value 
-    }
+      containment 
+    };
 
     console.log(body);
 

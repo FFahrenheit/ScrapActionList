@@ -1,6 +1,14 @@
 <div class="container text-center pt-2 mb-5 mx-3">
     <alert></alert>
-    <h4 class="text-left my-3">D3.- Containment</h4>
+    <h4 class="text-left my-3">
+        <a title="View issue" target="_blank" [href]="'/issues/details/' + id">
+            <span class="issue-link">
+                Issue #{{ id }}
+                <i class="fas fa-chevron-circle-right mx-2"></i>
+            </span>
+        </a>
+        D3.- Containment
+    </h4>
 
     <h5 class="text-left my-2"> Containment actions </h5>
 
@@ -57,7 +65,7 @@
                                 <fieldset [disabled]=" ! isEnabled(st)">
                                     <select class="form-control" [class]="getClass(st, 'responsible')"
                                         formControlName="responsible">
-                                        <option [value]="null" disabled selected> Select responsible </option>
+                                        <option [value]="''" disabled selected> Select responsible </option>
                                         <option *ngFor="let u of users" [value]="u.username">
                                             {{ u.name }}
                                         </option>
@@ -98,7 +106,7 @@
                     <div class="col-md-6">
                         <select formControlName="others" [class]="getClassForm('others')"
                             class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                            <option [value]="null" selected disabled>Select your choice</option>
+                            <option [value]="''" selected disabled>Select your choice</option>
                             <option value="Yes"> Yes </option>
                             <option value="No"> No </option>
                         </select>
@@ -119,8 +127,8 @@
                         <label for="" class="col-md-6 col-form-label">Is there containment?</label>
                         <div class="col-md-6">
                             <select formControlName="containment" [class]="getClassForm('containment')"
-                                class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                                <option [value]="null" selected disabled>Select your choice</option>
+                                class="custom-select mb-2 mr-sm-2 mb-sm-0"  [required]=" form.controls['others'].value == 'Yes' ">
+                                <option [value]="''" selected disabled>Select your choice</option>
                                 <option value="Yes"> Yes </option>
                                 <option value="No"> No </option>
                             </select>
@@ -158,7 +166,7 @@
                     <div class="col-md-6">
                         <select formControlName="poka" [class]="getClassForm('poka')"
                             class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                            <option [value]="null" selected disabled>Select your choice</option>
+                            <option [value]="''" selected disabled>Select your choice</option>
                             <option> Does not exist </option>
                             <option> Exists and detects failure mode </option>
                             <option> Exists and does not detect failure mode </option>
@@ -173,7 +181,7 @@
                     <div class="col-md-4">
                         <select formControlName="robust" [class]="getClassForm('robust')"
                             class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                            <option [value]="null" selected disabled> Select your choice </option>
+                            <option [value]="''" selected disabled> Select your choice </option>
                             <option value="Yes"> Yes </option>
                             <option value="No"> No </option>
                         </select>
