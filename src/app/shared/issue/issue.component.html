@@ -4,6 +4,7 @@
         <span class="issue-text">
             Issue #{{ id }}
         </span>
+        <span class="badge badge-secondary"> {{ issue.status }} </span>
         <span class="issue-hint mx-1">
             {{ issue.client }} / {{ issue.type }}
         </span>
@@ -30,20 +31,38 @@
                             <detail name="Originator" [value]="issue.originator"></detail>
                             <detail name="Generated" [value]="datePipe.transform(issue.created, 'medium', 'UTC')">
                             </detail>
-                            <detail name="Last updated" [value]="datePipe.transform(issue.lastUpdated, 'medium', 'UTC')">
+                            <detail name="Last updated"
+                                [value]="datePipe.transform(issue.lastUpdated, 'medium', 'UTC')">
                             </detail>
                         </div>
                     </div>
 
-                    <div class="col-md-6" *ngIf="issue.incident">
-                        <h5> Customer incident details </h5>
+                    <div class="col-md-6">
+                        <h5> 8D's status </h5>
                         <div class="text-center">
-                            <detail name="Customer name" [value]="issue.client"></detail>
-                            <detail name="Customer CAR" [value]="issue.incident.car"></detail>
-                            <detail name="Issued" [value]="datePipe.transform(issue.incident.issued, 'short', 'UTC')">
-                            </detail>
-                            <detail name="Contact name" [value]="issue.incident.contact"></detail>
-                            <detail name="Contact email" [value]="issue.incident.email"></detail>
+                            <div *ngFor="let d of Ds">
+                                <detail *ngIf="issue[d] != null" [name]="d.toUpperCase()" status="done"
+                                    [value]="'Done ' + datePipe.transform(issue[d].done, 'medium', 'UTC')">
+                                </detail>
+                                <detail *ngIf="issue[d] == null" [name]="d.toUpperCase()" status="waiting"
+                                    value="Not yet defined">
+                                </detail>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div *ngIf="issue.incident">
+                            <h5> Customer incident details </h5>
+                            <div class="text-center">
+                                <detail name="Customer name" [value]="issue.client"></detail>
+                                <detail name="Customer CAR" [value]="issue.incident.car"></detail>
+                                <detail name="Issued"
+                                    [value]="datePipe.transform(issue.incident.issued, 'medium', 'UTC')">
+                                </detail>
+                                <detail name="Contact name" [value]="issue.incident.contact"></detail>
+                                <detail name="Contact email" [value]="issue.incident.email"></detail>
+                            </div>
                         </div>
                     </div>
 
@@ -54,6 +73,34 @@
         <li [ngbNavItem]="1" [class]="getClass(1)">
             <a ngbNavLink>D1</a>
             <ng-template ngbNavContent>
+                <div class="containter text-center pt-2 mb-5 mx-3">
+                    <h5 class="text-left"> D1.- Form the team </h5>
+                    <h6 class="text-left">
+                        <i class="far fa-clock"></i>
+                        Done on
+                        <span class="date">
+                            {{ issue.d1.done | date:'medium':'UTC' }}
+                        </span>
+                    </h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr class="header">
+                                    <th scope="col" class="align-middle">Member</th>
+                                    <th scope="col" class="align-middle">Email</th>
+                                    <th scope="col" class="align-middle">Position</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let member of issue.d1.team">
+                                    <td> {{ member.name }} </td>
+                                    <td> {{ member.email }} </td>
+                                    <td> {{ member.position }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </ng-template>
         </li>
 

@@ -19,6 +19,7 @@ export class IssueComponent implements OnInit {
   
   public status = '';
   public active : number = 0;
+  public Ds = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
 
   @Output() public receive = new EventEmitter<any>();
 

@@ -1,4 +1,5 @@
 <div class="attribute my-1">
     <span class="att-title"> {{ name }}: </span> 
     <span class="att-content"> {{ value }} </span>
+    <i *ngIf="status != ''" [class]="icons[status]"></i> 
 </div>

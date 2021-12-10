@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IconsAlert } from 'src/app/util/iconst.alert';
 
 @Component({
   selector: 'detail',
@@ -10,8 +11,10 @@ export class DetailComponent implements OnInit {
 
   @Input() public name = 'Title';
   @Input() public value = 'Value';
-  // @Input() public status = '';
+  @Input() public status = '';
 
+  public icons = IconsAlert.icons;
+  
   constructor() { }
 
   ngOnInit(): void {
