@@ -49,4 +49,10 @@ export class IssueComponent implements OnInit {
     return this.active === id ? 'd-active' : 'd-link';
   }
 
+  public getQAURL():string{
+    const qa = this.issue.d3.containment.QA;
+    return `https://interplexgroup.sharepoint.com/:x:/r/americas/imx/imx_qms/_layouts/15/\
+Doc.aspx?sourcedoc=%7B9A23DA08-5D31-430A-8C03-68F222791F3F%7D&file=` + qa + '.xlsm';
+  }
+
 }

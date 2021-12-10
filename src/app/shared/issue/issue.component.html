@@ -83,6 +83,7 @@
                             {{ issue.d1.done | date:'medium':'UTC' }}
                         </span>
                     </h6>
+                    <h5> Team </h5>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
@@ -118,9 +119,9 @@
                         </span>
                     </h6>
                     <div class="row m-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-center">
                             <h5> Problem analysis </h5>
-                            <div class="text-left ml-3">
+                            <div class="text-left">
                                 <detail name="What is the problem?" [value]="issue.d2.whatIs" decorator=""></detail>
                                 <detail name="Where is it happening?" [value]="issue.d2.whereIs" decorator=""></detail>
                                 <detail name="When did it happen?" [value]="issue.d2.whenIs" decorator=""></detail>
@@ -133,9 +134,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-center">
                             <h5> Problem definition </h5>
-                            <div class="text-left ml-3">
+                            <div class="text-left">
                                 <detail name="Custmer PN" [value]="issue.d2.customerPN"></detail>
                                 <detail name="Customer part description" [value]="issue.d2.pnDescription"></detail>
                                 <detail name="Failure mode" [value]="issue.d2.failureMode"></detail>
@@ -153,37 +154,99 @@
             </ng-template>
         </li>
 
-        <li [ngbNavItem]="2" [class]="getClass(3)">
+        <li [ngbNavItem]="3" [class]="getClass(3)">
             <a ngbNavLink>D3</a>
             <ng-template ngbNavContent>
+                <div class="containter text-center pt-2 mb-5 mx-3">
+                    <h5 class="text-left"> D3.- Containment </h5>
+                    <h6 class="text-left">
+                        <i class="far fa-clock"></i>
+                        Done on
+                        <span class="date">
+                            {{ issue.d3.done | date:'medium':'UTC' }}
+                        </span>
+                    </h6>
+
+                    <h5> Stock contained </h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr class="header">
+                                    <th scope="col"> Stock </th>
+                                    <th scope="col"> Total Qty </th>
+                                    <th scope="col"> Qty OK </th>
+                                    <th scope="col"> Qty Not Ok </th>
+                                    <th scope="col"> Responsible </th>
+                                    <th scope="col"> Finish Clean Date </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let stock of issue.d3.stocks">
+                                    <td> {{ stock.description }} </td>
+                                    <td> {{ stock.total }} </td>
+                                    <td> {{ stock.ok }} </td>
+                                    <td> {{ stock.notOk }} </td>
+                                    <td> {{ stock.responsibleName }} </td>
+                                    <td> {{ stock.clean | date:'shortDate':'UTC' }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5> Affectation </h5>
+                            <div class="text-left">
+                                <detail name="Does it affect other sites?" [value]="issue.d3.containment.others"
+                                    decorator=""></detail>
+                                <div *ngIf="issue.d3.containment.others == 'Yes' ">
+                                    <detail name="Sites affected" [value]="issue.d3.containment.sites"></detail>
+                                    <detail name="Is there containment?" [value]="issue.d3.containment.containment" decorator=""></detail>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5> Issue details </h5>
+                            <div class="text-left">
+                                <detail name="QA Number" [value]="issue.d3.containment.QA"></detail>
+                                <a [href]="getQAURL()" target="_blank" title="Go to QA" class="qa ml-3">
+                                    <i class="fas fa-link"></i>
+                                    Go to QA
+                                </a>
+                                <detail name="If applicable, are the poka yokes detecting the failure mode?" [value]="issue.d3.containment.poka" decorator=""></detail>
+                                <detail name="Are the Containment actions robust enough to prevent recurrence with customer?" [value]="issue.d3.containment.robust" decorator=""></detail>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ng-template>
         </li>
 
-        <li [ngbNavItem]="2" [class]="getClass(4)">
+        <li [ngbNavItem]="4" [class]="getClass(4)">
             <a ngbNavLink>D4</a>
             <ng-template ngbNavContent>
             </ng-template>
         </li>
 
-        <li [ngbNavItem]="2" [class]="getClass(5)">
+        <li [ngbNavItem]="5" [class]="getClass(5)">
             <a ngbNavLink>D5</a>
             <ng-template ngbNavContent>
             </ng-template>
         </li>
 
-        <li [ngbNavItem]="2" [class]="getClass(6)">
+        <li [ngbNavItem]="6" [class]="getClass(6)">
             <a ngbNavLink>D6</a>
             <ng-template ngbNavContent>
             </ng-template>
         </li>
 
-        <li [ngbNavItem]="2" [class]="getClass(7)">
+        <li [ngbNavItem]="7" [class]="getClass(7)">
             <a ngbNavLink>D7</a>
             <ng-template ngbNavContent>
             </ng-template>
         </li>
 
-        <li [ngbNavItem]="2" [class]="getClass(8)">
+        <li [ngbNavItem]="8" [class]="getClass(8)">
             <a ngbNavLink>D8</a>
             <ng-template ngbNavContent>
             </ng-template>

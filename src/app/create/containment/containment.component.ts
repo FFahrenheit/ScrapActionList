@@ -163,6 +163,5 @@ export class ContainmentComponent implements OnInit {
     const qa = this.get('QA').value;
     return `https://interplexgroup.sharepoint.com/:x:/r/americas/imx/imx_qms/_layouts/15/\
 Doc.aspx?sourcedoc=%7B9A23DA08-5D31-430A-8C03-68F222791F3F%7D&file=` + qa + '.xlsm';
-
   }
 }
