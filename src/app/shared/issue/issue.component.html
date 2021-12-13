@@ -41,13 +41,23 @@
                         <h5> 8D's status </h5>
                         <div class="text-center">
                             <div *ngFor="let d of Ds; let i = index">
-                                <detail *ngIf="issue[d] != null" [name]="d.toUpperCase()" status="done"
-                                    [value]="'Done ' + datePipe.transform(issue[d].done, 'medium', 'UTC')"
-                                    class="link-d" [title]="'Go to ' + d.toUpperCase()" (click)="active = i+1">
-                                </detail>
-                                <detail *ngIf="issue[d] == null" [name]="d.toUpperCase()" status="waiting"
-                                    value="Not yet defined">
-                                </detail>
+
+                                <div class="attribute my-1" *ngIf="issue[d] != null" class="link-d"
+                                    [title]="'Go to ' + d.toUpperCase()" (click)="active = i">
+                                    <span class="att-title">
+                                        {{ d | titlecase }}:
+                                    </span>
+                                    <span class="att-content"> {{ issue[d].done|date:'medium':'UTC' }} </span>
+                                    <i class="fas fa-check-circle text-success"></i>
+                                </div>
+
+                                <div class="attribute my-1" *ngIf="issue[d] == null">
+                                    <span class="att-title">
+                                        {{ d | titlecase }}:
+                                    </span>
+                                    <span class="att-content"> Not yet defined </span>
+                                    <i class="fas fa-clock text-secondary"></i>
+                                </div>
                             </div>
                         </div>
 
@@ -201,7 +211,8 @@
                                     decorator=""></detail>
                                 <div *ngIf="issue.d3.containment.others == 'Yes' ">
                                     <detail name="Sites affected" [value]="issue.d3.containment.sites"></detail>
-                                    <detail name="Is there containment?" [value]="issue.d3.containment.containment" decorator=""></detail>
+                                    <detail name="Is there containment?" [value]="issue.d3.containment.containment"
+                                        decorator=""></detail>
                                 </div>
                             </div>
                         </div>
@@ -213,8 +224,11 @@
                                     <i class="fas fa-link"></i>
                                     Go to QA
                                 </a>
-                                <detail name="If applicable, are the poka yokes detecting the failure mode?" [value]="issue.d3.containment.poka" decorator=""></detail>
-                                <detail name="Are the Containment actions robust enough to prevent recurrence with customer?" [value]="issue.d3.containment.robust" decorator=""></detail>
+                                <detail name="If applicable, are the poka yokes detecting the failure mode?"
+                                    [value]="issue.d3.containment.poka" decorator=""></detail>
+                                <detail
+                                    name="Are the Containment actions robust enough to prevent recurrence with customer?"
+                                    [value]="issue.d3.containment.robust" decorator=""></detail>
                             </div>
                         </div>
                     </div>
@@ -225,6 +239,39 @@
         <li [ngbNavItem]="4" [class]="getClass(4)">
             <a ngbNavLink>D4</a>
             <ng-template ngbNavContent>
+                <div class="containter text-center pt-2 mb-5 mx-3">
+                    <h5 class="text-left"> D4.- Root causes analysis </h5>
+                    <h6 class="text-left">
+                        <i class="far fa-clock"></i>
+                        Done on
+                        <span class="date">
+                            {{ issue.d2.done | date:'medium':'UTC' }}
+                        </span>
+                    </h6>
+                    <div *ngFor="let why of issue.d4.why">
+                        <h5> {{ why.question }} </h5>
+
+                        <div *ngFor="let resp of why.answers.split('%%'); let i = index" class="row my-2">
+                            <div class="col-auto align-middle">
+                                <span class="align-middle why" [style]=" 'margin-left: ' + 2.5 * i + 'vw '">
+                                    Why?
+                                </span>
+                            </div>
+                        
+                            <div class="col-auto card p-2 rounded" style="width: 20vw;">
+                                {{ resp }}
+                            </div>
+                        </div>
+
+                        <h6 class="text-left mt-3">
+                            <span class="font-weight-bold">
+                            Key findings in this incident:
+                            </span>
+                            {{ why.keyFindings }}
+                        </h6>
+                        <hr class="mb-2">
+                    </div>
+                </div>
             </ng-template>
         </li>
 
