@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Department, Participant } from 'src/app/interfaces/resources.items.interface';
+import { CreateService } from 'src/app/services/create.service';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
 
@@ -13,16 +14,23 @@ import { AlertService } from 'src/app/shared/alert';
 export class ActionListComponent implements OnInit {
 
   public userList : Participant[];
-  public departments : Department[]
+  public departments : Department[];
+  public id;
 
   public actionForm : FormGroup;
 
   constructor(private resources : ResourcesService,
               private alert     : AlertService,
               private fb        : FormBuilder,
-              private router    : Router) { }
+              private router    : Router,
+              private route     : ActivatedRoute,
+              private create    : CreateService) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id');
+    });
+
     this.resources.loadResources().subscribe(resp => {
       if(resp){
         this.userList = this.resources.getUsers();
@@ -42,11 +50,11 @@ export class ActionListComponent implements OnInit {
 
   public addAction() : void{
     this.actions.push(this.fb.group({
-      responsible: [null, Validators.required],
+      responsible: ['', Validators.required],
       due: ['', Validators.required],
       description: ['', Validators.required],
-      department: [null, Validators.required],
-      justification: [null]
+      department: ['', Validators.required],
+      justification: ['']
     }));
   }
 
@@ -68,8 +76,18 @@ export class ActionListComponent implements OnInit {
   }
 
   public submit() : void{
-    let body = this.prepare();
-    // this.router.navigate(['create', 'problem']);
+    let data = this.prepare();
+    this.create.d5(data, this.id).subscribe(resp=>{
+        if(resp){
+          this.alert.success('Action list defined');
+          setTimeout(() => {
+            this.router.navigate(['issues', 'details', this.id]);
+          }, 2500);
+        }else{
+          this.alert.error(this.create.getMessage());
+        }
+      }
+    );
   }
 
   private prepare(){
@@ -79,17 +97,17 @@ export class ActionListComponent implements OnInit {
       ({
         ...a,
         justification: 
-          (this.isDaysAway(new Date(a.due.replace(/-/g, '\/')), 30))? a.justification : null,
+          (this.isDaysAway(new Date(a.due.replace(/-/g, '\/')), 30))? a.justification : '',
         type: 'corrective',
         status: 'open',
+        issue: this.id
       })
     );
-    console.log(actions)
+    console.log(actions);
 
     return {
       actions: actions
-    }
-
+    };
   }
 
   public continue() : void{

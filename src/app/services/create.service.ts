@@ -96,6 +96,22 @@ export class CreateService extends AppService{
     );
   }
 
+  public d5(body, id){
+    return this.http.post(`/api/d5/${ id }`, body)
+    .pipe(
+      map(resp=>{
+        if(resp['ok']){
+          return true;
+        }
+        this.errorMessage = "Couldn't update to D5";
+        return false;
+      }),catchError(error=>{
+        this.errorMessage = 'Server error';
+        return of(false);
+      })
+    );
+  }
+
   public getId() : string{
     return this.id;
   }

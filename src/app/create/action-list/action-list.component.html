@@ -1,6 +1,14 @@
 <div class="container text-center pt-2 mb-5 mx-3">
     <alert></alert>
-    <h4 class="text-left my-3">D5.- Corrective actions</h4>
+    <h4 class="text-left my-3">
+        <a title="View issue" target="_blank" [href]="'/issues/details/' + id">
+            <span class="issue-link">
+                Issue #{{ id }}
+                <i class="fas fa-chevron-circle-right mx-2"></i>
+            </span>
+        </a>
+        D5.- Corrective actions
+    </h4>
     <form [formGroup]="actionForm">
         <div class="row justify-content-center">
             <div class="table-responsive">
@@ -24,7 +32,7 @@
                             <td>
                                 <select class="form-control" formControlName="responsible"
                                     [class]="getClass(action, 'responsible')">
-                                    <option [value]="null" selected disabled> Select an user</option>
+                                    <option [value]="''" selected disabled> Select an user</option>
                                     <option *ngFor="let user of userList" [value]="user.username">
                                         {{ user.name }}
                                     </option>
@@ -33,7 +41,7 @@
                             <td>
                                 <select class="form-control" formControlName="department"
                                     [class]="getClass(action, 'department')">
-                                    <option [value]="null" selected disabled> Department in charge </option>
+                                    <option [value]="''" selected disabled> Department in charge </option>
                                     <option *ngFor="let depto of departments" [value]="depto.id">
                                         {{ depto.name }}
                                     </option>
@@ -67,7 +75,7 @@
                 </button> -->
                 <confirm-modal 
                     title="Define corrective actions" 
-                    content="Are you sure you want to perform this action?"
+                    content="Are you sure you want to perform this action? Remember, once you define the due dates, you cannot change them"
                     (triggered)="actionForm.markAllAsTouched()" 
                     (accept)="submit()" 
                     [isDisabled]="!actionForm.valid"
