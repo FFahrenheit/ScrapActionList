@@ -80,6 +80,22 @@ export class CreateService extends AppService{
     );
   }
 
+  public d4(body, id){
+    return this.http.post(`/api/d4/${ id }`, body)
+    .pipe(
+      map(resp=>{
+        if(resp['ok']){
+          return true;
+        }
+        this.errorMessage = "Couldn't update to D4";
+        return false;
+      }),catchError(error=>{
+        this.errorMessage = 'Server error';
+        return of(false);
+      })
+    );
+  }
+
   public getId() : string{
     return this.id;
   }
