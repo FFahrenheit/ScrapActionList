@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SizePipe } from './size.pipe';
+import { FilenamePipe } from './filename.pipe';
 
 
 
 @NgModule({
   declarations: [
-    SizePipe
+    SizePipe,
+    FilenamePipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    SizePipe
+    SizePipe,
+    FilenamePipe
   ],
   providers: [
     SizePipe

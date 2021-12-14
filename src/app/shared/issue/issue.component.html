@@ -311,7 +311,15 @@
                                     <td> {{ action.responsibleName }} </td>
                                     <td> {{ action.departmentName }} </td>
                                     <td> {{ action.evaluation | date:'mediumDate':'UTC' }} </td>
-                                    <td> {{ action.due | date:'mediumDate':'UTC' }} </td>
+                                    <td>
+                                         {{ action.due | date:'mediumDate':'UTC' }} 
+                                         <span *ngIf="action.justification">
+                                             <br>
+                                             <i class="fas fa-exclamation mx-1 text-danger"></i>
+                                             <span class="font-weight-bold">Justification: </span>
+                                            {{ action.justification }}
+                                         </span>
+                                    </td>
                                     <td> {{ action.closed ? (action.closed | date:'medium':'UTC') : '---' }} </td>
                                     <td> {{ action.status | titlecase }} </td>
                                 </tr>

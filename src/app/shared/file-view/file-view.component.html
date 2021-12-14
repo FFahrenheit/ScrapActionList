@@ -13,9 +13,9 @@
             <tbody>
                 <tr *ngFor="let file of files">
                     <td> {{ file.description }} </td>
-                    <td> {{ file.filename }} </td>
+                    <td> {{ file.filename | filename }} </td>
                     <td>
-                        {{ file.date | date:'shortDate':'UTC' }}
+                        {{ file.date | date:'short':'UTC' }}
                         by {{ file.authorName }} 
                     </td>
                     <td> 
