@@ -278,6 +278,44 @@
         <li [ngbNavItem]="5" [class]="getClass(5)">
             <a ngbNavLink>D5</a>
             <ng-template ngbNavContent>
+                <div class="containter text-center pt-2 mb-5 mx-3">
+                    <h5 class="text-left"> D5.- Corrective actions </h5>
+                    <h6 class="text-left">
+                        <i class="far fa-clock"></i>
+                        Done on
+                        <span class="date">
+                            {{ issue.d5.done | date:'medium':'UTC' }}
+                        </span>
+                    </h6>
+                    <h5> Actions </h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr class="header">
+                                    <th scope="col" class="align-middle">Action</th>
+                                    <th scope="col" class="align-middle">Responsible</th>
+                                    <th scope="col" class="align-middle">Department</th>
+                                    <th scope="col" class="align-middle">Open date</th>
+                                    <th scope="col" class="align-middle">Due date</th>
+                                    <th scope="col" class="align-middle">Close date</th>
+                                    <th scope="col" class="align-middle">Status</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let action of issue.d5.actions">
+                                    <td> {{ action.description }} </td>
+                                    <td> {{ action.responsibleName }} </td>
+                                    <td> {{ action.departmentName }} </td>
+                                    <td> {{ action.evaluation | date:'mediumDate':'UTC' }} </td>
+                                    <td> {{ action.due | date:'mediumDate':'UTC' }} </td>
+                                    <td> {{ action.closed ? (action.closed | date:'medium':'UTC') : '---' }} </td>
+                                    <td> {{ action.status | titlecase }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </ng-template>
         </li>
 

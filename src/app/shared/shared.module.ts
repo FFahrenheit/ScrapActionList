@@ -13,6 +13,7 @@ import { IssueComponent } from './issue/issue.component';
 import { SortDirective } from '../directives/sort.directive';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { DetailComponent } from './detail/detail.component';
+import { FileViewComponent } from './file-view/file-view.component';
 
 
 
@@ -27,7 +28,8 @@ import { DetailComponent } from './detail/detail.component';
     IssueComponent,
     SortDirective,
     ErrorMessageComponent,
-    DetailComponent
+    DetailComponent,
+    FileViewComponent,
   ],
   imports: [
     CommonModule,
