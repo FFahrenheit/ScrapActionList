@@ -1,1 +1,35 @@
-<p>file-view works!</p>
+<div class="my-2">
+    <h5> Resources in {{ filter | titlecase }} </h5>
+    <div class="table-responsive" *ngIf="files && files.length > 0; else empty">
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr class="header">
+                    <th> Description </th>
+                    <th> Filename </th>
+                    <th> Uploaded </th>
+                    <th> View </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let file of files">
+                    <td> {{ file.description }} </td>
+                    <td> {{ file.filename }} </td>
+                    <td>
+                        {{ file.date | date:'shortDate':'UTC' }}
+                        by {{ file.authorName }} 
+                    </td>
+                    <td> 
+                        <a target="_blank" [href]="getHref(file)" title="View or download">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </a> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #empty>
+        No resources attached
+    </ng-template>
+</div>

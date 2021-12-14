@@ -69,7 +69,7 @@
                                 <detail name="Customer name" [value]="issue.client"></detail>
                                 <detail name="Customer CAR" [value]="issue.incident.car"></detail>
                                 <detail name="Issued"
-                                    [value]="datePipe.transform(issue.incident.issued, 'medium', 'UTC')">
+                                    [value]="datePipe.transform(issue.incident.issued, 'fullDate', 'UTC')">
                                 </detail>
                                 <detail name="Contact name" [value]="issue.incident.contact"></detail>
                                 <detail name="Contact email" [value]="issue.incident.email"></detail>
@@ -157,6 +157,9 @@
                                 <detail *ngIf="issue.d2.finalAffected == 'Yes'" name="Customer affected"
                                     [value]="issue.d2.customerAffected"></detail>
                             </div>
+                            
+                            <file-view [resources]="issue.resources" filter="D2">
+                            </file-view>
                         </div>
 
                     </div>
