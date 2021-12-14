@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FileUpload } from 'src/app/interfaces/upload.interface';
 import { CreateService } from 'src/app/services/create.service';
 import { AlertService } from 'src/app/shared/alert';
 
@@ -82,9 +83,21 @@ export class ProblemComponent implements OnInit {
 
   private getData() : any{
     let resp = this.form.value;
-    console.log(resp);
-    // console.log(this.files);
-    return { complication: resp };
+    let files : FileUpload = null;
+    
+    if(this.files){
+      files = {
+        description: 'Problem resources',
+        files: this.files,
+        issue: this.id
+      };
+    }
+
+    console.log({ resp, files });
+    return { 
+      complication: resp,
+      files: files 
+    };
   }
 
   public changeCustomer($event){

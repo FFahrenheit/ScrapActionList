@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { FileUpload } from '../interfaces/upload.interface';
 import { AppService } from '../models/service.model';
 
 @Injectable({
@@ -49,13 +50,31 @@ export class CreateService extends AppService{
   }
 
   public d2(body, id){
-    return this.http.post(`/api/d2/${ id }`, body)
+    let calls = [];
+
+    calls.push(
+      this.http.post(`/api/d2/${ id }`, {
+        complication: body.complication
+      })
+    );
+
+    if(body.files){
+      calls.push(this.getFileRequest(body.files, id, 'D2'));
+    }
+
+    return forkJoin(calls)
     .pipe(
-      map(resp=>{
-        if(resp['ok']){
+      map(resps=>{
+        let count = 0;
+
+        resps.forEach(r => {
+          count += r['ok'];
+        });
+
+        if(count == resps.length){
           return true;
         }
-        this.errorMessage = "Couldn't update to D2";
+        this.errorMessage = count == 0 ? "Couldn't update to D2" : 'Partial error';
         return false;
       }),catchError(error=>{
         this.errorMessage = 'Server error';
@@ -114,5 +133,20 @@ export class CreateService extends AppService{
 
   public getId() : string{
     return this.id;
+  }
+
+  private getFileRequest(body : FileUpload, id : string, d : string){
+    let headers = new HttpHeaders();
+    headers.set('Content-Type','multipart/form-data');
+    let formData = new FormData;
+    body.files.forEach(file=>{
+      formData.append("multi-files", file);
+    });
+    formData.append('description', body.description);
+
+    return this.http.post(`/api/upload/${ id }/D2`, 
+      formData,{
+        headers: headers
+      });
   }
 }
