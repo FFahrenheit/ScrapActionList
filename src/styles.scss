@@ -58,5 +58,14 @@ html[data-theme="dark-mode"] {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.pointer{
+    cursor: pointer !important;
+}
+
+.pointer:hover{
+    cursor: pointer !important;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

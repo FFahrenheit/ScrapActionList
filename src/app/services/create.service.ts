@@ -66,7 +66,6 @@ export class CreateService extends AppService{
     .pipe(
       map(resps=>{
         let count = 0;
-
         resps.forEach(r => {
           count += r['ok'];
         });
@@ -84,10 +83,28 @@ export class CreateService extends AppService{
   }
 
   public d3(body, id){
-    return this.http.post(`/api/d3/${ id }`, body)
+    let calls = [];
+
+    calls.push(
+      this.http.post(`/api/d3/${ id }`, {
+        stocks: body.stocks,
+        containment: body.containment,
+      })
+    );
+
+    if(body.files){
+      calls.push(this.getFileRequest(body.files, id, 'D3'));
+    }
+
+    return forkJoin(calls)
     .pipe(
-      map(resp=>{
-        if(resp['ok']){
+      map(resps=>{
+        let count = 0;
+        resps.forEach(r => {
+          count += r['ok'];
+        });
+
+        if(count == resps.length){
           return true;
         }
         this.errorMessage = "Couldn't update to D3";
@@ -144,7 +161,7 @@ export class CreateService extends AppService{
     });
     formData.append('description', body.description);
 
-    return this.http.post(`/api/upload/${ id }/D2`, 
+    return this.http.post(`/api/upload/${ id }/${ d }`, 
       formData,{
         headers: headers
       });

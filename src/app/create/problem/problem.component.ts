@@ -85,7 +85,7 @@ export class ProblemComponent implements OnInit {
     let resp = this.form.value;
     let files : FileUpload = null;
     
-    if(this.files){
+    if(this.files && this.files.length > 0){
       files = {
         description: 'Problem resources',
         files: this.files,

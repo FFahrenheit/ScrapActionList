@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Participant } from 'src/app/interfaces/resources.items.interface';
+import { FileUpload } from 'src/app/interfaces/upload.interface';
 import { CreateService } from 'src/app/services/create.service';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
@@ -144,13 +145,23 @@ export class ContainmentComponent implements OnInit {
     let containment = this.form.value;
     containment.issue = this.id;
     
+    let files : FileUpload = null;
+    
+    if(this.files && this.files.length > 0){
+      files = {
+        description: 'Stock containment resources',
+        files: this.files,
+        issue: this.id
+      };
+    }
+
     const body = {
       stocks: stocks,
-      containment 
+      containment,
+      files: files
     };
 
     console.log(body);
-
     return body;
   }
 

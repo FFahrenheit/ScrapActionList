@@ -218,6 +218,8 @@
                                         decorator=""></detail>
                                 </div>
                             </div>
+                            <file-view [resources]="issue.resources" filter="D3">
+                            </file-view>
                         </div>
                         <div class="col-md-6">
                             <h5> Issue details </h5>
@@ -302,7 +304,6 @@
                                     <th scope="col" class="align-middle">Due date</th>
                                     <th scope="col" class="align-middle">Close date</th>
                                     <th scope="col" class="align-middle">Status</th>
-
                                 </tr>
                             </thead>
                             <tbody>
