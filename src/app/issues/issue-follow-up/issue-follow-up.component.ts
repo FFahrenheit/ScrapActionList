@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NextSteps } from 'src/app/resources/next.step';
 import { AlertService } from 'src/app/shared/alert';
@@ -17,11 +18,13 @@ export class IssueFollowUpComponent implements OnInit {
 
   constructor(private route   : ActivatedRoute,
               private alert   : AlertService,
-              private router  : Router) { }
+              private router  : Router,
+              private title   : Title) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
+      this.title.setTitle(`Issue #${ this.id } follow up`);
     });
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,11 +11,13 @@ export class IssueDetailsComponent implements OnInit {
 
   public id : string | null = '';
 
-  constructor(private route : ActivatedRoute) { }
+  constructor(private route : ActivatedRoute,
+              private title : Title) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
+      this.title.setTitle(`Issue #${ this.id } details`);
     });
   }
 

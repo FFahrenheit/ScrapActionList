@@ -46,6 +46,13 @@ export const AppRoutes : Routes = [
                 )
             },
             {
+                path: 'actions',
+                loadChildren: () => 
+                import('./actions/actions.module').then(
+                    m => m.ActionsModule
+                )
+            },
+            {
                 path: '',
                 pathMatch: 'full',
                 redirectTo: 'issues'              
