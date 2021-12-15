@@ -117,13 +117,32 @@ export class CreateService extends AppService{
   }
 
   public d4(body, id){
-    return this.http.post(`/api/d4/${ id }`, body)
+    let calls = [];
+    
+    calls.push(
+      this.http.post(`/api/d4/${ id }`, {
+        why: body.why
+      })
+    );
+
+    calls.push(this.getFileRequest(body.ishikawa, id, 'D4'));
+
+    if(body.files){
+      calls.push(this.getFileRequest(body.files, id, 'D4'));
+    }
+
+    return forkJoin(calls)
     .pipe(
-      map(resp=>{
-        if(resp['ok']){
+      map(resps =>{
+        let count = 0;
+        resps.forEach(r => {
+          count += r['ok'];
+        });
+
+        if(count == resps.length){
           return true;
         }
-        this.errorMessage = "Couldn't update to D4";
+        this.errorMessage = count == 0 ? "Couldn't update to D4" : 'Partial error';
         return false;
       }),catchError(error=>{
         this.errorMessage = 'Server error';

@@ -32,7 +32,11 @@
         </div>
     </div>
 
-    <file-upload type="other analysis file" [isRequired]="false"></file-upload>
+    <file-upload 
+        type="other analysis file" 
+        [isRequired]="false"
+        (receive)="getFiles($event)">
+    </file-upload>
 
     <confirm-modal
         title="Define the problem"

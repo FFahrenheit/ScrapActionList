@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateService } from 'src/app/services/create.service';
 import { AlertService } from 'src/app/shared/alert';
+import { FileUpload } from 'src/app/interfaces/upload.interface';
 
 @Component({
   selector: 'app-root-causes',
@@ -18,6 +19,7 @@ export class RootCausesComponent implements OnInit {
   public happenK = '';
   public happenD = '';
   public happenP = '';
+  public files : File[] = null;
 
   public id : string = '';
 
@@ -84,6 +86,25 @@ export class RootCausesComponent implements OnInit {
       issue: this.id
     });
 
+    const ishikawa : FileUpload = {
+      description: 'Ishikawa Analysis',
+      files: [ this.ishikawa ],
+      issue: this.id
+    };
+    resp.ishikawa = ishikawa;
+
+    let files : FileUpload = null;
+    
+    if(this.files && this.files.length > 0){
+      files = {
+        description: 'Root causes analysis',
+        files: this.files,
+        issue: this.id
+      };
+    }
+
+    resp.files = files;
+
     console.log(resp);
     return resp;
   }
@@ -104,4 +125,8 @@ export class RootCausesComponent implements OnInit {
     // this.router.navigate(['create', 'action-list']);
   }
 
+  public getFiles($event){
+    this.files = $event;
+    console.log(this.files);
+  }
 }
