@@ -286,7 +286,17 @@
             <a ngbNavLink>D5</a>
             <ng-template ngbNavContent>
                 <div class="containter text-center pt-2 mb-5 mx-3">
-                    <h5 class="text-left"> D5.- Corrective actions </h5>
+                    <h5 class="text-left row">
+                        <div class="col-md-6">
+                            D5.- Corrective actions
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button class="btn btn-success" (click)="addActions()" *ngIf="issue.status == 'D5'">
+                                <i class="fas fa-plus-circle"></i>
+                                Add actions
+                            </button>
+                        </div>
+                    </h5>
                     <h6 class="text-left">
                         <i class="far fa-clock"></i>
                         Done on

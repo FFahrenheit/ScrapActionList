@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { GetIssueService } from 'src/app/services/get-issue.service';
 import { AlertService } from '../alert';
 
@@ -25,7 +26,8 @@ export class IssueComponent implements OnInit {
 
   constructor(private issueService  : GetIssueService,
               private alert         : AlertService,
-              public datePipe       : DatePipe
+              public datePipe       : DatePipe,
+              private router        : Router
               ) { }
 
   ngOnInit(): void {
@@ -53,4 +55,7 @@ export class IssueComponent implements OnInit {
     return `https://interplexgroup.sharepoint.com/americas/imx/imx_qms/IMX_QAlert/Forms/Public%20View.aspx`;
   }
 
+  public addActions() : void{
+    this.router.navigate(['create', this.id, 'action-list']);
+  }
 }

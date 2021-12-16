@@ -4,8 +4,11 @@
 
 <div class="text-center" *ngIf="issue != null">
     <button *ngIf="next; else finished" class="btn btn-success px-3" (click)="goToNext()"> 
-        Continue to {{ next.toUpperCase() }} 
+        {{ 
+            issue.status == 'D5' ? 'Add actions' : 'Continue to ' + next.toUpperCase()
+        }}
     </button>
+
     <ng-template #finished>
         This issue has no follow-up
     </ng-template>
