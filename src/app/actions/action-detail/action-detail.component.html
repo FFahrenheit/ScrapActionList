@@ -1,1 +1,24 @@
-<p>action-detail works!</p>
+<div class="card m-3" *ngIf="action; else no_action">
+    <div class="card-body">
+        <h5 class="card-title font-weight-bold">
+            Action #{{ actionId }} on Issue #{{ issueId }}
+        </h5>
+        <div class="card-text">
+            <detail name="Description" [value]="action.description"></detail>
+            <detail name="Evaluation date" [value]="datePipe.transform(action.evaluation, 'mediumDate', 'UTC')"></detail>
+            <detail name="Due date" [value]="datePipe.transform(action.due, 'mediumDate', 'UTC')"></detail>
+            <detail name="Status" [value]="titleCase.transform(action.status)"></detail>
+            <detail name="Department" [value]="action.departmentName"></detail>
+            <detail *ngIf="action.justification" 
+                name="Justification" [value]="action.justification"></detail>
+        </div>
+        <a href="" class="btn btn-primary">Here goes close section</a>
+    </div>
+</div>
+<ng-template #no_action>
+    <h5 class="m-3">
+        Action #{{ actionId }} is not available
+    </h5>
+</ng-template>
+<issue [id]="issueId" (receive)="getIssue($event)" [active]="5">
+</issue>

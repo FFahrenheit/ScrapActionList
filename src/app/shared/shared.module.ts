@@ -42,6 +42,7 @@ import { FileViewComponent } from './file-view/file-view.component';
     AlertComponent,
     FooterComponent,
     ConfirmModalComponent,
+    DetailComponent,
     FileUploadComponent,
     FiveWhysComponent,
     IssueComponent,

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { GetIssueService } from 'src/app/services/get-issue.service';
 import { AlertService } from '../alert';
 
@@ -19,7 +20,7 @@ export class IssueComponent implements OnInit {
   public error : string | null = '';
   
   public status = '';
-  public active : number = 0;
+  @Input() public active : number = 0;
   public Ds = ['d0', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
 
   @Output() public receive = new EventEmitter<any>();
@@ -27,7 +28,8 @@ export class IssueComponent implements OnInit {
   constructor(private issueService  : GetIssueService,
               private alert         : AlertService,
               public datePipe       : DatePipe,
-              private router        : Router
+              private router        : Router,
+              private auth          : AuthService
               ) { }
 
   ngOnInit(): void {
@@ -57,5 +59,9 @@ export class IssueComponent implements OnInit {
 
   public addActions() : void{
     this.router.navigate(['create', this.id, 'action-list']);
+  }
+
+  public isOwner() : boolean{
+    return this.issue.username == this.auth.getLoggedUser().username;
   }
 }
