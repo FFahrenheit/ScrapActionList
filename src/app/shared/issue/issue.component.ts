@@ -21,6 +21,7 @@ export class IssueComponent implements OnInit {
   
   public status = '';
   @Input() public active : number = 0;
+  @Input() alertEnabled : boolean = true;
   public Ds = ['d0', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
 
   @Output() public receive = new EventEmitter<any>();
@@ -47,6 +48,9 @@ export class IssueComponent implements OnInit {
   }
 
   public getClass(id : number) : string{
+    if(id == 6 && this.issue.status == 'D5'){
+      return this.active === id ? 'd-active' : 'd-link';
+    }
     if(id != 0 && ! this.issue['d' + id]){
       return 'd-disabled'; //Doesn't exists
     }

@@ -1,7 +1,10 @@
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FileUpload } from 'src/app/interfaces/upload.interface';
+import { ActionsService } from 'src/app/services/actions.service';
+import { AlertService } from 'src/app/shared/alert';
 
 @Component({
   selector: 'app-action-detail',
@@ -14,11 +17,15 @@ export class ActionDetailComponent implements OnInit {
   public issueId : string = '';
   public issue = null;
   public action = null;
+  public files : File[] = null;
 
   constructor(private route     : ActivatedRoute,
               private title     : Title,
               public datePipe   : DatePipe,
-              public titleCase  : TitleCasePipe) { }
+              public titleCase  : TitleCasePipe,
+              private actions   : ActionsService,
+              private alert     : AlertService,
+              private router    : Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -37,4 +44,28 @@ export class ActionDetailComponent implements OnInit {
     }
   }
 
+  public getFiles($event){
+    this.files = $event;
+    console.log(this.files);
+  }
+
+  public continue(){
+    const files : FileUpload = {
+      description: `Evidence for action #${ this.actionId } closure`,
+      files: this.files,
+      issue: this.issueId
+    };
+
+    this.actions.closeAction(this.actionId, files, this.issueId)
+                .subscribe(resp=> {
+                  this.alert.success("Action closed");
+                  if(resp){
+                    setTimeout(() => {
+                      this.router.navigate(['issues', 'details', this.issueId]);
+                    }, 2500);
+                  }else{
+                    this.alert.error(this.actions.getMessage());
+                  }
+                });
+  }
 }

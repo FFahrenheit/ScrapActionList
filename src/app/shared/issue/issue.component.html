@@ -1,5 +1,5 @@
 <div class="card p-2 m-3" *ngIf="exists; else not_found">
-    <alert></alert>
+    <alert *ngIf="alertEnabled"></alert>
     <div class="m-2">
         <span class="issue-text">
             Issue #{{ id }}
@@ -51,12 +51,23 @@
                                     <i class="fas fa-check-circle text-success"></i>
                                 </div>
 
-                                <div class="attribute my-1" *ngIf="issue[d] == null">
+                                <div class="attribute my-1" class="link-d"
+                                    *ngIf="issue[d] == null && i == 6 && issue.status == 'D5'"
+                                    [title]="'Go to ' + d.toUpperCase()" (click)="active = i">
+                                    <span class="att-title">
+                                        {{ d | titlecase }}:
+                                    </span>
+                                    <span class="att-content"> In progress </span>
+                                    <i class="fas fa-clock text-warning"></i>
+                                </div>
+
+                                <div class="attribute my-1"
+                                    *ngIf="issue[d] == null && !(i == 6 && issue.status == 'D5')">
                                     <span class="att-title">
                                         {{ d | titlecase }}:
                                     </span>
                                     <span class="att-content"> Not yet defined </span>
-                                    <i class="fas fa-clock text-secondary"></i>
+                                    <i class="far fa-clock text-secondary"></i>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +168,7 @@
                                 <detail *ngIf="issue.d2.finalAffected == 'Yes'" name="Customer affected"
                                     [value]="issue.d2.customerAffected"></detail>
                             </div>
-                            
+
                             <file-view [resources]="issue.resources" filter="D2">
                             </file-view>
                         </div>
@@ -262,7 +273,7 @@
                                     Why?
                                 </span>
                             </div>
-                        
+
                             <div class="col-auto card p-2 rounded" style="width: 20vw;">
                                 {{ resp }}
                             </div>
@@ -270,7 +281,7 @@
 
                         <h6 class="text-left mt-3">
                             <span class="font-weight-bold">
-                            Key findings in this incident:
+                                Key findings in this incident:
                             </span>
                             {{ why.keyFindings }}
                         </h6>
@@ -291,7 +302,7 @@
                             D5.- Corrective actions
                         </div>
                         <div class="col-md-6 text-right">
-                            <button class="btn btn-success" (click)="addActions()" 
+                            <button class="btn btn-success" (click)="addActions()"
                                 *ngIf="issue.status == 'D5' && isOwner()">
                                 <i class="fas fa-plus-circle"></i>
                                 Add actions
@@ -326,13 +337,13 @@
                                     <td> {{ action.departmentName }} </td>
                                     <td> {{ action.evaluation | date:'mediumDate':'UTC' }} </td>
                                     <td>
-                                         {{ action.due | date:'mediumDate':'UTC' }} 
-                                         <span *ngIf="action.justification">
-                                             <br>
-                                             <i class="fas fa-exclamation mx-1 text-danger"></i>
-                                             <span class="font-weight-bold">Justification: </span>
+                                        {{ action.due | date:'mediumDate':'UTC' }}
+                                        <span *ngIf="action.justification">
+                                            <br>
+                                            <i class="fas fa-exclamation mx-1 text-danger"></i>
+                                            <span class="font-weight-bold">Justification: </span>
                                             {{ action.justification }}
-                                         </span>
+                                        </span>
                                     </td>
                                     <!-- <td> {{ action.closed ? (action.closed | date:'medium':'UTC') : '---' }} </td> -->
                                     <td> {{ action.status | titlecase }} </td>
@@ -347,6 +358,66 @@
         <li [ngbNavItem]="6" [class]="getClass(6)">
             <a ngbNavLink>D6</a>
             <ng-template ngbNavContent>
+                <div class="containter text-center pt-2 mb-5 mx-3">
+                    <h5 class="text-left row">
+                        <div class="col-md-6">
+                            D6.- Close corrective actions
+                        </div>
+                        <div class="col-md-6 text-right"></div>
+                    </h5>
+                    <h6 class="text-left">
+                        <span *ngIf="issue.status == 'D5'; else d6_done">
+                            <i class="fas fa-clock"></i>
+                            In progress
+                        </span>
+                        <ng-template #d6_done>
+                            <i class="far fa-clock"></i>
+                            Done on
+                            <span class="date">
+                                {{ issue.d5.done | date:'medium':'UTC' }}
+                            </span>
+                        </ng-template>
+                    </h6>
+                    <h5> Actions </h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr class="header">
+                                    <th scope="col" class="align-middle">ID</th>
+                                    <th scope="col" class="align-middle">Action</th>
+                                    <th scope="col" class="align-middle">Responsible</th>
+                                    <th scope="col" class="align-middle">Department</th>
+                                    <th scope="col" class="align-middle">Open date</th>
+                                    <th scope="col" class="align-middle">Due date</th>
+                                    <th scope="col" class="align-middle">Close date</th>
+                                    <th scope="col" class="align-middle">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let action of issue.d5.actions">
+                                    <td> {{ action.id }} </td>
+                                    <td> {{ action.description }} </td>
+                                    <td> {{ action.responsibleName }} </td>
+                                    <td> {{ action.departmentName }} </td>
+                                    <td> {{ action.evaluation | date:'mediumDate':'UTC' }} </td>
+                                    <td>
+                                        {{ action.due | date:'mediumDate':'UTC' }}
+                                        <span *ngIf="action.justification">
+                                            <br>
+                                            <i class="fas fa-exclamation mx-1 text-danger"></i>
+                                            <span class="font-weight-bold">Justification: </span>
+                                            {{ action.justification }}
+                                        </span>
+                                    </td>
+                                    <td> {{ action.closed ? (action.closed | date:'medium':'UTC') : '---' }} </td>
+                                    <td> {{ action.status | titlecase }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <file-view [resources]="issue.resources" filter="D6">
+                    </file-view>
+                </div>
             </ng-template>
         </li>
 
