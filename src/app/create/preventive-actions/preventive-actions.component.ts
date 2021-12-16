@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,6 +20,7 @@ export class PreventiveActionsComponent implements OnInit {
 
   public actionForm : FormGroup;
   public form : FormGroup;
+  public today : string;
 
   public fmea : File = null;
   public control : File = null;
@@ -26,9 +28,11 @@ export class PreventiveActionsComponent implements OnInit {
   constructor(private resources : ResourcesService,
               private alert     : AlertService,
               private fb        : FormBuilder,
-              private router    : Router) { }
+              private router    : Router,
+              private datePipe  : DatePipe) { }
 
   ngOnInit(): void {
+    this.today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.resources.loadResources().subscribe(resp => {
       if(resp){
         this.userList = this.resources.getUsers();

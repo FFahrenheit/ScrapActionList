@@ -291,7 +291,8 @@
                             D5.- Corrective actions
                         </div>
                         <div class="col-md-6 text-right">
-                            <button class="btn btn-success" (click)="addActions()" *ngIf="issue.status == 'D5'">
+                            <button class="btn btn-success" (click)="addActions()" 
+                                *ngIf="issue.status == 'D5' && isOwner()">
                                 <i class="fas fa-plus-circle"></i>
                                 Add actions
                             </button>
@@ -314,7 +315,7 @@
                                     <th scope="col" class="align-middle">Department</th>
                                     <th scope="col" class="align-middle">Open date</th>
                                     <th scope="col" class="align-middle">Due date</th>
-                                    <th scope="col" class="align-middle">Close date</th>
+                                    <!-- <th scope="col" class="align-middle">Close date</th> -->
                                     <th scope="col" class="align-middle">Status</th>
                                 </tr>
                             </thead>
@@ -333,7 +334,7 @@
                                             {{ action.justification }}
                                          </span>
                                     </td>
-                                    <td> {{ action.closed ? (action.closed | date:'medium':'UTC') : '---' }} </td>
+                                    <!-- <td> {{ action.closed ? (action.closed | date:'medium':'UTC') : '---' }} </td> -->
                                     <td> {{ action.status | titlecase }} </td>
                                 </tr>
                             </tbody>

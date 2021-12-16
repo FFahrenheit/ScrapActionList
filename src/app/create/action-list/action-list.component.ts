@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,15 +19,18 @@ export class ActionListComponent implements OnInit {
   public id;
 
   public actionForm : FormGroup;
+  public today : string;
 
   constructor(private resources : ResourcesService,
               private alert     : AlertService,
               private fb        : FormBuilder,
               private router    : Router,
               private route     : ActivatedRoute,
-              private create    : CreateService) { }
+              private create    : CreateService,
+              private datePipe  : DatePipe) { }
 
   ngOnInit(): void {
+    this.today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
     });

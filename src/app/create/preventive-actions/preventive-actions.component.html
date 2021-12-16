@@ -41,7 +41,7 @@
                             </td>
                             <td>
                                 <input type="date" formControlName="due" class="form-control"
-                                    [class]="getClass(action, 'due')">
+                                    [class]="getClass(action, 'due')" [min]="today">
                             </td>
                             <td>
                                 <button class="btn btn-primary" *ngIf="i === 0" (click)="addAction()">
