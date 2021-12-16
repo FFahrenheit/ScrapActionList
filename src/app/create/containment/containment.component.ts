@@ -63,7 +63,8 @@ export class ContainmentComponent implements OnInit {
       others: ['', Validators.required],
       sites: [''],
       containment: [''],
-      QA: ['', Validators.compose([Validators.required, Validators.pattern('QA-[a-zA-Z]{3,}-[0-9]{3}')])],
+      //Aquí se cambia la RegEx
+      QA: ['', Validators.compose([Validators.required, Validators.pattern('QA-[a-zA-Z]{3,}-[0-9]{5}')])],
       poka: ['', Validators.required],
       robust: ['', Validators.required]
     });
@@ -171,8 +172,6 @@ export class ContainmentComponent implements OnInit {
   }
 
   public getQAURL():string{
-    const qa = this.get('QA').value;
-    return `https://interplexgroup.sharepoint.com/:x:/r/americas/imx/imx_qms/_layouts/15/\
-Doc.aspx?sourcedoc=%7B9A23DA08-5D31-430A-8C03-68F222791F3F%7D&file=` + qa + '.xlsm';
+    return `https://interplexgroup.sharepoint.com/americas/imx/imx_qms/IMX_QAlert/Forms/Public%20View.aspx`;
   }
 }

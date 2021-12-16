@@ -38,6 +38,10 @@
                     <i class="fas fa-sort float-left"></i>
                     Part
                 </th>
+                <th scope="col" [appSort]="issues" data-order="desc" data-name="type" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Type
+                </th>
                 <th scope="col" [appSort]="issues" data-order="desc" data-name="description" class="align-middle">
                     <i class="fas fa-sort float-left"></i>
                     Description
@@ -73,6 +77,7 @@
                 <td> {{ i.id }} </td>
                 <td> {{ i.client }} </td>
                 <td> {{ i.part }} </td>
+                <td> {{ i.type }} </td>
                 <td> {{ i.description }} </td>
                 <td> {{ i.problem }} </td>
                 <td> {{ i.status }} </td>

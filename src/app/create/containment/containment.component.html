@@ -32,7 +32,7 @@
 
                             <td class="text-left">
                                 <div class="form-check">
-                                    <input [id]="'enabled' + i" formControlName="enabled" 
+                                    <input [id]="'enabled' + i" formControlName="enabled"
                                         class="form-check-input pointer" type="checkbox" value="">
                                     <label [for]="'enabled' + i" class="form-check-label pointer">
                                         {{ getDescription(st) }}
@@ -127,7 +127,8 @@
                         <label for="" class="col-md-6 col-form-label">Is there containment?</label>
                         <div class="col-md-6">
                             <select formControlName="containment" [class]="getClassForm('containment')"
-                                class="custom-select mb-2 mr-sm-2 mb-sm-0"  [required]=" form.controls['others'].value == 'Yes' ">
+                                class="custom-select mb-2 mr-sm-2 mb-sm-0"
+                                [required]=" form.controls['others'].value == 'Yes' ">
                                 <option [value]="''" selected disabled>Select your choice</option>
                                 <option value="Yes"> Yes </option>
                                 <option value="No"> No </option>
@@ -152,9 +153,9 @@
                     <div class="col-md-6">
                         <input formControlName="QA" type="text" class="form-control" placeholder="Sharepoint QA number"
                             [class]="getClassForm('QA')" [required]=" form.controls['others'].value == 'Yes' ">
-                        <a *ngIf="get('QA').valid" [href]="getQAURL()" target="_blank" title="Go to QA" class="qa">
+                        <a href]="getQAURL()" target="_blank" title="Go to QA" class="qa">
                             <i class="fas fa-link"></i>
-                            Go to QA
+                            Visit IMX_QAlert library
                         </a>
                     </div>
                 </div>
@@ -199,18 +200,11 @@
 
     <div class="row justify-content-center">
 
-        <file-upload
-        type="resource"
-        (receive)="getFiles($event)"
-        [isRequired]="false">
+        <file-upload type="resource" (receive)="getFiles($event)" [isRequired]="false">
         </file-upload>
 
-        <confirm-modal 
-            title="Containment actions" 
-            content="Do you want to define these containment actions?"
-            (triggered)="triggered()" 
-            (accept)="continue()" 
-            [isDisabled]="! isValid()"
+        <confirm-modal title="Containment actions" content="Do you want to define these containment actions?"
+            (triggered)="triggered()" (accept)="continue()" [isDisabled]="! isValid()"
             reason="You need to complete the form">
         </confirm-modal>
     </div>
