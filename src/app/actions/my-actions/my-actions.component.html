@@ -1,1 +1,88 @@
-<p>my-actions works!</p>
+<div class="table-responsive container text-center mb-5">
+    <alert></alert>
+    <div class="table-responsive">
+        <table class="table table-borderless">
+            <tr>
+                <td>
+                    <h4 class="text-left my-1">My pending actions</h4>
+                </td>
+                <td>
+                    <div class="text-right">
+                        <!-- <filter (apply)="appyFilters($event)" (reset)="resetFilters()"> </filter> -->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <span class="text-left float-left mt-0 mb-1" *ngIf="actions?.length!=0">
+        Click on the row to see action details and close it
+    </span>
+
+    <span class="text-right float-right mt-0 mb-1">
+        Showing {{ actions?.length }} {{ actions?.length == 1 ? 'pending action':'pending actions'}}
+    </span>
+
+    <table class="table table-hover table-bordered table-sm" *ngIf="actions?.length > 0;else empty_body">
+        <thead>
+            <tr class="header">
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="id" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    ID
+                </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="issueId" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Issue 
+                </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="type" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Type
+                </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="status" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Status
+                </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="due" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Due date
+                </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="customer" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Customer
+                </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="part" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Part
+                </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="departmentName" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Department
+                </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="daysLeft" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Days left
+                </th>
+            </tr>
+        </thead>
+        <tbody class="click">
+            <tr *ngFor="let a of actions" (click)="actionDetails(a.issueId, a.id)">
+                <td> {{ a.id }} </td>
+                <td> Issue #{{ a.issueId }} </td>
+                <td> {{ a.type | titlecase }} </td>
+                <td> {{ a.status | titlecase }} </td>
+                <td> {{ a.due | date:'mediumDate':'UTC' }} </td>
+                <td> {{ a.client }} </td>
+                <td> {{ a.part }} </td>
+                <td> {{ a.departmentName }} </td>
+                <td> {{ a.daysLeft }} day(s) left </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #empty_body>
+        <error-message [loading]="actions == null ? null : true" title="CONGRATS"
+            description="You have no actions pending" action="Reload actions"
+            [customAction]="true" (back)="loadActions()">
+        </error-message>
+    </ng-template>
+</div>
