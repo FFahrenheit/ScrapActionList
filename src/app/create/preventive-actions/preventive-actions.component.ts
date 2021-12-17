@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Department, Participant } from 'src/app/interfaces/resources.items.interface';
+import { FileUpload } from 'src/app/interfaces/upload.interface';
+import { CreateService } from 'src/app/services/create.service';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
 
@@ -13,6 +15,7 @@ import { AlertService } from 'src/app/shared/alert';
 })
 export class PreventiveActionsComponent implements OnInit {
 
+  public id : string;
   public userList : Participant[];
   public departments : Department[];
 
@@ -29,9 +32,15 @@ export class PreventiveActionsComponent implements OnInit {
               private alert     : AlertService,
               private fb        : FormBuilder,
               private router    : Router,
-              private datePipe  : DatePipe) { }
+              private datePipe  : DatePipe,
+              private route     : ActivatedRoute,
+              private create    : CreateService) { }
 
   ngOnInit(): void {
+    this.today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id');
+    });
     this.today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.resources.loadResources().subscribe(resp => {
       if(resp){
@@ -119,7 +128,17 @@ export class PreventiveActionsComponent implements OnInit {
 
   public submit() : void{
     let body = this.prepare();
-    // this.router.navigate(['create', 'problem']);
+    console.log(body);
+    this.create.d7(body, this.id).subscribe(resp=>{
+      if(resp){
+        this.alert.success('Preventive actions defined and formats updated');
+        setTimeout(() => {
+          this.router.navigate(['issues', 'details', this.id]);
+        }, 2500);
+      }else{
+        this.alert.error(this.create.getMessage());
+      }
+    });
   }
 
   private prepare(){
@@ -128,21 +147,39 @@ export class PreventiveActionsComponent implements OnInit {
     actions = actions.map(a => 
       ({
         ...a,
-        type: 'corrective',
+        type: 'preventive',
         status: 'open',
+        issue: this.id
       })
     );
 
 
-    const { fmeaFile, controlFile, ...closure } = this.form.value;
+    let { fmeaFile, controlFile, ...closure } = this.form.value;
+    closure.issue = this.id;
 
-    console.log({
-      actions, closure
-    });
+    let controlPlan : FileUpload = null;
+    let fmea : FileUpload = null;
+    if(closure.control == 'Yes'){
+      controlPlan = {
+        description: 'Control plan updated evidence',
+        files: [ this.control ],
+        issue: this.id
+      };
+    }
+    if(closure.fmea == 'Yes'){
+      fmea = {
+        description: 'FMEA updated evidence',
+        files: [ this.fmea ],
+        issue: this.id
+      };
+    }
 
     return {
-      actions: actions
-    }
+      actions: actions,
+      closure: closure,
+      fmea: fmea,
+      control: controlPlan
+    };
 
   }
 

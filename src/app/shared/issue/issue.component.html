@@ -316,11 +316,12 @@
                             {{ issue.d5.done | date:'medium':'UTC' }}
                         </span>
                     </h6>
-                    <h5> Actions </h5>
+                    <h5> Corrective actions </h5>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="header">
+                                    <th scope="col" class="align-middle">ID</th>
                                     <th scope="col" class="align-middle">Action</th>
                                     <th scope="col" class="align-middle">Responsible</th>
                                     <th scope="col" class="align-middle">Department</th>
@@ -332,6 +333,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let action of issue.d5.actions">
+                                    <td> {{ action.id }} </td>
                                     <td> {{ action.description }} </td>
                                     <td> {{ action.responsibleName }} </td>
                                     <td> {{ action.departmentName }} </td>
@@ -378,7 +380,7 @@
                             </span>
                         </ng-template>
                     </h6>
-                    <h5> Actions </h5>
+                    <h5> Corrective actions </h5>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
@@ -424,6 +426,84 @@
         <li [ngbNavItem]="7" [class]="getClass(7)">
             <a ngbNavLink>D7</a>
             <ng-template ngbNavContent>
+                <div class="containter text-center pt-2 mb-5 mx-3">
+                    <h5 class="text-left row">
+                        <div class="col-md-6">
+                            D7.- Preventive actions and closure
+                        </div>
+                        <div class="col-md-6 text-right"></div>
+                    </h5>
+                    <h6 class="text-left">
+                        <span *ngIf="issue.status == 'D7'; else d8_done">
+                            <i class="fas fa-clock"></i>
+                            Defined on
+                            <span class="date">
+                                {{ issue.d7.done | date:'medium':'UTC' }}
+                            </span>
+                             but currently in progress
+                        </span>
+                        <ng-template #d8_done>
+                            <i class="far fa-clock"></i>
+                            Finished on
+                            <span class="date">
+                                {{ issue.d7.done | date:'medium':'UTC' }}
+                            </span>
+                        </ng-template>
+                    </h6>
+                    <h5> Preventive actions </h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr class="header">
+                                    <th scope="col" class="align-middle">ID</th>
+                                    <th scope="col" class="align-middle">Action</th>
+                                    <th scope="col" class="align-middle">Responsible</th>
+                                    <th scope="col" class="align-middle">Department</th>
+                                    <th scope="col" class="align-middle">Open date</th>
+                                    <th scope="col" class="align-middle">Due date</th>
+                                    <th scope="col" class="align-middle">Close date</th>
+                                    <th scope="col" class="align-middle">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let action of issue.d7.actions">
+                                    <td> {{ action.id }} </td>
+                                    <td> {{ action.description }} </td>
+                                    <td> {{ action.responsibleName }} </td>
+                                    <td> {{ action.departmentName }} </td>
+                                    <td> {{ action.evaluation | date:'mediumDate':'UTC' }} </td>
+                                    <td>
+                                        {{ action.due | date:'mediumDate':'UTC' }}
+                                        <span *ngIf="action.justification">
+                                            <br>
+                                            <i class="fas fa-exclamation mx-1 text-danger"></i>
+                                            <span class="font-weight-bold">Justification: </span>
+                                            {{ action.justification }}
+                                        </span>
+                                    </td>
+                                    <td> {{ action.closed ? (action.closed | date:'medium':'UTC') : '---' }} </td>
+                                    <td> {{ action.status | titlecase }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5> Closure </h5>
+                            <div class="text-left">
+                                <detail name="FMEA was updated?" [value]="issue.d7.closure.fmea" decorator=""></detail>
+                                <detail name="Control plan was updated?" [value]="issue.d7.closure.control" decorator=""></detail>
+                                <detail name="Read Across was deploy?" [value]="issue.d7.closure.readAcross" decorator=""></detail>
+                                <detail name="Lessons learned log was updated?" [value]="issue.d7.closure.lessons" decorator=""></detail>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <file-view [resources]="issue.resources" filter="D7">
+                            </file-view>
+                        </div>
+                    </div>
+                </div>
             </ng-template>
         </li>
 

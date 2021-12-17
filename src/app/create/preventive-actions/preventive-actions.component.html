@@ -1,6 +1,14 @@
 <div class="container text-center pt-2 mb-5 mx-3">
     <alert></alert>
-    <h4 class="text-left my-3">D7.- Preventive actions</h4>
+    <h4 class="text-left my-3">
+        <a title="View issue" target="_blank" [href]="'/issues/details/' + id">
+            <span class="issue-link">
+                Issue #{{ id }}
+                <i class="fas fa-chevron-circle-right mx-2"></i>
+            </span>
+        </a>
+        D7.- Preventive actions
+    </h4>
     <form [formGroup]="actionForm">
         <div class="row justify-content-center">
             <div class="table-responsive">

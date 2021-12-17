@@ -151,6 +151,43 @@ export class CreateService extends AppService{
     );
   }
 
+  public d7(body, id){
+    let calls = [];
+    
+    calls.push(
+      this.http.post(`/api/d7/${ id }`, {
+        actions: body.actions,
+        closure: body.closure
+      })
+    );
+
+    if(body.control){
+      calls.push(this.getFileRequest(body.control, id, 'D7'));
+    }
+    if(body.fmea){
+      calls.push(this.getFileRequest(body.fmea, id, 'D7'));
+    }
+
+    return forkJoin(calls)
+    .pipe(
+      map(resps =>{
+        let count = 0;
+        resps.forEach(r => {
+          count += r['ok'];
+        });
+
+        if(count == resps.length){
+          return true;
+        }
+        this.errorMessage = count == 0 ? "Couldn't update to D7" : 'Partial error';
+        return false;
+      }),catchError(error=>{
+        this.errorMessage = 'Server error';
+        return of(false);
+      })
+    );
+  }
+
   public d5(body, id){
     return this.http.post(`/api/d5/${ id }`, body)
     .pipe(
