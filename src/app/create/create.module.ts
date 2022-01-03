@@ -11,6 +11,7 @@ import { ContainmentComponent } from './containment/containment.component';
 import { RootCausesComponent } from './root-causes/root-causes.component';
 import { ActionListComponent } from './action-list/action-list.component';
 import { PreventiveActionsComponent } from './preventive-actions/preventive-actions.component';
+import { CloseComponent } from './close/close.component';
 
 
 
@@ -22,7 +23,8 @@ import { PreventiveActionsComponent } from './preventive-actions/preventive-acti
     ContainmentComponent,
     RootCausesComponent,
     ActionListComponent,
-    PreventiveActionsComponent
+    PreventiveActionsComponent,
+    CloseComponent
   ],
   imports: [
     CommonModule,

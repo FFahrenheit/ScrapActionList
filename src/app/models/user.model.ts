@@ -3,6 +3,7 @@ export class User{
         public username : string,
         public email : string, 
         public position : string,
-        public name: string
+        public name: string,
+        public manager: string[]
     ){}
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NextSteps } from 'src/app/resources/next.step';
+import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/shared/alert';
 
 @Component({
@@ -19,7 +20,8 @@ export class IssueFollowUpComponent implements OnInit {
   constructor(private route   : ActivatedRoute,
               private alert   : AlertService,
               private router  : Router,
-              private title   : Title) { }
+              private title   : Title,
+              private auth    : AuthService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -38,12 +40,16 @@ export class IssueFollowUpComponent implements OnInit {
     }
   }
 
-  goToNext(){
+  public goToNext(){
     if(this.next){
       this.router.navigate(['create', this.id, this.nextSteps[this.next]]);
     }else{
       this.alert.warn('This issue has no follow-up');
     }
+  }
+
+  public canClose(){
+    return this.auth.getLoggedUser().manager.length > 0;
   }
 
 }

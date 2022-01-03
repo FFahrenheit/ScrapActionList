@@ -34,10 +34,11 @@ export class AuthService extends AppService{
         position,
         name,
         email,
+        manager
       } = resp['user'];
 
       this.user = new User(
-        username, email, position, name
+        username, email, position, name, manager
       );
 
       localStorage.setItem('token', resp['token']);
