@@ -1,0 +1,81 @@
+<div class="container text-center pt-2 mb-5 mx-3">
+    <alert></alert>
+    <h4 class="text-left my-3">
+        <a title="View issue" target="_blank" [href]="'/issues/details/' + id">
+            <span class="issue-link">
+                Issue #{{ id }}
+                <i class="fas fa-chevron-circle-right mx-2"></i>
+            </span>
+        </a>
+        D7.- Add preventive actions
+    </h4>
+    <form [formGroup]="actionForm">
+        <div class="row justify-content-center">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col"> Action </th>
+                            <th scope="col"> Responsible </th>
+                            <th scope="col"> Department </th>
+                            <th scope="col"> Due date </th>
+                            <th scope="col"> &nbsp; </th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="actions">
+                        <tr *ngFor="let action of actions.controls; let i = index" [formGroupName]="i">
+                            <td>
+                                <textarea type="text" formControlName="description" class="form-control"
+                                    [class]="getClass(action, 'description')"
+                                    placeholder="Action description"></textarea>
+                            </td>
+                            <td>
+                                <select class="form-control" formControlName="responsible"
+                                    [class]="getClass(action, 'responsible')">
+                                    <option [value]="''" selected disabled> Select an user</option>
+                                    <option *ngFor="let user of userList" [value]="user.username">
+                                        {{ user.name }}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" formControlName="department"
+                                    [class]="getClass(action, 'department')">
+                                    <option [value]="''" selected disabled> Department in charge </option>
+                                    <option *ngFor="let depto of departments" [value]="depto.id">
+                                        {{ depto.name }}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="date" formControlName="due" class="form-control"
+                                    [class]="getClass(action, 'due')" [min]="today">
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" *ngIf="i === 0" (click)="addAction()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="btn btn-danger" *ngIf="i !== 0" (click)="deleteAction(i)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- <button class="btn float-right" (click)="continue()"
+                    [ngClass]="{ 'btn-success': usersForm.valid, 'btn-secondary not-ready': !usersForm.valid }">
+                    Continue
+                </button> -->
+                <confirm-modal 
+                    title="Define corrective actions" 
+                    content="Are you sure you want to add these preventive actions? Remember, once you define the due dates, you cannot change them"
+                    (triggered)="actionForm.markAllAsTouched()" 
+                    (accept)="submit()" 
+                    [isDisabled]="!actionForm.valid"
+                    reason="You need to fullfil the actions">
+                </confirm-modal>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,5 +1,7 @@
 import { Routes } from "@angular/router";
 import { ActionListComponent } from "./action-list/action-list.component";
+import { AddPreventiveComponent } from "./add-preventive/add-preventive.component";
+import { CloseComponent } from "./close/close.component";
 import { ContainmentComponent } from "./containment/containment.component";
 import { DetailsComponent } from "./details/details.component";
 import { PreventiveActionsComponent } from "./preventive-actions/preventive-actions.component";
@@ -58,6 +60,20 @@ export const CreateRoutes : Routes = [
                 component: PreventiveActionsComponent,
                 data: {
                     title: 'D7: Preventive actions'
+                }
+            },
+            {
+                path: ':id/add-preventive',
+                component: AddPreventiveComponent,
+                data: {
+                    title: 'D7: Add preventive actions'
+                }
+            },
+            {
+                path: ':id/close',
+                component: CloseComponent,
+                data: {
+                    title: 'D8: Recognize team'
                 }
             },
             {

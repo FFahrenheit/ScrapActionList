@@ -51,5 +51,12 @@ export class IssueFollowUpComponent implements OnInit {
   public canClose(){
     return this.auth.getLoggedUser().manager.length > 0;
   }
+  
+  public preventiveDone(){
+    return this.issue.d7.actions.every(a => a.status == 'closed');
+  }
 
+  public addPreventive(){
+    this.router.navigate(['create', this.id, this.nextSteps['d7.5']]);
+  }
 }

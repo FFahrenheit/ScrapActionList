@@ -10,14 +10,18 @@
         </button>
 
         <div *ngSwitchCase="'D7'"> 
-            <button *ngIf="canClose()" class="btn btn-success px-3" (click)="goToNext()">
+            <button *ngIf="canClose() && preventiveDone()" class="btn btn-success px-3" (click)="goToNext()">
                 Close issue
             </button>
 
-            <span *ngIf="!canClose()" class="font-italic">
+            <span *ngIf="!canClose() && preventiveDone()" class="font-italic">
                 <i class="fas fa-exclamation text-danger"></i>
                 Only a manager can close this issue
             </span>
+
+            <button *ngIf="!preventiveDone()" class="btn btn-success px-3" (click)="addPreventive()">
+                Add preventive actions
+            </button>
         </div>
         
         <button *ngSwitchDefault class="btn btn-success px-3" (click)="goToNext()"> 

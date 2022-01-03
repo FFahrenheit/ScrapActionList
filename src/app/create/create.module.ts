@@ -12,6 +12,7 @@ import { RootCausesComponent } from './root-causes/root-causes.component';
 import { ActionListComponent } from './action-list/action-list.component';
 import { PreventiveActionsComponent } from './preventive-actions/preventive-actions.component';
 import { CloseComponent } from './close/close.component';
+import { AddPreventiveComponent } from './add-preventive/add-preventive.component';
 
 
 
@@ -24,7 +25,8 @@ import { CloseComponent } from './close/close.component';
     RootCausesComponent,
     ActionListComponent,
     PreventiveActionsComponent,
-    CloseComponent
+    CloseComponent,
+    AddPreventiveComponent
   ],
   imports: [
     CommonModule,
