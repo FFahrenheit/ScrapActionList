@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NextSteps } from 'src/app/resources/next.step';
 import { AuthService } from 'src/app/services/auth.service';
+import { CreateService } from 'src/app/services/create.service';
 import { AlertService } from 'src/app/shared/alert';
 
 @Component({
@@ -21,7 +22,8 @@ export class IssueFollowUpComponent implements OnInit {
               private alert   : AlertService,
               private router  : Router,
               private title   : Title,
-              private auth    : AuthService) { }
+              private auth    : AuthService,
+              private create  : CreateService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -58,5 +60,19 @@ export class IssueFollowUpComponent implements OnInit {
 
   public addPreventive(){
     this.router.navigate(['create', this.id, this.nextSteps['d7.5']]);
+  }
+
+  public closeIssue(){
+    this.create.d8(this.id).subscribe(resp=>{
+      if(resp){
+        this.alert.success('Issue closed');
+        setTimeout(() => {
+          this.router.navigate(['issues', 'details', this.id]);
+        }, 2500);
+      }else{
+        this.alert.error(this.create.getMessage());
+      }
+    }
+  );
   }
 }

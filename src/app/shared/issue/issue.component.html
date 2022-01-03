@@ -510,6 +510,36 @@
         <li [ngbNavItem]="8" [class]="getClass(8)">
             <a ngbNavLink>D8</a>
             <ng-template ngbNavContent>
+                <div class="containter text-center pt-2 mb-5 mx-3">
+                    <h5 class="text-left"> D8.- Recognize team </h5>
+                    <h6 class="text-left">
+                        <i class="far fa-clock"></i>
+                        Done on
+                        <span class="date">
+                            {{ issue.d8.done | date:'medium':'UTC' }}
+                        </span>
+                    </h6>
+
+                    <h5 class="py-3 closed-details">
+                        Issue closed on 
+                        <span class="font-weight-bold">
+                            {{ issue.d8.done | date:'fullDate':'UTC' }}
+                            at 
+                            {{ issue.d8.done | date:'mediumTime':'UTC' }}
+                        </span>
+                        by
+                        <span class="font-weight-bold">
+                            {{ issue.d8.closedName }}.
+                        </span> <br>
+
+                        <i class="far fa-envelope my-2"></i>
+                        Contact 
+                        <a [href]="'mailto:' + issue.d8.closedEmail + '?Subject=About%20Issue%20#' + id">
+                            {{ issue.d8.closedEmail }}
+                        </a>
+                        to more details
+                    </h5>
+                </div>
             </ng-template>
         </li>
 

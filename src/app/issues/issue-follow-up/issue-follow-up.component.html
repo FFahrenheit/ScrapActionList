@@ -1,4 +1,3 @@
-<alert></alert>
 <issue [id]="id" (receive)="getIssue($event)">
 </issue>
 
@@ -9,15 +8,19 @@
             Add actions
         </button>
 
-        <div *ngSwitchCase="'D7'"> 
-            <button *ngIf="canClose() && preventiveDone()" class="btn btn-success px-3" (click)="goToNext()">
-                Close issue
-            </button>
+        <div *ngSwitchCase="'D7'">
 
-            <span *ngIf="!canClose() && preventiveDone()" class="font-italic">
-                <i class="fas fa-exclamation text-danger"></i>
-                Only a manager can close this issue
-            </span>
+            <div class="justify-content-center text-center" *ngIf="preventiveDone()">
+                <confirm-modal
+                    title="Close issue" 
+                    content="Do you want to close this issue and recognize team?"
+                    (accept)="closeIssue()" 
+                    [isDisabled]="!canClose()" 
+                    reason="Only a manager can close this issue"
+                    trigger="Close issue">
+                    Close issue
+                </confirm-modal>
+            </div>
 
             <button *ngIf="!preventiveDone()" class="btn btn-success px-3" (click)="addPreventive()">
                 Add preventive actions

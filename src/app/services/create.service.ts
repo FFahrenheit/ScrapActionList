@@ -151,6 +151,22 @@ export class CreateService extends AppService{
     );
   }
 
+  public d5(body, id){
+    return this.http.post(`/api/d5/${ id }`, body)
+    .pipe(
+      map(resp=>{
+        if(resp['ok']){
+          return true;
+        }
+        this.errorMessage = "Couldn't update to D5";
+        return false;
+      }),catchError(error=>{
+        this.errorMessage = 'Server error';
+        return of(false);
+      })
+    );
+  }
+
   public d7(body, id){
     let calls = [];
     
@@ -188,14 +204,25 @@ export class CreateService extends AppService{
     );
   }
 
-  public d5(body, id){
-    return this.http.post(`/api/d5/${ id }`, body)
+  public d8(id){
+    let calls = [];
+    
+    calls.push(
+      this.http.post(`/api/d8/${ id }`, {})
+    );
+
+    return forkJoin(calls)
     .pipe(
-      map(resp=>{
-        if(resp['ok']){
+      map(resps =>{
+        let count = 0;
+        resps.forEach(r => {
+          count += r['ok'];
+        });
+
+        if(count == resps.length){
           return true;
         }
-        this.errorMessage = "Couldn't update to D5";
+        this.errorMessage = count == 0 ? "Couldn't close issue" : 'Partial error';
         return false;
       }),catchError(error=>{
         this.errorMessage = 'Server error';
