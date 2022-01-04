@@ -1,5 +1,6 @@
 export interface DashboardOption {
     title : string,
     icon : string,
-    listener : string
+    listener? : string,
+    route? : string[]
 };

@@ -7,6 +7,7 @@ import { publicOptions } from 'src/app/resources/profile.options';
 import { publicRoutes } from 'src/app/resources/sidebar.options';
 import { DashboardOption } from 'src/app/interfaces/dashboard.profile.item.interface';
 import { DashboardRoute } from 'src/app/interfaces/dashboard.sidebar.item.interface';
+import { adminOptions } from 'src/app/resources/admin.options';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,8 @@ export class DashboardComponent implements OnInit {
   public user : User | undefined = Object.create(null);
   public dropdownMenu : DashboardOption[];
   public sidebar : DashboardRoute[];
+  public adminMenu : DashboardOption[];
+  public isAdmin : boolean;
 
   constructor(private router  : Router,
               private login   : AuthService) { }
@@ -35,9 +38,12 @@ export class DashboardComponent implements OnInit {
 
     this.user = this.login.getLoggedUser();
 
+    this.isAdmin = this.user.position == 'admin' || this.user.manager.length > 0;
+
     this.title = window.location.origin.includes('localhost')? 'Test server' : 'ScrapActions';
 
     this.dropdownMenu = publicOptions;
+    this.adminMenu = adminOptions;
     this.sidebar = publicRoutes;
     this.getMode();
   }
@@ -107,4 +113,7 @@ export class DashboardComponent implements OnInit {
     // return this.sidebar[this.selectedIndex].detail;
   }
 
+  public goToWithoutIndex(route : string[]){
+    console.log(route);
+  }
 }

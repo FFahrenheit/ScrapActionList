@@ -26,10 +26,7 @@
                 </span>
             </a>
             <div class="float-right ml-auto my-auto">
-                <!-- <span class=" mx-2 gauge my-auto align-middle">
-                    <i class="fas fa-tachometer-alt" (click)="goToGauges()" title="Ir a préstamos de gauges">
-                    </i>
-                </span> -->
+
                 <span class="navbar-text">
                     <div ngbDropdown class="" placement="bottom-right" display="dynamic">
                         <button class="btn btn-light " id="dropdownBasic1" ngbDropdownToggle>
@@ -43,14 +40,14 @@
                                 {{ o.title }}
                             </button>
 
-                            <!-- <div *ngIf="isAdmin">
+                            <div *ngIf="isAdmin">
                                 <div class="dropdown-divider"></div>
-                                <button ngbDropdownItem *ngFor="let o of adminDropdown"
-                                    (click)="handleClick(o.listener)">
+                                <button ngbDropdownItem *ngFor="let o of adminMenu"
+                                    (click)="goToWithoutIndex(o.route)">
                                     <i [class]="o.icon"></i>
                                     {{ o.title }}
                                 </button>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </span>

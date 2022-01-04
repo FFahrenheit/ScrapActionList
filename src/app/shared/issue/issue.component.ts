@@ -20,7 +20,7 @@ export class IssueComponent implements OnInit {
   public error : string | null = '';
   
   public status = '';
-  @Input() public active : number = 8;
+  @Input() public active : number = 0;
   @Input() alertEnabled : boolean = true;
   public Ds = ['d0', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
 

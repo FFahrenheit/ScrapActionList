@@ -53,6 +53,13 @@ export const AppRoutes : Routes = [
                 )
             },
             {
+                path: 'admin',
+                loadChildren: () => 
+                import('./admin/admin.module').then(
+                    m => m.AdminModule
+                )
+            },
+            {
                 path: '',
                 pathMatch: 'full',
                 redirectTo: 'issues'              
