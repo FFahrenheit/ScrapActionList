@@ -1,0 +1,36 @@
+<div *ngIf="form" class="table-responsive container text-center pt-2">
+
+    <alert></alert>
+
+    <h5 class="text-left mt-2 mb-4">Change department managers</h5>
+
+    <form [formGroup]="form">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-6">
+                <div *ngFor="let d of halfList[0]" class="form-group row pt">
+                    <label for="" class="col-md-4 col-form-label"> {{ d }}</label>
+                    <div class="col-md-8">
+                        <select [formControlName]="d" class="custom-select mb-2 mr-sm-2 mb-sm-0"
+                            [class]="getClass(d)">
+                            <option *ngFor="let u of users" [value]="u.username"> {{ u.name }} </option>
+                        </select>
+                    </div>           
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div *ngFor="let d of halfList[1]" class="form-group row pt">
+                    <label for="" class="col-md-4 col-form-label"> {{ d }}</label>
+                    <div class="col-md-8">
+                        <select [formControlName]="d" class="custom-select mb-2 mr-sm-2 mb-sm-0"
+                            [class]="getClass(d)">
+                            <option *ngFor="let u of users" [value]="u.username"> {{ u.name }} </option>
+                        </select>
+                    </div>           
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

@@ -114,6 +114,6 @@ export class DashboardComponent implements OnInit {
   }
 
   public goToWithoutIndex(route : string[]){
-    console.log(route);
+    this.router.navigate(route);
   }
 }
