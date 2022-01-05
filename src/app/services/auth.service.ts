@@ -116,4 +116,8 @@ export class AuthService extends AppService{
     );
   }
 
+  public isAdmin() : boolean{
+    return this.user && this.user.position == 'admin' || this.user.manager.length > 0;
+  }
+
 }

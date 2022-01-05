@@ -14,6 +14,7 @@ import { Error404Component } from './errors/error404/error404.component';
 import { PipesModule } from './pipes/pipes.module';
 import { Error500Component } from './errors/error500/error500.component';
 import { DatePipe, TitleCasePipe } from '@angular/common';
+import { Error403Component } from './errors/error403/error403.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
     DashboardComponent,
     Error404Component,
     Error500Component,
+    Error403Component,
   ],
   imports: [
     BrowserModule,
