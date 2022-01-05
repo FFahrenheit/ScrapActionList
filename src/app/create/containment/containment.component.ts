@@ -8,6 +8,13 @@ import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
 import { stocks } from './containment.stock.resources';
 
+/**
+ * Expresión regular para el formato del patrón de la 
+ * Quality Alert.
+ * Si desea cambiarlo consulte "Expresiones regulares"
+ * que cumplan con sus condiciones
+ */
+const QA_REGEX_PATTERN = 'QA-[a-zA-Z]{3,}-[0-9]{5}';
 @Component({
   selector: 'app-containment',
   templateUrl: './containment.component.html',
@@ -63,8 +70,7 @@ export class ContainmentComponent implements OnInit {
       others: ['', Validators.required],
       sites: [''],
       containment: [''],
-      //Aquí se cambia la RegEx
-      QA: ['', Validators.compose([Validators.required, Validators.pattern('QA-[a-zA-Z]{3,}-[0-9]{5}')])],
+      QA: ['', Validators.compose([Validators.required, Validators.pattern(QA_REGEX_PATTERN)])],
       poka: ['', Validators.required],
       robust: ['', Validators.required]
     });

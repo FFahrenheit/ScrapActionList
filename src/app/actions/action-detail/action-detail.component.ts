@@ -18,6 +18,7 @@ export class ActionDetailComponent implements OnInit {
   public issue = null;
   public action = null;
   public files : File[] = null;
+  public actionType : number = 0;
 
   constructor(private route     : ActivatedRoute,
               private title     : Title,
@@ -38,8 +39,16 @@ export class ActionDetailComponent implements OnInit {
   getIssue($event){
     this.issue = $event;
     if(this.issue){
+      this.issue.d5.actions = this.issue.d5?.actions.map(a => ({...a, type: 'Corrective'}));
+
+      if(this.issue.d7){
+        this.issue['d7']['actions'] = this.issue.d7?.actions.map(a => ({...a, type: 'Preventive'}));
+      }
+
       const actions = (this.issue.d5?.actions || []).concat( this.issue.d7?.actions || []);
       this.action = actions.find(a => a.id == this.actionId) || null;
+
+      this.actionType = this.action ? this.action.type == 'Corrective' ? 5 : 7 : 0;
       console.log({ actions, action: this.action }); 
     }
   }
@@ -58,8 +67,8 @@ export class ActionDetailComponent implements OnInit {
 
     this.actions.closeAction(this.actionId, files, this.issueId)
                 .subscribe(resp=> {
-                  this.alert.success("Action closed");
                   if(resp){
+                    this.alert.success("Action closed");
                     setTimeout(() => {
                       this.router.navigate(['issues', 'details', this.issueId]);
                     }, 2500);

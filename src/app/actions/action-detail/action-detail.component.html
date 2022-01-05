@@ -11,6 +11,7 @@
             <detail name="Due date" [value]="datePipe.transform(action.due, 'mediumDate', 'UTC')"></detail>
             <detail name="Status" [value]="titleCase.transform(action.status)"></detail>
             <detail name="Department" [value]="action.departmentName"></detail>
+            <detail name="Type" [value]="action.type"></detail>
             <detail *ngIf="action.justification" name="Justification" [value]="action.justification"></detail>
         </div>
     </div>
@@ -21,7 +22,7 @@
     </h5>
 </ng-template>
 
-<issue [id]="issueId" (receive)="getIssue($event)" [active]="5" [alertEnabled]="false">
+<issue [id]="issueId" (receive)="getIssue($event)" [active]="actionType" [alertEnabled]="false">
 </issue>
 
 <div *ngIf="action">

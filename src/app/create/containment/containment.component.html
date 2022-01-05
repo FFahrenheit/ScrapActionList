@@ -153,7 +153,7 @@
                     <div class="col-md-6">
                         <input formControlName="QA" type="text" class="form-control" placeholder="Sharepoint QA number"
                             [class]="getClassForm('QA')" [required]=" form.controls['others'].value == 'Yes' ">
-                        <a href]="getQAURL()" target="_blank" title="Go to QA" class="qa">
+                        <a [href]="getQAURL()" target="_blank" title="Go to QA" class="qa">
                             <i class="fas fa-link"></i>
                             Visit IMX_QAlert library
                         </a>
