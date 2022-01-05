@@ -1,4 +1,4 @@
-<div *ngIf="form" class="table-responsive container text-center pt-2">
+<div *ngIf="form; else load" class="table-responsive container text-center pt-2">
 
     <alert></alert>
 
@@ -30,7 +30,18 @@
                     </div>           
                 </div>
             </div>
+            <confirm-modal 
+                trigger="Save changes"
+                title="Save department managers" 
+                content="Are you sure you want to save the changes made?"
+                (accept)="submit()" 
+                [isDisabled]="! form.controls"
+                reason="Invalid data">
+            </confirm-modal>
         </div>
     </form>
-
 </div>
+<ng-template #load>
+    <error-message type="error" title="ERROR" [loading]="form? true : null " description="We couldn't load the departments">
+    </error-message>
+</ng-template>

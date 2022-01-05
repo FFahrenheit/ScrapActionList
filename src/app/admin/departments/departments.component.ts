@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Department, Participant } from 'src/app/interfaces/resources.items.interface';
+import { AdministrationService } from 'src/app/services/administration.service';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { AlertService } from 'src/app/shared/alert';
 
@@ -16,9 +17,10 @@ export class DepartmentsComponent implements OnInit {
 
   public form : FormGroup;
 
-  constructor(private resources : ResourcesService,
-              private alert     : AlertService,
-              private fb        : FormBuilder) { }
+  constructor(private resources     : ResourcesService,
+              private alert         : AlertService,
+              private fb            : FormBuilder,
+              private adminService  : AdministrationService) { }
 
   ngOnInit(): void {
     this.resources.loadResources().subscribe(
@@ -43,8 +45,6 @@ export class DepartmentsComponent implements OnInit {
         this.fb.control(d.manager, Validators.required)
       );
     });
-
-    console.log(this.form.controls);
   }
 
   get departmentForm(){
@@ -69,5 +69,25 @@ export class DepartmentsComponent implements OnInit {
 
   get(ctrl : string) : AbstractControl{
     return this.form.controls[ctrl];
+  }
+
+  submit(){
+    let departments = [];
+    this.departmentForm.forEach(dpt => {
+      departments.push({
+        name: dpt,
+        manager: this.get(dpt).value
+      });
+    });
+
+    this.adminService.updateManagers(departments).subscribe(
+      resp=>{
+        if(resp){
+          this.alert.success("Departments updated");
+        }else{
+          this.alert.error(this.adminService.getMessage());
+        }
+      });
+
   }
 }
