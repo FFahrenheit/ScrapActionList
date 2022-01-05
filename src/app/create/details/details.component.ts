@@ -70,6 +70,7 @@ export class DetailsComponent implements OnInit {
     })
 
     this.customerForm = this.fb.group({
+      category: ['', Validators.required],
       car: ['', Validators.required],
       issued: ['', Validators.required],
       contact: ['', Validators.required],

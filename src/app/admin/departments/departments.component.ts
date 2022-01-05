@@ -84,6 +84,9 @@ export class DepartmentsComponent implements OnInit {
       resp=>{
         if(resp){
           this.alert.success("Departments updated");
+          this.departmentForm.forEach(d => {
+            this.form.controls[d].markAsUntouched();
+          });
         }else{
           this.alert.error(this.adminService.getMessage());
         }

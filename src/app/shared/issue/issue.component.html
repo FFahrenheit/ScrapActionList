@@ -78,6 +78,7 @@
                             <h5> Customer incident details </h5>
                             <div class="text-center">
                                 <detail name="Customer name" [value]="issue.client"></detail>
+                                <detail name="Category" [value]="issue.incident.category"></detail>
                                 <detail name="Customer CAR" [value]="issue.incident.car"></detail>
                                 <detail name="Issued"
                                     [value]="datePipe.transform(issue.incident.issued, 'fullDate', 'UTC')">
