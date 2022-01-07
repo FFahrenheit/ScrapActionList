@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
 
     this.isAdmin = this.user.position == 'admin' || this.user.manager.length > 0;
 
-    this.title = window.location.origin.includes('localhost')? 'Test server' : 'ScrapActions';
+    this.title = window.location.origin.includes('localhost')? "Test - 8D's" : "8D's";
 
     this.dropdownMenu = publicOptions;
     this.adminMenu = adminOptions;

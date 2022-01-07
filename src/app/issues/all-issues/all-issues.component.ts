@@ -38,9 +38,9 @@ export class AllIssuesComponent implements OnInit {
         });
   }
 
-  // public appyFilters($event){
-  //   this.loadDevices($event);
-  // }
+  public appyFilters($event){
+    this.loadIssues($event);
+  }
 
   public resetFilters(){
     this.issuesService.resetFilters();

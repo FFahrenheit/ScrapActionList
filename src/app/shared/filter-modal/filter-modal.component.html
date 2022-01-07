@@ -65,7 +65,7 @@
                         <select [class]="getClass('customer')" formControlName="customer"
                             class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
                             <option [value]="null" disabled selected>Customer</option>
-                            <option *ngFor="let customer of customers" [value]="customer.id">
+                            <option *ngFor="let customer of customers" [value]="customer.name">
                                 {{ customer.name }}
                             </option>
                             <option [value]="''">Any</option>
@@ -91,7 +91,7 @@
                         <select [class]="getClass('problem')" formControlName="problem"
                             class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
                             <option [value]="null" disabled selected>Defective found</option>
-                            <option *ngFor="let defect of defectives" [value]="defect.id">
+                            <option *ngFor="let defect of defectives" [value]="defect.description">
                                 {{ defect.description }}
                             </option>
                             <option [value]="''">Any</option>

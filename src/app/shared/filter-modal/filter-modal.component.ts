@@ -120,12 +120,6 @@ export class FilterModalComponent implements OnInit {
         let filter;
 
         switch(key){
-          case 'problem':
-            filter = 'Defective : ' + this.defectives.find(d => d.id == control)?.description;
-            break;
-          case 'customer':
-              filter = 'Customer : ' + this.customers.find(d => d.id == control)?.name;
-              break;
           case 'id':
             filter = 'ID : ' + control;
             break;
@@ -135,8 +129,12 @@ export class FilterModalComponent implements OnInit {
             case 'createdTo':
               filter = 'Created until ' + control;
               break;
+          case 'area':
+          case 'phase':
+            filter = this.titleCase.transform(key) + ' : ' + control;
+            break;
           default:
-            filter = this.titleCase.transform(key + ' : ' + control);
+            filter = this.titleCase.transform(key + ' : ' + control);          
             break;
         }
         
