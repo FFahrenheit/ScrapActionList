@@ -82,6 +82,18 @@ export class ResourcesService extends AppService{
 
             });
           }
+          else if(resp['customers']){
+
+            this.customers = [];            
+            resp['customers'].forEach( c => {
+              
+              this.customers.push({
+                id: c['id'],
+                name: c['name']  
+              });
+
+            });
+          }
         });
         this.errorMessage = "Couldn't retieve data from server";
         return count == resps.length;
@@ -116,5 +128,9 @@ export class ResourcesService extends AppService{
   public getAreas() : string[]{
     let areas = this.parts.map(p => p.area);
     return Array.from(new Set(areas));
+  }
+
+  public getStatus() : string[]{
+    return Array(9).fill('').map((_, i) => 'D' + i);
   }
 }

@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { FiveWhysComponent } from './five-whys/five-whys.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IssueComponent } from './issue/issue.component';
 import { SortDirective } from '../directives/sort.directive';
 import { ErrorMessageComponent } from './error-message/error-message.component';
@@ -37,7 +37,8 @@ import { FilterModalComponent } from './filter-modal/filter-modal.component';
     CommonModule,
     NgbModule,
     PipesModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     LoaderSpinnerComponent,

@@ -1,1 +1,332 @@
-<p>filter-modal works!</p>
+<div>
+    <button class="btn btn-md btn-secondary" (click)="open(filterModal)">
+        <i class="fas fa-filter mr-1"></i>
+        {{ trigger }}
+    </button>
+    <div *ngIf="filters?.length != 0; else empty_body">
+        <span *ngFor="let filter of filters; let i = index" class="badge badge-dark mx-1" [style]="'background-color : rgb(' + 
+            (170 - i*(255/(filters.length))) + ',' + 
+            (170 - i*(255/(filters.length))) + ',' + 
+            (170- i*(255/(filters.length))) + ');'">
+            {{ filter }}
+        </span>
+    </div>
+    <ng-template #empty_body>
+        <br><span *ngIf="touched">No filters applied</span>
+    </ng-template>
+</div>
+
+<ng-template #filterModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title m-title" id="modal-basic-title"> {{ title }} </h4>
+        <button type="button" class="close" style="outline:none;" aria-label="Close" (click)="modal.dismiss('CANCEL')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <div class="modal-body m-content mx-3">
+        <form [formGroup]="filterForm" (keyup.enter)="modal.close('YES')">
+            <h6>
+                {{ message }}
+            </h6>
+
+            <div class="col-md-12">
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label has-error has-feedback">ID</label>
+                    <div class="col-md-8">
+                        <input id="id_input" formControlName="id" type="text" class="form-control"
+                            [class]="getClass('id')" placeholder="Issue number">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label">Status</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('status')" formControlName="status"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]="null" disabled selected>Status of issue</option>
+                            <option *ngFor="let status of statusList" [value]="status"> {{ status }}</option>
+                            <option [value]="''">Any</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label has-error has-feedback">Description</label>
+                    <div class="col-md-8">
+                        <input id="id_input" formControlName="description" type="text" class="form-control"
+                            [class]="getClass('description')" placeholder="Description of issue">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label">Customer</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('customer')" formControlName="customer"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]="null" disabled selected>Customer</option>
+                            <option *ngFor="let customer of customers" [value]="customer.id">
+                                {{ customer.name }}
+                            </option>
+                            <option [value]="''">Any</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label">Part number</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('part')" formControlName="part"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]="null" disabled selected>Part</option>
+                            <option *ngFor="let part of parts" [value]="part.number"> {{ part.number }}</option>
+                            <option [value]="''">Any</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label">Defective</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('problem')" formControlName="problem"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]="null" disabled selected>Defective found</option>
+                            <option *ngFor="let defect of defectives" [value]="defect.id">
+                                {{ defect.description }}
+                            </option>
+                            <option [value]="''">Any</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label">Type</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('type')" formControlName="type"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]="null" disabled selected>Type of issue</option>
+                            <option *ngFor="let type of types" [value]="type">
+                                {{ type }}
+                            </option>
+                            <option [value]="''">Any</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label">Area</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('area')" formControlName="area"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]="null" disabled selected>Area of process</option>
+                            <option *ngFor="let area of areas" [value]="area">
+                                {{ area }}
+                            </option>
+                            <option [value]="''">Any</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label">Phase</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('phase')" formControlName="phase"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]="null" disabled selected>Phase of issue</option>
+                            <option>Produccion</option>
+                            <option>NPI</option>
+                            <option [value]="''">Any</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group pb-2">
+                    <span class="">Created</span>
+                    <div class="row py-0">
+                        <label for="" class="col-md-1 col-form-label">From</label>
+                        <div class="col-md-5">
+                            <input [class]="getClass('createdFrom')" formControlName="createdFrom"
+                                class="form-control date-short" type="date">
+                        </div>
+                        <label for="" class="col-md-1 col-form-label">To</label>
+                        <div class="col-md-5">
+                            <input [min]="filterForm.controls['createdFrom'].value" formControlName="createdTo"
+                                [class]="getClass('createdTo')" class="form-control date-short" type="date">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 
+            <div class="col-md-12">
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label has-error has-feedback">ID</label>
+                    <div class="col-md-8">
+                        <input id="id_input" formControlName="id" type="text" class="form-control" [class]="getClass('id')"
+                            placeholder="ID del dispositivo">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">Tipo</label>
+                    <div class="col-md-8">
+                        <select formControlName="tipo" [class]="getClass('tipo')"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                            <option [value]='null' disabled selected>Tipo de dispositivo</option>
+                            <option value="INT">Equipo (INT)</option>
+                            <option value="DUM-">Dummy (DUM)</option>
+                            <option value="FIX">Fixture (FIX)</option>
+                            <option [value]='""'>Todos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0" *ngIf="blocked.includes('disponible')">
+                    <label for="" class="col-md-4 col-form-label has-error has-feedback">Prestatario</label>
+                    <div class="col-md-8">
+                        <input formControlName="prestatario" type="text" class="form-control" [class]="getClass('prestatario')"
+                            placeholder="Nombre o nombre de usuario">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label has-error has-feedback">No. de serie</label>
+                    <div class="col-md-8">
+                        <input formControlName="serie" type="text" class="form-control" [class]="getClass('serie')"
+                            placeholder="No. de serie">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label has-error has-feedback">Descripción</label>
+                    <div class="col-md-8">
+                        <input formControlName="descripcion" type="text" class="form-control"
+                            [class]="getClass('descripcion')" placeholder="Descripcion del dispositivo">
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0" *ngIf="!blocked.includes('estado')">
+                    <label for="" class="col-md-4 col-form-label">Estado</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('estado')" formControlName="estado"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]='null' disabled selected>Estado de calibración</option>
+                            <option *ngFor="let e of estados" [value]="e"> {{ e }}</option>
+                            <option value=''>Cualquiera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0" *ngIf="!blocked.includes('activo')">
+                    <label for="" class="col-md-4 col-form-label">Estado equipo</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('activo')" formControlName="activo"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]='null' disabled selected>Estado del equipo</option>
+                            <option *ngFor="let a of activos" [value]="a"> {{ a }}</option>
+                            <option value=''>Cualquiera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label">Calibración</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('calibracion')" formControlName="calibracion"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]='null' disabled selected>Interna o externa</option>
+                            <option value='INTERNO'>Interna</option>
+                            <option value='EXTERNO'>Externa</option>
+                            <option value=''>Cualquiera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0">
+                    <label for="" class="col-md-4 col-form-label has-error has-feedback">Ubicación</label>
+                    <div class="col-md-8">
+                        <default-input  [triggerFunction]="resetTrigger" placeholder="Ubicación del equipo" [values]="ubicaciones" 
+                        (onType)="updateUbicacion($event)" [model]="defaultLocation" [marked]="true"></default-input>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-0" *ngIf="blocked.length == 0">
+                    <label for="" class="col-md-4 col-form-label">Préstamo</label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('prestado')" formControlName="prestado"
+                            class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                            <option [value]='null' disabled selected>Estado de préstamo</option>
+                            <option value='IS NOT NULL'>Prestado</option>
+                            <option value='IS NULL'>Disponible</option>
+                            <option value=''>Cualquiera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pb-0">
+                    <label for="" class="col-md-6 col-form-label has-error has-feedback">Periodo de calibración</label>
+                    <div class="col-md-6">
+                        <input formControlName="periodo" type="number" min="0" class="form-control"
+                            [class]="getClass('periodo')" placeholder="Periodo en meses">
+                    </div>
+                </div>
+
+                <div class="form-group py-0 closer" *ngIf="!blocked.includes('fromUltima')">
+                    <span>Última calibración</span>
+                    <div class="row py-0">
+                        <label for="" class="col-md-1 col-form-label">De</label>
+                        <div class="col-md-5">
+                            <input [class]="getClass('fromUltima')" formControlName="fromUltima" 
+                                class="form-control date-short" type="date">
+                        </div>
+                        <label for="" class="col-md-1 col-form-label">A</label>
+                        <div class="col-md-5">
+                            <input [min]="filterForm.controls['toUltima'].value" formControlName="toUltima"
+                                [class]="getClass('toUltima')" class="form-control date-short" type="date">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group py-0" *ngIf="!blocked.includes('fromSiguiente')">
+                    <span>Siguiente calibración</span>
+                    <div class="row py-0">
+                        <label for="" class="col-md-1 col-form-label">De</label>
+                        <div class="col-md-5">
+                            <input [class]="getClass('fromSiguiente')" formControlName="fromSiguiente"
+                                class="form-control date-short" type="date">
+                        </div>
+                        <label for="" class="col-md-1 col-form-label">A</label>
+                        <div class="col-md-5">
+                            <input [min]="filterForm.controls['fromSiguiente'].value" formControlName="toSiguiente"
+                                [class]="getClass('toSiguiente')" class="form-control date-short" type="date">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group pt-0" *ngIf="blocked?.length > 0">
+                    <span>Calibración dentro de</span>
+                    <div class="row pt-0">
+                        <label for="" class="col-md-2 col-form-label">Desde</label>
+                        <div class="col-md-4">
+                            <input [class]="getClass('fromRemaining')" formControlName="fromRemaining" 
+                                class="form-control" type="number" placeholder="Dias">
+                        </div>
+                        <label for="" class="col-md-2 col-form-label">Hasta</label>
+                        <div class="col-md-4">
+                            <input [min]="filterForm.controls['fromRemaining'].value" formControlName="toRemaining"
+                                [class]="getClass('toRemaining')" class="form-control" type="number" placeholder="Dias"> 
+                        </div>
+                    </div>
+                </div>
+
+            </div> -->
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success px-3" (click)="modal.close('YES')">Apply</button>
+        <button type="button" class="btn btn-primary px-3" (click)="resetForm()">Reset filters</button>
+        <button type="button" class="btn btn-secondary px-3" (click)="modal.close('')">Cancel</button>
+    </div>
+</ng-template>
