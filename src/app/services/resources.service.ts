@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Defective, Department, Part, Participant } from '../interfaces/resources.items.interface';
+import { Customer, Defective, Department, Part, Participant } from '../interfaces/resources.items.interface';
 import { AppService } from '../models/service.model';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class ResourcesService extends AppService{
   private problems : Defective[];
   private participants : Participant[];
   private departments : Department[];
+  private customers : Customer[];
 
   constructor(private http : HttpClient) { 
     super();
@@ -23,7 +24,8 @@ export class ResourcesService extends AppService{
       this.http.get('/api/problem'), 
       this.http.get('/api/part'),
       this.http.get('/api/users'),
-      this.http.get('/api/department')
+      this.http.get('/api/department'),
+      this.http.get('/api/customer')
     ]).pipe(
       map(resps=> {
         let count = 0;
@@ -39,7 +41,8 @@ export class ResourcesService extends AppService{
                 client: p['client'],
                 department: p['department'],
                 location: p['location'],
-                number: p['number']
+                number: p['number'],
+                clientId: p['clientId']
               });
             });
 
@@ -104,5 +107,14 @@ export class ResourcesService extends AppService{
 
   public getDepartments() : Department[]{
     return this.departments;
+  }
+
+  public getCustomers() : Customer[]{
+    return this.customers;
+  }
+
+  public getAreas() : string[]{
+    let areas = this.parts.map(p => p.area);
+    return Array.from(new Set(areas));
   }
 }

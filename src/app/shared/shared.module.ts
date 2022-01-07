@@ -14,6 +14,7 @@ import { SortDirective } from '../directives/sort.directive';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { DetailComponent } from './detail/detail.component';
 import { FileViewComponent } from './file-view/file-view.component';
+import { FilterModalComponent } from './filter-modal/filter-modal.component';
 
 
 
@@ -30,6 +31,7 @@ import { FileViewComponent } from './file-view/file-view.component';
     ErrorMessageComponent,
     DetailComponent,
     FileViewComponent,
+    FilterModalComponent,
   ],
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { FileViewComponent } from './file-view/file-view.component';
     FiveWhysComponent,
     IssueComponent,
     SortDirective,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    FilterModalComponent
   ]
 })
 export class SharedModule { }

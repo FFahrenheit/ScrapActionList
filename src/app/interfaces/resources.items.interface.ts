@@ -1,10 +1,15 @@
+export interface Customer{
+    name: string,
+    id: string
+};
+
 export interface Part{
     number: string,
     area: string,
     department: string,
     location: string,
     client: string,
-    id_client?: string
+    clientId?: string
 }
 
 export interface Defective{

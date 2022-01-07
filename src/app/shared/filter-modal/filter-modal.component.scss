@@ -1,0 +1,62 @@
+.m-content {
+    color: rgb(48, 48, 48);
+    font-weight: 400;
+}
+
+.m-title {
+    color: rgb(63, 63, 63);
+}
+
+label,
+legend {
+    color: black;
+}
+
+.area {
+    min-height: 80px;
+}
+
+.no-ok {
+    background-color: rgb(134, 134, 134);
+    cursor: default;
+    border-color: rgb(133, 133, 133);
+}
+
+.popup {
+    size: 14px;
+}
+
+.popup input,
+select {
+    height: 90%;
+}
+
+.pt-0 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.date-short{
+    font-family: Helvetica, sans-serif;
+    font-weight: 100;
+    letter-spacing: 0px;
+    font-size: 14px;
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
+  padding: 10px;
+}
+
+.closer{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: -16px;
+    margin-bottom: 0px;
+}
