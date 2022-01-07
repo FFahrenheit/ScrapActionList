@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ActionsRoutes } from './actions.routing';
 import { SharedModule } from '../shared/shared.module';
 import { ActionDetailComponent } from './action-detail/action-detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +17,8 @@ import { ActionDetailComponent } from './action-detail/action-detail.component';
   imports: [
     CommonModule,
     RouterModule.forChild(ActionsRoutes),
-    SharedModule
+    SharedModule,
+    FormsModule,
   ]
 })
 export class ActionsModule { }

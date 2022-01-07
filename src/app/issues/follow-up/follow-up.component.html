@@ -74,7 +74,7 @@
         </thead>
         <tbody class="click">
             <tr *ngFor="let i of issues" (click)="issueDetails(i.id, i.status)">
-                <td> {{ i.id }} </td>
+                <td> #{{ i.id }} </td>
                 <td> {{ i.client }} </td>
                 <td> {{ i.part }} </td>
                 <td> {{ i.type }} </td>

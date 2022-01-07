@@ -1,18 +1,19 @@
 <div class="table-responsive container text-center mb-5">
     <alert></alert>
-    <div class="table-responsive">
-        <table class="table table-borderless">
-            <tr>
-                <td>
-                    <h4 class="text-left my-1">My pending actions</h4>
-                </td>
-                <td>
-                    <div class="text-right">
-                        <!-- <filter (apply)="appyFilters($event)" (reset)="resetFilters()"> </filter> -->
-                    </div>
-                </td>
-            </tr>
-        </table>
+    <div class="my-2">
+        <h4 class="text-left my-1">My pending actions</h4>
+        <div class="row my-3">
+            <label for="" class="col-md-3 col-form-label">Issue:</label>
+            <div class="col-md-4">
+                <select class="custom-select mb-2 mr-sm-2 mb-sm-0" (change)="change($event)" id="inlineFormCustomSelect"
+                    [(ngModel)]="filterModel">
+                    <option value="" selected>All</option>
+                    <option *ngFor="let issue of issues" [value]="issue">
+                        Issue #{{ issue }} 
+                    </option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <span class="text-left float-left mt-0 mb-1" *ngIf="actions?.length!=0">
@@ -32,7 +33,7 @@
                 </th>
                 <th scope="col" [appSort]="actions" data-order="desc" data-name="issueId" class="align-middle">
                     <i class="fas fa-sort float-left"></i>
-                    Issue 
+                    Issue
                 </th>
                 <th scope="col" [appSort]="actions" data-order="desc" data-name="type" class="align-middle">
                     <i class="fas fa-sort float-left"></i>
@@ -66,7 +67,7 @@
         </thead>
         <tbody class="click">
             <tr *ngFor="let a of actions" (click)="actionDetails(a.issueId, a.id)">
-                <td> {{ a.id }} </td>
+                <td> #{{ a.id }} </td>
                 <td> Issue #{{ a.issueId }} </td>
                 <td> {{ a.type | titlecase }} </td>
                 <td> {{ a.status | titlecase }} </td>
@@ -81,8 +82,8 @@
 
     <ng-template #empty_body>
         <error-message [loading]="actions == null ? null : true" title="CONGRATS"
-            description="You have no actions pending" action="Reload actions"
-            [customAction]="true" (back)="loadActions()">
+            description="You have no actions pending" action="Reload actions" [customAction]="true"
+            (back)="loadActions()">
         </error-message>
     </ng-template>
 </div>
