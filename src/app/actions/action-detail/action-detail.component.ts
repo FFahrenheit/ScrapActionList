@@ -19,6 +19,7 @@ export class ActionDetailComponent implements OnInit {
   public action = null;
   public files : File[] = null;
   public actionType : number = 0;
+  public loaded = false;
 
   constructor(private route     : ActivatedRoute,
               private title     : Title,
@@ -50,6 +51,7 @@ export class ActionDetailComponent implements OnInit {
 
       this.actionType = this.action ? this.action.type == 'Corrective' ? 5 : 7 : 0;
       console.log({ actions, action: this.action }); 
+      this.loaded = true;
     }
   }
 

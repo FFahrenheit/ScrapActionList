@@ -14,7 +14,7 @@ import { stocks } from './containment.stock.resources';
  * Si desea cambiarlo consulte "Expresiones regulares"
  * que cumplan con sus condiciones
  */
-const QA_REGEX_PATTERN = 'QA-[a-zA-Z]{3,}-[0-9]{5}';
+const QA_REGEX_PATTERN = 'QA-[a-zA-Z]{3,}-[0-9]{6}';
 @Component({
   selector: 'app-containment',
   templateUrl: './containment.component.html',

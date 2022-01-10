@@ -59,7 +59,9 @@ export class PreventiveActionsComponent implements OnInit {
     this.addAction();
 
     this.form = this.fb.group({
-      fmea: [null, Validators.required],
+      fmea: [{
+        value: 'Yes', disabled: true
+      }, Validators.required],
       readAcross: [null, Validators.required],
       lessons: [null, Validators.required],
       control: [null, Validators.required],
@@ -154,7 +156,7 @@ export class PreventiveActionsComponent implements OnInit {
     );
 
 
-    let { fmeaFile, controlFile, ...closure } = this.form.value;
+    let { fmeaFile, controlFile, ...closure } = this.form.getRawValue(); //Si no no toma en cuenta las disabled inputs
     closure.issue = this.id;
 
     let controlPlan : FileUpload = null;

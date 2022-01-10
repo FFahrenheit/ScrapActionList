@@ -43,6 +43,10 @@
                     <i class="fas fa-sort float-left"></i>
                     Status
                 </th>
+                <th scope="col" [appSort]="actions" data-order="desc" data-name="responsibleName" class="align-middle">
+                    <i class="fas fa-sort float-left"></i>
+                    Responsible
+                </th>
                 <th scope="col" [appSort]="actions" data-order="desc" data-name="due" class="align-middle">
                     <i class="fas fa-sort float-left"></i>
                     Due date
@@ -71,6 +75,7 @@
                 <td> Issue #{{ a.issueId }} </td>
                 <td> {{ a.type | titlecase }} </td>
                 <td> {{ a.status | titlecase }} </td>
+                <td> {{ a.responsibleName }} </td>
                 <td> {{ a.due | date:'mediumDate':'UTC' }} </td>
                 <td> {{ a.client }} </td>
                 <td> {{ a.part }} </td>

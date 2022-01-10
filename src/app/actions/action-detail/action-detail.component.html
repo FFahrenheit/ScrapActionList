@@ -6,6 +6,7 @@
         </h5>
         <div class="card-text">
             <detail name="Description" [value]="action.description"></detail>
+            <detail name="Assigned to" [value]="action.responsibleName"></detail>
             <detail name="Evaluation date" [value]="datePipe.transform(action.evaluation, 'mediumDate', 'UTC')">
             </detail>
             <detail name="Due date" [value]="datePipe.transform(action.due, 'mediumDate', 'UTC')"></detail>
@@ -17,7 +18,7 @@
     </div>
 </div>
 <ng-template #no_action>
-    <h5 class="m-3">
+    <h5 class="m-3" *ngIf="loaded">
         Action #{{ actionId }} is not available
     </h5>
 </ng-template>
