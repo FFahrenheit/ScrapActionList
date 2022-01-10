@@ -147,6 +147,21 @@
                     </div>
                 </div>
 
+                <div class="form-group row pt-2 has-error has-feedback">
+                    <label for="" class="col-md-4 col-form-label">
+                        Incident type
+                    </label>
+                    <div class="col-md-8">
+                        <select [class]="getClass('incidentType')" class="form-control" formControlName="incidentType">
+                            <option [value]="''" disabled selected> Select an option </option>
+                            <option> Internal </option>
+                            <option> With customer </option>
+                            <option> 0km </option>
+                            <option> On field </option>
+                            <option> N/A </option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="form-group row pt-2 has-error has-feedback">
                     <label for="" class="col-md-4 col-form-label">
@@ -184,21 +199,16 @@
                     </div>
                 </div>
 
-                <!-- <button class="btn float-right" (click)="continue()"
-                    [ngClass]="{ 'btn-success': form.valid, 'btn-secondary not-ready': !form.valid }">
-                    Continue
-                </button> -->
-
             </div>
 
             <div class="row justify-content-center">
                 <file-upload type="resource"
-                    [isRequired]="false"
+                    [isRequired]="true"
                     (receive)="getFiles($event)">
 
                 </file-upload>
                 <confirm-modal title="Define the problem" content="Are you sure you want to submit this D2?"
-                    (triggered)="form.markAllAsTouched()" (accept)="submit()" [isDisabled]="!form.valid"
+                    (triggered)="form.markAllAsTouched()" (accept)="submit()" [isDisabled]="!isValid()"
                     reason="You need to fullfil the form">
                 </confirm-modal>
             </div>

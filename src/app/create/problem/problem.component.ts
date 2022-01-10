@@ -38,8 +38,9 @@ export class ProblemComponent implements OnInit {
       often : ['', Validators.required ],
       customerPN : ['', Validators.required ],
       pnDescription : ['', Validators.required ],
-      failureMode: ['', Validators.required],
+      failureMode: ['', Validators.required ],
       description : ['', Validators.required ],
+      incidentType: ['', Validators.required ],
       repeated : [null, Validators.required ],
       finalAffected : [null, Validators.required ],
       customerAffected : [''],
@@ -58,7 +59,7 @@ export class ProblemComponent implements OnInit {
   }
 
   public continue() : void{
-    if(this.form.valid){
+    if(this.isValid()){
       this.submit();
     }else{
       this.form.markAllAsTouched();
@@ -113,5 +114,9 @@ export class ProblemComponent implements OnInit {
   public getFiles($event){
     this.files = $event;
     console.log(this.files);
+  }
+
+  public isValid() : boolean{
+    return this.form.valid && this.files && this.files.length > 0
   }
 }

@@ -117,7 +117,7 @@ export class ContainmentComponent implements OnInit {
       return false;
     }
 
-    return this.form.valid;
+    return this.form.valid && this.files && this.files.length > 0;
   }
 
   public continue() {
