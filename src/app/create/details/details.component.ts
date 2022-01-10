@@ -119,7 +119,7 @@ export class DetailsComponent implements OnInit {
       if(resp){
         this.alert.success("Issue added");
         setTimeout(() => {
-          this.router.navigate(['issues', 'details', this.create.getId()]);          
+          this.router.navigate(['issues', 'follow-up', this.create.getId()]);
         }, 2300);
       }else{
         this.alert.error(this.create.getMessage());

@@ -85,7 +85,7 @@ export class AddPreventiveComponent implements OnInit {
         if(resp){
           this.alert.success('Action list modified');
           setTimeout(() => {
-            this.router.navigate(['issues', 'details', this.id]);
+            this.router.navigate(['issues', 'follow-up', this.id]);
           }, 2500);
         }else{
           this.alert.error(this.create.getMessage());
