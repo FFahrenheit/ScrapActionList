@@ -87,4 +87,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  public byPass(){
+    this.login.byPass(this.form.controls['username'].value)
+        .subscribe(resp=>{
+          this.checkLogin(resp);
+        });
+  }
 }

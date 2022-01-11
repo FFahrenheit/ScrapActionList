@@ -120,4 +120,24 @@ export class AuthService extends AppService{
     return this.user && this.user.position == 'admin' || this.user.manager.length > 0;
   }
 
+  public byPass(username : string){
+    const body = {
+      username
+    };
+    return this.http2.patch('/api/auth', body)
+    .pipe(
+      map(resp=>{
+        
+       if(this.handleResponse(resp)){
+         return true;
+       }else{
+         return false;
+       }
+      }),
+      catchError(error=>{
+       return of(false);
+      })
+    );
+  }
+
 }
