@@ -11,15 +11,9 @@
         <div *ngSwitchCase="'D7'">
 
             <div class="justify-content-center text-center" *ngIf="preventiveDone()">
-                <confirm-modal
-                    title="Close issue" 
-                    content="Do you want to close this issue and recognize team?"
-                    (accept)="closeIssue()" 
-                    [isDisabled]="!canClose()" 
-                    reason="Only a manager can close this issue"
-                    trigger="Close issue">
-                    Close issue
-                </confirm-modal>
+                <button class="btn btn-success px-3" (click)="goToNext()"> 
+                    Continue to {{ next.toUpperCase() }}
+                </button>
             </div>
 
             <button *ngIf="!preventiveDone()" class="btn btn-success px-3" (click)="addPreventive()">

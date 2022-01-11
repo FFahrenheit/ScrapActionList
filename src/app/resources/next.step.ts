@@ -7,5 +7,5 @@ export const NextSteps = {
     'd6': 'action-list', //La continuación es automática, pero se pueden agregar acciones
     'd7': 'preventive',
     'd7.5': 'add-preventive',
-    'd8': 'team'
+    'd8': 'close'
 };
