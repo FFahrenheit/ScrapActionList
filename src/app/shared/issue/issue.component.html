@@ -52,7 +52,8 @@
                                 </div>
 
                                 <div class="attribute my-1" class="link-d"
-                                    *ngIf="issue[d] == null && i == 6 && issue.status == 'D5'"
+                                    *ngIf="(issue[d] == null && i == 6 && issue.status == 'D5') 
+                                    || (d == 'd8' && issue.d8 && issue.status != 'D8')"
                                     [title]="'Go to ' + d.toUpperCase()" (click)="active = i">
                                     <span class="att-title">
                                         {{ d | titlecase }}:
@@ -515,32 +516,42 @@
                 <div class="containter text-center pt-2 mb-5 mx-3">
                     <h5 class="text-left"> D8.- Recognize team </h5>
                     <h6 class="text-left">
-                        <i class="far fa-clock"></i>
-                        Done on
-                        <span class="date">
-                            {{ issue.d8.done | date:'medium':'UTC' }}
+                        <span *ngIf="issue.status != 'D8'; else d8_finished">
+                            <i class="fas fa-clock"></i>
+                            Started on
+                            <span class="date">
+                                {{ issue.d8.done | date:'medium':'UTC' }}
+                            </span>
+                             but awaiting closure
                         </span>
+                        <ng-template #d8_finished>
+                            <i class="far fa-clock"></i>
+                            Finished on
+                            <span class="date">
+                                {{ issue.d8.done | date:'medium':'UTC' }}
+                            </span>
+                        </ng-template>
                     </h6>
 
-                    <h5 class="py-3 closed-details">
-                        Issue closed on 
-                        <span class="font-weight-bold">
-                            {{ issue.d8.done | date:'fullDate':'UTC' }}
-                            at 
-                            {{ issue.d8.done | date:'mediumTime':'UTC' }}
-                        </span>
-                        by
-                        <span class="font-weight-bold">
-                            {{ issue.d8.closedName }}.
-                        </span> <br>
-
-                        <i class="far fa-envelope my-2"></i>
-                        Contact 
-                        <a [href]="'mailto:' + issue.d8.closedEmail + '?Subject=About%20Issue%20#' + id">
-                            {{ issue.d8.closedEmail }}
-                        </a>
-                        to more details
-                    </h5>
+                    <h5> Required authorizations </h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr class="header">
+                                    <th scope="col" class="align-middle">ID</th>
+                                    <th scope="col" class="align-middle">Manager</th>
+                                    <th scope="col" class="align-middle">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let auth of issue.d8.authorizations">
+                                    <td> {{ auth.id }}</td>
+                                    <td> {{ auth.managerName }}</td>
+                                    <td *ngIf="auth.date"> Signed on {{ auth.date | date:'medium':'UTC' }} </td>
+                                    <td *ngIf="! auth.date"> Awaiting closure </td>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </ng-template>
         </li>

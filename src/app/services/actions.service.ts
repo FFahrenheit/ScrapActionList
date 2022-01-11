@@ -41,7 +41,7 @@ export class ActionsService extends AppService {
     return this.actions;
   }
 
-  public closeAction(id : string, file : FileUpload, issueId : string){
+  public closeAction(id : string, file : FileUpload, issueId : string, actionType = 'D6'){
     let calls = [];
 
     calls.push(
@@ -49,7 +49,7 @@ export class ActionsService extends AppService {
     );
 
     calls.push(
-      this.getFileRequest(file, issueId, 'D6')
+      this.getFileRequest(file, issueId, actionType)
     );
 
     return forkJoin(calls)

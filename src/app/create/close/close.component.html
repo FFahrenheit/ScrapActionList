@@ -1,1 +1,11 @@
-<p>close works!</p>
+<issue [id]="issueId" (receive)="getIssue($event)" [active]="8">
+</issue>
+
+<div>
+    <confirm-modal title="Recognize teams" content="Do you want to close this action with the selected files?"
+        (accept)="continue()"
+        reason="You are not required to close this issue or you already closed it"
+        [isDisabled]="!canApprove()" 
+        trigger="Approve closure">
+    </confirm-modal>
+</div>

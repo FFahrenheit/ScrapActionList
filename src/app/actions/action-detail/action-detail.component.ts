@@ -67,7 +67,9 @@ export class ActionDetailComponent implements OnInit {
       issue: this.issueId
     };
 
-    this.actions.closeAction(this.actionId, files, this.issueId)
+    let type = this.action.type == 'corrective' ? 'D6' : 'D7';
+
+    this.actions.closeAction(this.actionId, files, this.issueId, type)
                 .subscribe(resp=> {
                   if(resp){
                     this.alert.success("Action closed");

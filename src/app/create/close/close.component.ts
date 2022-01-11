@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/shared/alert';
 
 @Component({
   selector: 'app-close',
@@ -7,9 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CloseComponent implements OnInit {
 
-  constructor() { }
+  public issueId : string = '';
+  public issue = null;
+
+  constructor(private route     : ActivatedRoute,
+              private alert     : AlertService,
+              private router    : Router,
+              private auth      : AuthService) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.issueId = params.get('id');
+    });
   }
 
+  getIssue($event){
+    this.issue = $event;
+  }
+
+  public continue(){
+
+  }
+
+  public canApprove(){
+    if( !this.issue || !this.issue.d8){
+      return false;
+    }
+    let approval = this.issue.d8?.authorizations?.find(
+        a => a.manager == this.auth.getLoggedUser().username) || null;
+
+    if(!approval){
+      return false;
+    }
+
+    return approval.date == null; 
+  }
 }
