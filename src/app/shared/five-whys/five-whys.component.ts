@@ -25,6 +25,7 @@ export class FiveWhysComponent implements OnInit {
 
   public deleteAt(index: number) {
     this.whys = this.whys.slice(0, index);
+    this.whysChange.emit(this.whys);
   }
 
   public trackByIndex(index: number, obj: any): any {
