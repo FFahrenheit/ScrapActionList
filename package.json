@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o --host 0.0.0.0 --port 3004",
-    "service": "ng serve -o --prod --host 0.0.0.0 --port 3004",
+    "start": "ng serve -o --host 0.0.0.0 --port 4400",
+    "service": "ng serve -o --prod --host 0.0.0.0 --port 4400",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -23,6 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "bootstrap": "^4.5.0",
     "jquery": "^3.6.0",
+    "node-windows": "^1.0.0-beta.6",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
