@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Defective, Part } from 'src/app/interfaces/resources.items.interface';
+import { Defective, Part, Participant } from 'src/app/interfaces/resources.items.interface';
 import { issueTypes } from 'src/app/resources/defective.options';
 import { CreateService } from 'src/app/services/create.service';
 import { ResourcesService } from 'src/app/services/resources.service';
@@ -15,6 +15,7 @@ import { AlertService } from 'src/app/shared/alert';
 export class DetailsComponent implements OnInit {
 
   public parts : Part[];
+  public users : Participant[];
   public defectives : Defective[];
   public types : string[] = issueTypes;
 
@@ -34,6 +35,7 @@ export class DetailsComponent implements OnInit {
       if(resp){
         this.parts = this.resources.getParts();
         this.defectives = this.resources.getDefectives();
+        this.users = this.resources.getUsers();
         console.log({
           defectives: this.defectives,
           parts: this.parts
@@ -62,7 +64,8 @@ export class DetailsComponent implements OnInit {
         value: '',
         disabled: true
       }, Validators.required],
-      type: [null, Validators.required]
+      type: [null, Validators.required],
+      responsible: [null, Validators.required]
     });
 
     this.get('type').valueChanges.subscribe(p => {

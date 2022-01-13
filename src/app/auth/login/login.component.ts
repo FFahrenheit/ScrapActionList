@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit {
   }
 
   public loginAs(username : string, password : string){
+    username = username.split('@')[0]; //in case they type the domain
     this.login.loginWithCredentials(username, password)
         .subscribe(resp=> {
           this.checkLogin(resp);

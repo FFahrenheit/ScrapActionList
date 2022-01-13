@@ -29,6 +29,7 @@
                             <detail name="Problem" [value]="issue.problem"></detail>
                             <detail name="Description" [value]="issue.description"></detail>
                             <detail name="Originator" [value]="issue.originator"></detail>
+                            <detail name="Responsible" [value]="issue.responsibleName"></detail>
                             <detail name="Generated" [value]="datePipe.transform(issue.created, 'medium', 'UTC')">
                             </detail>
                             <detail name="Last updated"
